@@ -1,4 +1,4 @@
-Apps:
+## Glossary:
 - Tailscale - secure "your own network"
 	- Allows you to connect to other machines in your network as you were on the same wifi
 		- Even if you're in a different country
