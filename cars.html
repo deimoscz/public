@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Car shortlist — 16 models</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#141C26;
+  --ink-2:#47576A;
+  --ink-3:#8496A8;
+  --paper:#E7ECF0;
+  --paper-2:#DDE4EA;
+  --panel:#FFFFFF;
+  --rule:#CFD8E0;
+  --rule-soft:#E5EAEF;
+  --signal:#C8102E;
+  --ev:#0E6E6E;
+  --ice:#96591D;
+  --good:#177A4A;
+  --mid:#B8801A;
+  --bad:#B03A2A;
+  --hl:#FFF0B8;
+  --shadow:0 1px 0 rgba(20,28,38,.04), 0 4px 16px -6px rgba(20,28,38,.18);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:
+    radial-gradient(1200px 600px at 12% -10%, #F3F7FA 0%, transparent 60%),
+    var(--paper);
+  color:var(--ink);
+  font-family:'Space Grotesk',system-ui,sans-serif;
+  font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1840px;margin:0 auto;padding:32px 22px 90px}
+
+/* masthead */
+header{
+  display:flex;flex-wrap:wrap;align-items:flex-end;gap:18px 34px;
+  padding-bottom:16px;margin-bottom:24px;
+  border-bottom:2px solid var(--ink);
+}
+.brandmark{
+  font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--signal);margin:0 0 6px;
+}
+h1{font-size:29px;font-weight:700;letter-spacing:-.025em;margin:0;line-height:1}
+.sub{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;
+  letter-spacing:.13em;color:var(--ink-3);margin:8px 0 0}
+.counts{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;
+  color:var(--ink-3);text-align:right;text-transform:uppercase;letter-spacing:.1em}
+.counts b{display:block;font-weight:600;color:var(--ink);font-size:24px;letter-spacing:-.02em}
+
+/* panels */
+.panel{
+  background:var(--panel);border:1px solid var(--rule);border-radius:2px;
+  box-shadow:var(--shadow);margin-bottom:18px;
+}
+.panel-hd{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding:11px 18px;border-bottom:1px solid var(--rule-soft);
+  font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.14em;
+  color:var(--ink-2);
+}
+.panel-hd .note{text-transform:none;letter-spacing:0;font-size:11.5px;color:var(--ink-3);font-family:'Space Grotesk',sans-serif}
+.panel-bd{padding:16px 18px}
+details.panel > summary{list-style:none;cursor:pointer}
+details.panel > summary::-webkit-details-marker{display:none}
+details.panel > summary .caret{margin-left:auto;font-size:11px;color:var(--ink-3);transition:transform .15s}
+details.panel[open] > summary .caret{transform:rotate(180deg)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:18px 26px}
+.ctl label{display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;
+  letter-spacing:.13em;color:var(--ink-3);margin-bottom:7px}
+input[type=search]{width:100%;padding:8px 10px;border:1px solid var(--rule);background:#FBFCFD;
+  font-family:'Space Grotesk',sans-serif;font-size:13px;color:var(--ink);border-radius:2px}
+input[type=search]:focus,input[type=range]:focus,.chip:focus-visible,.tog:focus-within{
+  outline:2px solid var(--signal);outline-offset:1px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.05em;padding:6px 11px;
+  border:1px solid var(--rule);background:#FBFCFD;cursor:pointer;color:var(--ink-2);border-radius:2px;
+  transition:background .12s,color .12s}
+.chip[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.rangeout{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink);font-weight:500}
+input[type=range]{width:100%;accent-color:var(--ink);margin:2px 0 0}
+.btn{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  padding:6px 12px;border:1px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;border-radius:2px}
+.btn:hover{background:var(--ink);color:#fff}
+
+/* toggles */
+.togs{display:flex;flex-wrap:wrap;gap:8px}
+.tog{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border:1px solid var(--rule);
+  background:#FBFCFD;border-radius:2px;cursor:pointer;font-size:12.5px;color:var(--ink-2);user-select:none}
+.tog input{accent-color:var(--ink);margin:0;cursor:pointer}
+.tog.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tog .w{font-family:'IBM Plex Mono',monospace;font-size:10px;opacity:.65}
+.togs.cols .tog{font-size:12px;padding:5px 9px}
+
+/* table */
+.tablewrap{background:var(--panel);border:1px solid var(--rule);border-radius:2px;
+  box-shadow:var(--shadow);overflow-x:auto}
+table{border-collapse:separate;border-spacing:0;width:100%}
+thead th{position:sticky;top:0;z-index:3;background:var(--ink);color:#F4F7F9;
+  font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:500;text-transform:uppercase;
+  letter-spacing:.09em;padding:10px 9px;text-align:left;white-space:nowrap;vertical-align:bottom}
+thead tr.groups th{background:#0B121A;font-size:9px;letter-spacing:.18em;color:#7B90A4;
+  padding:7px 9px;border-left:1px solid #26303C}
+thead tr.groups th:first-child{border-left:none}
+thead th.sortable{cursor:pointer;user-select:none}
+thead th.sortable:hover{background:#22303F}
+thead th .arrow{opacity:.3;margin-left:4px}
+thead th[aria-sort] .arrow{opacity:1;color:#FF7488}
+tbody td{padding:9px;border-bottom:1px solid var(--rule-soft);vertical-align:middle;white-space:nowrap}
+tbody tr:nth-child(even){background:#FAFBFC}
+tbody tr:hover{background:#F1F6FA}
+
+.rank{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-3);text-align:right;width:38px}
+tbody tr.top .rank{color:var(--signal);font-weight:600}
+.num{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right}
+.model{font-weight:600;letter-spacing:-.012em;font-size:14px;min-width:180px}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.11em;
+  color:var(--ink-3);border:1px solid var(--rule);padding:1px 4px;margin-left:7px;vertical-align:1.5px}
+.pw{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.09em;padding:2px 6px;
+  border:1px solid currentColor;border-radius:2px}
+.pw.ev{color:var(--ev)} .pw.ice{color:var(--ice)}
+.doors{font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:center}
+.doors.two{color:var(--signal);font-weight:600}
+.spec{font-size:12px;color:var(--ink-2);white-space:normal;min-width:186px}
+.rate{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;width:54px}
+.r5{color:var(--good);font-weight:600} .r4{color:#3C8A5C} .r3{color:var(--ink-2)}
+.r2{color:var(--mid)} .r1{color:var(--bad);font-weight:600}
+
+td.sc{width:104px}
+.scw{display:flex;align-items:center;gap:7px}
+.scw .track{flex:1;height:6px;background:var(--paper-2);border-radius:1px;position:relative;overflow:hidden}
+.scw .fill{position:absolute;left:0;top:0;bottom:0;border-radius:1px}
+.scw .v{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;width:32px;text-align:right;
+  letter-spacing:-.02em}
+.f5{background:var(--good)} .f4{background:#3C8A5C} .f3{background:#7C93A6}
+.f2{background:var(--mid)} .f1{background:var(--bad)}
+
+a.listing{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink);text-decoration:none;
+  border-bottom:1.5px solid var(--signal);padding-bottom:1px}
+a.listing:hover{background:var(--hl)}
+.nolink{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-3)}
+mark{background:var(--hl);color:inherit;padding:0 1px}
+.empty{padding:38px 18px;text-align:center;color:var(--ink-2)}
+
+footer{margin-top:24px;border-top:1px solid var(--rule);padding-top:16px;font-size:12px;
+  color:var(--ink-2);max-width:1000px}
+footer p{margin:0 0 8px}
+footer b{color:var(--ink)}
+
+@media (max-width:640px){
+  .wrap{padding:20px 12px 60px}h1{font-size:22px}
+  .counts{margin-left:0;text-align:left}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <p class="brandmark">Bridge car · 1–3 year hold</p>
+    <h1>Car shortlist</h1>
+    <p class="sub">16 models · 116 listings · Switzerland · August 2026</p>
+  </div>
+  <div class="counts"><b id="shown">16</b> models shown</div>
+</header>
+
+<!-- score config -->
+<section class="panel">
+  <div class="panel-hd">
+    Score inputs
+    <span class="note">Untick a factor to leave it out of both scores. Weights are fixed.</span>
+    <button class="btn" id="resetParams" type="button" style="margin-left:auto">All on</button>
+  </div>
+  <div class="panel-bd"><div class="togs" id="paramTogs"></div></div>
+</section>
+
+<!-- columns -->
+<details class="panel" id="colPanel">
+  <summary class="panel-hd">
+    Columns
+    <span class="note">Hide what you don't need.</span>
+    <span class="caret">▾</span>
+  </summary>
+  <div class="panel-bd">
+    <div class="togs cols" id="colTogs"></div>
+    <div style="margin-top:14px;display:flex;gap:8px">
+      <button class="btn" id="colAll" type="button">Show all</button>
+      <button class="btn" id="colCore" type="button">Core only</button>
+    </div>
+  </div>
+</details>
+
+<!-- filters -->
+<section class="panel">
+  <div class="panel-hd">Filters<span class="note">Narrow the field.</span></div>
+  <div class="panel-bd">
+    <div class="grid">
+      <div class="ctl">
+        <label for="q">Search model</label>
+        <input type="search" id="q" placeholder="Audi, M3, Taycan…" autocomplete="off">
+      </div>
+      <div class="ctl">
+        <label>Powertrain</label>
+        <div class="chips" id="pwchips">
+          <button class="chip" data-pw="all" aria-pressed="true">All</button>
+          <button class="chip" data-pw="EV" aria-pressed="false">Electric</button>
+          <button class="chip" data-pw="ICE" aria-pressed="false">Petrol</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label>Doors</label>
+        <div class="chips" id="drchips">
+          <button class="chip" data-dr="all" aria-pressed="true">All</button>
+          <button class="chip" data-dr="4" aria-pressed="false">Four only</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label>Candidate</label>
+        <div class="chips" id="fxchips">
+          <button class="chip" data-fx="all" aria-pressed="true">All</button>
+          <button class="chip" data-fx="fixed" aria-pressed="false">Fixed only</button>
+        </div>
+      </div>
+      <div class="ctl">
+        <label for="maxprice">Max price · <span class="rangeout" id="maxpriceout">CHF 70'000</span></label>
+        <input type="range" id="maxprice" min="34000" max="70000" step="1000" value="70000">
+      </div>
+      <div class="ctl">
+        <label for="maxkm">Max mileage · <span class="rangeout" id="maxkmout">64'000 km</span></label>
+        <input type="range" id="maxkm" min="0" max="64000" step="1000" value="64000">
+      </div>
+      <div class="ctl">
+        <label for="minyear">Earliest reg · <span class="rangeout" id="minyearout">2021</span></label>
+        <input type="range" id="minyear" min="2021" max="2026" step="1" value="2021">
+      </div>
+      <div class="ctl">
+        <label for="maxdep">Max depreciation · <span class="rangeout" id="maxdepout">CHF 7'930/yr</span></label>
+        <input type="range" id="maxdep" min="3250" max="7930" step="100" value="7930">
+      </div>
+      <div class="ctl">
+        <label for="minlist">Min listings seen · <span class="rangeout" id="minlistout">0</span></label>
+        <input type="range" id="minlist" min="0" max="11" step="1" value="0">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="tablewrap">
+  <table id="tbl">
+    <thead>
+      <tr class="groups" id="grouprow"></tr>
+      <tr id="headrow"></tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+<div class="empty" id="empty" hidden>No models match these filters.</div>
+
+<footer>
+  <p><b>Score</b> is a weighted mean of the ticked factors: depreciation ×3, maintenance ×1.5, reliability ×1.5, luxury ×1, excitement ×1, features ×1. <b>Value</b> is that score divided by the candidate price, rescaled across all 16 models so the best quality-per-franc reads 5.00 and the worst 1.00. The rank number always reflects Score, whatever the table is sorted by.</p>
+  <p><b>Depreciation is derived, not judged</b> — band midpoint in CHF/yr mapped linearly, 3'250 → 5.00 and 7'930 → 1.00, shown to two decimals. The BYD Seal figure is exact: CHF 42'790 new against a stated CHF 19'000 residual after three years. <b>The other five ratings are judgement</b>, relative to this field only, shown to one decimal. They sort well but won't decide between two close cars.</p>
+  <p><b>Open</b> marks a model with finalists but no fixed candidate. Tax is the Schwyz formula, ±10% on actual kerb weight; energy assumes 12'500 km/yr.</p>
+</footer>
+
+</div>
+
+<script>
+/* ---------- columns ---------- */
+const COLS = [
+  {k:'rank',  t:'#',           g:'',                 cls:'rank', sort:false, core:true, lock:true},
+  {k:'score', t:'Score',       g:'',                 cls:'sc',   type:'num', core:true, lock:true},
+  {k:'value', t:'Value',       g:'',                 cls:'sc',   type:'num', core:true},
+  {k:'model', t:'Model',       g:'',                 cls:'model',type:'str', core:true, lock:true},
+  {k:'price', t:'Price CHF',   g:'Candidate car',    cls:'num',  type:'num', core:true},
+  {k:'year',  t:'Reg',         g:'Candidate car',    cls:'num',  type:'str', core:true},
+  {k:'km',    t:'km',          g:'Candidate car',    cls:'num',  type:'num', core:true},
+  {k:'ps',    t:'PS',          g:'Candidate car',    cls:'num',  type:'num'},
+  {k:'zh',    t:'0–100 s',     g:'Candidate car',    cls:'num',  type:'num'},
+  {k:'pw',    t:'Drive',       g:'Candidate car',    cls:'',     type:'str'},
+  {k:'doors', t:'Doors',       g:'Candidate car',    cls:'doors',type:'num'},
+  {k:'train', t:'Battery / engine', g:'Candidate car', cls:'spec', type:'str'},
+  {k:'rlo',   t:'Model range', g:'Model & costs',    cls:'num',  type:'num'},
+  {k:'listings',t:'Listings',  g:'Model & costs',    cls:'num',  type:'num'},
+  {k:'depmid',t:'Deprec/yr',   g:'Model & costs',    cls:'num',  type:'num', core:true},
+  {k:'tax',   t:'Tax/yr',      g:'Model & costs',    cls:'num',  type:'num'},
+  {k:'energy',t:'Energy/yr',   g:'Model & costs',    cls:'num',  type:'num'},
+  {k:'lux',   t:'Lux',         g:'Ratings 1–5',      cls:'rate', type:'num'},
+  {k:'exc',   t:'Excite',      g:'Ratings 1–5',      cls:'rate', type:'num'},
+  {k:'fea',   t:'Feat',        g:'Ratings 1–5',      cls:'rate', type:'num'},
+  {k:'dep',   t:'Deprec',      g:'Ratings 1–5',      cls:'rate', type:'num'},
+  {k:'mnt',   t:'Maint',       g:'Ratings 1–5',      cls:'rate', type:'num'},
+  {k:'rel',   t:'Reli',        g:'Ratings 1–5',      cls:'rate', type:'num'},
+  {k:'link',  t:'Listing',     g:'Source',           cls:'',     sort:false, core:true}
+];
+
+const PARAMS = [
+  {k:'lux', t:'Luxury',       w:1},
+  {k:'exc', t:'Excitement',   w:1},
+  {k:'fea', t:'Features',     w:1},
+  {k:'dep', t:'Depreciation', w:3},
+  {k:'mnt', t:'Maintenance',  w:1.5},
+  {k:'rel', t:'Reliability',  w:1.5}
+];
+
+const D_LO=3250, D_HI=7930;
+const depScore = m => Math.max(1, Math.min(5, 5 - 4*(m-D_LO)/(D_HI-D_LO)));
+
+const DATA = [
+{model:'BMW M440i xDrive GC',price:46890,year:'01.2022',yr:2022,km:29973,ps:374,zh:4.7,pw:'ICE',doors:4,
+ train:'3.0 B58 I6 turbo + 48V, 500 Nm',rlo:43500,rhi:51500,listings:10,depmid:3750,tax:770,energy:1750,
+ lux:3.9,exc:3.2,fea:4.8,mnt:4.0,rel:4.8,fixed:true,
+ seller:'Falcon Otelfingen',url:'https://www.autoscout24.ch/de/d/bmw-m440i-xdrive-48v-gran-coupe-steptronic-12611675'},
+{model:'BMW M340i xDrive',price:41800,year:'01.2021',yr:2021,km:56400,ps:374,zh:4.4,pw:'ICE',doors:4,
+ train:'3.0 B58 I6 turbo + 48V, 500 Nm',rlo:39900,rhi:49900,listings:7,depmid:3250,tax:770,energy:1750,
+ lux:3.4,exc:3.2,fea:3.9,mnt:4.0,rel:4.8,fixed:false,
+ seller:'A&S Dorfgarage',url:'https://www.autoscout24.ch/de/d/bmw-m340i-xdrive-20529448'},
+{model:'Kia Stinger GT',price:39900,year:'06.2022',yr:2022,km:64000,ps:366,zh:4.9,pw:'ICE',doors:4,
+ train:'3.3 V6 twin-turbo, AWD',rlo:39900,rhi:45999,listings:2,depmid:3500,tax:750,energy:2360,
+ lux:3.2,exc:3.4,fea:3.8,mnt:3.6,rel:4.0,fixed:true,
+ seller:'Garage P&P, official Kia',url:'https://www.autoscout24.ch/de/d/kia-stinger-gt-33-t-gdi-20586855'},
+{model:'BMW M3 Competition',price:69790,year:'03.2022',yr:2022,km:45100,ps:510,zh:3.5,pw:'ICE',doors:4,
+ train:'3.0 S58 I6 twin-turbo, 650 Nm',rlo:65960,rhi:70990,listings:9,depmid:4500,tax:1020,energy:2190,
+ lux:4.0,exc:4.9,fea:4.5,mnt:2.4,rel:4.0,fixed:true,
+ seller:'automoor Stäfa',url:'https://www.autoscout24.ch/de/d/bmw-m3-competition-m-xdrive-ch-fahrzeug-20710056'},
+{model:'BMW i4 M50',price:38900,year:'08.2022',yr:2022,km:43000,ps:544,zh:3.9,pw:'EV',doors:4,
+ train:'83.9 kWh · 400 V · 205 kW DC',rlo:36900,rhi:40900,listings:7,depmid:5000,tax:1065,energy:1250,
+ lux:4.0,exc:3.2,fea:4.5,mnt:4.2,rel:4.2,fixed:false,
+ seller:'Steiner Kriens',url:'https://www.autoscout24.ch/de/d/bmw-i4-m50-20705719'},
+{model:'Audi e-tron GT quattro',price:47600,year:'02.2022',yr:2022,km:22000,ps:476,zh:4.1,pw:'EV',doors:4,
+ train:'93.4 kWh · 800 V · 270 kW DC',rlo:42990,rhi:49990,listings:11,depmid:5750,tax:1050,energy:1250,
+ lux:4.8,exc:3.9,fea:4.9,mnt:3.4,rel:4.0,fixed:true,
+ seller:'Auto Heidegg Hitzkirch',url:'https://www.autoscout24.ch/en/d/audi-e-tron-gt-quattro-20481725'},
+{model:'Tesla Model 3 Performance',price:44490,year:'08.2024',yr:2024,km:22500,ps:627,zh:3.1,pw:'EV',doors:4,
+ train:'79 kWh · 400 V · 250 kW DC',rlo:36900,rhi:49499,listings:7,depmid:5000,tax:1120,energy:1200,
+ lux:2.4,exc:3.8,fea:2.8,mnt:4.8,rel:4.2,fixed:true,
+ seller:'Aarauto Aarau',url:'https://www.autoscout24.ch/de/d/tesla-model-3-dual-motor-performance-awd-20689926'},
+{model:'Ford Mustang Fastback GT',price:43900,year:'06.2021',yr:2021,km:33400,ps:449,zh:4.5,pw:'ICE',doors:2,
+ train:'5.0 Coyote V8, RWD',rlo:42400,rhi:49897,listings:5,depmid:4250,tax:910,energy:2540,
+ lux:2.2,exc:4.7,fea:4.0,mnt:2.6,rel:3.6,fixed:false,
+ seller:'Schloss-Garage Buckten',url:'https://www.autoscout24.ch/en/d/ford-mustang-fastback-50-v8-gt-automat-20374174'},
+{model:'BMW i4 M60',price:59900,year:'09.2025',yr:2025,km:18000,ps:601,zh:3.7,pw:'EV',doors:4,
+ train:'83.9 kWh · 400 V · 205 kW DC',rlo:59900,rhi:59900,listings:1,depmid:6250,tax:1165,energy:1250,
+ lux:4.1,exc:3.4,fea:4.6,mnt:4.2,rel:4.1,fixed:true,
+ seller:'Steiner Luzern',url:'https://www.autoscout24.ch/de/d/bmw-i4-m60-m-sport-pro-20698494'},
+{model:'Porsche Taycan 4S',price:49900,year:'08.2021',yr:2021,km:38195,ps:490,zh:4.0,pw:'EV',doors:4,
+ train:'93.4 kWh PB+ · 800 V · 270 kW DC',rlo:43999,rhi:59880,listings:9,depmid:6000,tax:1110,energy:1250,
+ lux:4.9,exc:4.2,fea:3.8,mnt:3.0,rel:3.9,fixed:true,
+ seller:'Carvolution Langenthal',url:'https://www.autoscout24.ch/de/d/porsche-taycan-4s-20579229'},
+{model:'Audi RS e-tron GT',price:49800,year:'08.2021',yr:2021,km:44150,ps:599,zh:3.3,pw:'EV',doors:4,
+ train:'93.4 kWh · 800 V · 270 kW DC',rlo:49800,rhi:53900,listings:2,depmid:6250,tax:1180,energy:1300,
+ lux:4.8,exc:4.6,fea:3.9,mnt:2.8,rel:3.9,fixed:true,
+ seller:'NAF Gelterkinden',url:'https://www.autoscout24.ch/en/d/audi-rs-e-tron-gt-quattro-20509864'},
+{model:'BMW i5 M60 xDrive',price:56900,year:'08.2023',yr:2023,km:27790,ps:601,zh:3.8,pw:'EV',doors:4,
+ train:'84.3 kWh · 400 V · 205 kW DC',rlo:46900,rhi:59900,listings:10,depmid:6750,tax:1165,energy:1250,
+ lux:4.7,exc:3.0,fea:4.7,mnt:4.1,rel:4.0,fixed:true,
+ seller:'IBA Niederlenz',url:'https://www.autoscout24.ch/de/d/bmw-i5-m60-xdrive-20718687'},
+{model:'Polestar 4 LR Dual',price:41899,year:'09.2024',yr:2024,km:18700,ps:544,zh:3.8,pw:'EV',doors:4,
+ train:'100 kWh · 400 V · 200 kW DC',rlo:41899,rhi:49995,listings:7,depmid:5500,tax:1150,energy:1300,
+ lux:4.2,exc:3.0,fea:2.4,mnt:4.6,rel:3.0,fixed:true,
+ seller:'Auto Bonau',url:'https://www.autoscout24.ch/de/d/polestar-4-long-range-dual-motor-20361782'},
+{model:'BMW M5 Competition',price:69900,year:'05.2023',yr:2023,km:51800,ps:600,zh:3.4,pw:'ICE',doors:4,
+ train:'4.4 S63 V8 twin-turbo, 750 Nm',rlo:69490,rhi:69900,listings:4,depmid:5750,tax:1170,energy:2190,
+ lux:4.6,exc:4.8,fea:4.8,mnt:2.0,rel:3.0,fixed:true,
+ seller:'AUTO MAXL Herisau',url:'https://www.autoscout24.ch/de/d/bmw-m5-xdrive-drivelogic-20458141'},
+{model:'Tesla Model S Plaid',price:68770,year:'06.2023',yr:2023,km:31400,ps:1020,zh:2.1,pw:'EV',doors:4,
+ train:'100 kWh · 400 V · 250 kW DC',rlo:54900,rhi:69900,listings:4,depmid:7500,tax:1300,energy:1400,
+ lux:3.9,exc:4.9,fea:4.2,mnt:3.2,rel:3.2,fixed:true,
+ seller:'Outrun Carouge',url:'https://www.autoscout24.ch/de/d/tesla-model-s-100-kwh-plaid-20643802'},
+{model:'BYD Seal AWD',price:42790,year:'09.2026',yr:2026,km:0,ps:530,zh:3.8,pw:'EV',doors:4,
+ train:'82.5 kWh · 400 V · 150 kW DC · new car',rlo:42790,rhi:42790,listings:null,depmid:7930,tax:1040,energy:1250,
+ lux:3.3,exc:3.0,fea:4.0,mnt:4.6,rel:2.8,fixed:true,seller:null,url:null}
+];
+DATA.forEach(r=>{ r.dep = depScore(r.depmid); });
+
+let ON = {}; PARAMS.forEach(p=>ON[p.k]=true);
+let VIS = {}; COLS.forEach(c=>VIS[c.k]=true);
+let sortKey='score', sortDir='desc';
+const F={q:'',pw:'all',dr:'all',fx:'all',maxprice:70000,maxkm:64000,minyear:2021,maxdep:7930,minlist:0};
+
+const fmt = n => n==null ? '—' : n.toLocaleString('en-CH').replace(/,/g,"'");
+const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const band = v => v>=4.5?5 : v>=3.5?4 : v>=2.5?3 : v>=1.5?2 : 1;
+
+/* recompute score, value and rank across ALL rows */
+function recompute(){
+  const active = PARAMS.filter(p=>ON[p.k]);
+  const wsum = active.reduce((s,p)=>s+p.w,0);
+  DATA.forEach(r=>{
+    r.score = wsum ? active.reduce((s,p)=>s+r[p.k]*p.w,0)/wsum : 0;
+    r._raw  = r.score / r.price;
+  });
+  const raws = DATA.map(r=>r._raw), lo=Math.min(...raws), hi=Math.max(...raws);
+  DATA.forEach(r=>{ r.value = (hi>lo) ? 1 + 4*(r._raw-lo)/(hi-lo) : 3; });
+  [...DATA].sort((a,b)=>b.score-a.score).forEach((r,i)=>{ r.rank = i+1; });
+}
+
+/* ---------- param toggles ---------- */
+const paramTogs=document.getElementById('paramTogs');
+PARAMS.forEach(p=>{
+  const l=document.createElement('label');
+  l.className='tog on';
+  l.innerHTML=`<input type="checkbox" checked id="p-${p.k}"><span>${p.t}</span><span class="w">×${p.w}</span>`;
+  paramTogs.appendChild(l);
+  l.querySelector('input').addEventListener('change',e=>{
+    ON[p.k]=e.target.checked; l.classList.toggle('on',e.target.checked); render();
+  });
+});
+document.getElementById('resetParams').addEventListener('click',()=>{
+  PARAMS.forEach(p=>{ON[p.k]=true;const i=document.getElementById('p-'+p.k);i.checked=true;i.closest('.tog').classList.add('on');});
+  render();
+});
+
+/* ---------- column toggles ---------- */
+const colTogs=document.getElementById('colTogs');
+COLS.filter(c=>!c.lock).forEach(c=>{
+  const l=document.createElement('label');
+  l.className='tog on';
+  l.innerHTML=`<input type="checkbox" checked id="c-${c.k}"><span>${esc(c.t)}</span>`;
+  colTogs.appendChild(l);
+  l.querySelector('input').addEventListener('change',e=>{
+    VIS[c.k]=e.target.checked; l.classList.toggle('on',e.target.checked); render();
+  });
+});
+function setCols(pred){
+  COLS.filter(c=>!c.lock).forEach(c=>{
+    const v=pred(c); VIS[c.k]=v;
+    const i=document.getElementById('c-'+c.k); i.checked=v; i.closest('.tog').classList.toggle('on',v);
+  });
+  render();
+}
+document.getElementById('colAll').addEventListener('click',()=>setCols(()=>true));
+document.getElementById('colCore').addEventListener('click',()=>setCols(c=>!!c.core));
+
+/* ---------- filters ---------- */
+document.getElementById('q').addEventListener('input',e=>{F.q=e.target.value.trim().toLowerCase();render();});
+function chipGroup(id,key){
+  document.getElementById(id).addEventListener('click',e=>{
+    const b=e.target.closest('.chip'); if(!b)return;
+    F[key]=b.dataset[key];
+    [...e.currentTarget.querySelectorAll('.chip')].forEach(c=>c.setAttribute('aria-pressed',String(c===b)));
+    render();
+  });
+}
+chipGroup('pwchips','pw'); chipGroup('drchips','dr'); chipGroup('fxchips','fx');
+function slider(id,key,f){
+  const el=document.getElementById(id), out=document.getElementById(id+'out');
+  el.addEventListener('input',e=>{F[key]=parseFloat(e.target.value);out.textContent=f(F[key]);render();});
+}
+slider('maxprice','maxprice',v=>'CHF '+fmt(v));
+slider('maxkm','maxkm',v=>fmt(v)+' km');
+slider('minyear','minyear',v=>v);
+slider('maxdep','maxdep',v=>'CHF '+fmt(v)+'/yr');
+slider('minlist','minlist',v=>v);
+
+/* ---------- render ---------- */
+function render(){
+  recompute();
+  const cols = COLS.filter(c=>VIS[c.k]);
+
+  /* group header */
+  const groups=[];
+  cols.forEach(c=>{
+    const last=groups[groups.length-1];
+    if(last && last.g===c.g) last.n++; else groups.push({g:c.g,n:1});
+  });
+  document.getElementById('grouprow').innerHTML =
+    groups.map(g=>`<th colspan="${g.n}">${esc(g.g)}</th>`).join('');
+
+  /* column header */
+  const headrow=document.getElementById('headrow');
+  headrow.innerHTML = cols.map(c=>{
+    if(c.sort===false) return `<th>${esc(c.t)}</th>`;
+    const s = sortKey===c.k ? ` aria-sort="${sortDir==='asc'?'ascending':'descending'}"` : '';
+    const a = sortKey===c.k ? (sortDir==='asc'?'↑':'↓') : '↕';
+    return `<th class="sortable" tabindex="0" data-k="${c.k}"${s}>${esc(c.t)}<span class="arrow">${a}</span></th>`;
+  }).join('');
+  headrow.querySelectorAll('th.sortable').forEach(th=>{
+    const k=th.dataset.k, col=COLS.find(c=>c.k===k);
+    const go=()=>{
+      if(sortKey===k) sortDir = sortDir==='asc'?'desc':'asc';
+      else {sortKey=k; sortDir = col.type==='str'?'asc':'desc';}
+      render();
+    };
+    th.addEventListener('click',go);
+    th.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});
+  });
+
+  /* rows */
+  const rows=DATA.filter(r=>{
+    if(F.q && !r.model.toLowerCase().includes(F.q)) return false;
+    if(F.pw!=='all' && r.pw!==F.pw) return false;
+    if(F.dr==='4' && r.doors!==4) return false;
+    if(F.fx==='fixed' && !r.fixed) return false;
+    if(r.price>F.maxprice) return false;
+    if(r.km>F.maxkm) return false;
+    if(r.yr<F.minyear) return false;
+    if(r.depmid>F.maxdep) return false;
+    if(F.minlist>0 && (r.listings==null || r.listings<F.minlist)) return false;
+    return true;
+  });
+  rows.sort((a,b)=>{
+    const col=COLS.find(c=>c.k===sortKey)||{type:'num'};
+    let x=a[sortKey],y=b[sortKey];
+    if(x==null)return 1; if(y==null)return -1;
+    const v = col.type==='str' ? String(x).localeCompare(String(y)) : x-y;
+    return sortDir==='asc'? v : -v;
+  });
+
+  document.getElementById('shown').textContent=rows.length;
+  document.getElementById('empty').hidden=rows.length>0;
+  document.querySelector('.tablewrap').style.display=rows.length?'':'none';
+
+  const hi = s => (F.q && s.toLowerCase().includes(F.q))
+    ? esc(s).replace(new RegExp('('+F.q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>')
+    : esc(s);
+
+  const scoreCell = v =>
+    `<td class="sc"><div class="scw"><div class="track"><div class="fill f${band(v)}" style="width:${(v/5*100).toFixed(1)}%"></div></div><div class="v">${v.toFixed(2)}</div></div></td>`;
+
+  const cell = (r,c) => {
+    switch(c.k){
+      case 'rank':  return `<td class="rank">${r.rank}</td>`;
+      case 'score': return scoreCell(r.score);
+      case 'value': return scoreCell(r.value);
+      case 'model': return `<td class="model">${hi(r.model)}${r.fixed?'':'<span class="tag">OPEN</span>'}</td>`;
+      case 'price': return `<td class="num">${fmt(r.price)}</td>`;
+      case 'year':  return `<td class="num">${r.year}</td>`;
+      case 'km':    return `<td class="num">${r.km===0?'new':fmt(r.km)}</td>`;
+      case 'ps':    return `<td class="num">${r.ps}</td>`;
+      case 'zh':    return `<td class="num">${r.zh.toFixed(1)}</td>`;
+      case 'pw':    return `<td><span class="pw ${r.pw.toLowerCase()}">${r.pw}</span></td>`;
+      case 'doors': return `<td class="doors ${r.doors===2?'two':''}">${r.doors}</td>`;
+      case 'train': return `<td class="spec">${esc(r.train)}</td>`;
+      case 'rlo':   return `<td class="num">${r.rlo===r.rhi?fmt(r.rlo):fmt(r.rlo)+'–'+fmt(r.rhi)}</td>`;
+      case 'listings': return `<td class="num">${r.listings==null?'—':r.listings}</td>`;
+      case 'depmid':return `<td class="num">${fmt(r.depmid)}</td>`;
+      case 'tax':   return `<td class="num">${fmt(r.tax)}</td>`;
+      case 'energy':return `<td class="num">${fmt(r.energy)}</td>`;
+      case 'dep':   return `<td class="rate r${band(r.dep)}">${r.dep.toFixed(2)}</td>`;
+      case 'lux': case 'exc': case 'fea': case 'mnt': case 'rel':
+        return `<td class="rate r${band(r[c.k])}${ON[c.k]?'':' r3'}" ${ON[c.k]?'':'style="opacity:.35"'}>${r[c.k].toFixed(1)}</td>`;
+      case 'link':  return `<td>${r.url
+        ? `<a class="listing" href="${r.url}" target="_blank" rel="noopener">${esc(r.seller)} ↗</a>`
+        : `<span class="nolink">new car</span>`}</td>`;
+      default: return '<td></td>';
+    }
+  };
+
+  document.getElementById('tbody').innerHTML = rows.map(r=>
+    `<tr class="${r.rank===1?'top':''}">${cols.map(c=>cell(r,c)).join('')}</tr>`
+  ).join('');
+}
+render();
+</script>
+</body>
+</html>
