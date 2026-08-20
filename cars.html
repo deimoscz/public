@@ -207,6 +207,21 @@ mark{background:#FEF3C7;padding:0 2px;border-radius:2px}
 .mlink:hover{background:#3F35C4}
 .mnote{font-size:12.5px;color:var(--ink3);margin-top:8px}
 
+.act{width:34px;text-align:center;padding-right:12px!important}
+.hidebtn{width:24px;height:24px;border-radius:6px;border:1px solid var(--rule);background:#FBFCFF;
+  color:var(--ink3);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
+  padding:0;line-height:1;transition:.14s}
+.hidebtn:hover{background:var(--warn);border-color:var(--warn);color:#fff}
+.hidebtn.back:hover{background:var(--g5);border-color:var(--g5)}
+.hidebtn svg{width:14px;height:14px;display:block}
+.parked{margin-top:22px}
+.parked .phd{background:linear-gradient(180deg,#FDF6F8,#FAEFF3)}
+.parked table tbody tr{opacity:.68}
+.parked table tbody tr:hover{opacity:1}
+.pcount{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink3)}
+.pempty{padding:22px 18px;color:var(--ink3);font-size:13px}
+.lswarn{margin-left:10px;font-family:'Space Grotesk',sans-serif;font-size:11.5px;color:var(--warn);
+  text-transform:none;letter-spacing:0;font-weight:400}
 footer{margin-top:26px;border-top:1px solid var(--rule);padding-top:18px;font-size:12px;
   color:var(--ink2);max-width:1020px}
 footer p{margin:0 0 9px}
@@ -294,6 +309,17 @@ footer b{color:var(--ink)}
 </div>
 <div class="empty" id="empty" hidden>No models match these filters.</div>
 
+<section class="panel parked" id="parkedPanel" hidden>
+  <div class="phd">On hold<span class="note">Parked from the main table. Click the arrow to bring one back.</span>
+    <span class="pcount"><b id="pcount">0</b> parked</span>
+    <span class="lswarn" id="lswarn" hidden>not saved between sessions in this browser</span>
+    <button class="btn" id="restoreAll" type="button" style="margin-left:12px">Restore all</button></div>
+  <div class="tablewrap" style="border:none;box-shadow:none;border-radius:0">
+    <table id="ptbl"><thead><tr class="groups" id="pgrouprow"></tr><tr id="pheadrow"></tr></thead>
+    <tbody id="ptbody"></tbody></table>
+  </div>
+</section>
+
 <footer>
   <p><b>Score</b> is a weighted mean of the ticked factors: depreciation ×3, maintenance ×1.5, reliability ×1.5, luxury ×1, excitement ×1, features ×1. <b>Value</b> is that score divided by candidate price, rescaled across all 16 so best quality-per-franc reads 5.00. The rank number always reflects Score, whatever the sort.</p>
   <p><b>3-yr cost</b> = depreciation + tax + energy + a tyre and service allowance, over three years. <b>Stability</b> shows the best and worst Score rank a car reaches across seven weightings: the default, plus six where each factor in turn is pushed to ×3 and the rest sit at ×1. A narrow range means the car ranks well however you weight things; a wide one means its position depends on a particular view.</p>
@@ -305,6 +331,7 @@ footer b{color:var(--ink)}
 
 <script>
 const COLS=[
+ {k:'act',  t:'',            g:'',              core:1,lock:1,sort:0},
  {k:'rank', t:'#',           g:'',              core:1,lock:1,sort:0},
  {k:'score',t:'Score',       g:'',              core:1,lock:1,type:'num'},
  {k:'value',t:'Value',       g:'',              core:1,type:'num'},
@@ -735,6 +762,25 @@ const FIN={
  'Porsche Taycan Turbo S':[['Private, Urdorf',67950,'Porsche Approved to 08.2027, but nicht ab MFK','https://www.autoscout24.ch/de/d/porsche-taycan-turbo-s-20249283'],['Outrun Carouge',69870,'CANDIDATE \u2014 PDCC, carbon wheels, battery cert','https://www.autoscout24.ch/de/d/porsche-taycan-turbo-s-20251707'],['Autowelt von Rotz',69890,'HV battery to 08.2028, seller 4.9 from 4,022','https://www.autoscout24.ch/de/d/porsche-taycan-turbo-s-20702561'],['Marc Robin Gen\u00e8ve',69900,'Only 20,174 km and 48 months from takeover','https://www.autoscout24.ch/de/d/porsche-taycan-turbo-s-20113843']]
 };
 
+const LSKEY='carshortlist.parked.v1';
+let LSOK=true;
+function loadParked(){
+  try{const raw=localStorage.getItem(LSKEY);
+      if(!raw)return new Set();
+      const arr=JSON.parse(raw);
+      return new Set(Array.isArray(arr)?arr:[]);
+  }catch(e){LSOK=false;return new Set();}
+}
+function saveParked(){
+  if(!LSOK)return;
+  try{localStorage.setItem(LSKEY,JSON.stringify([...HIDDEN]));}
+  catch(e){LSOK=false;flagNoStorage();}
+}
+function flagNoStorage(){
+  const n=document.getElementById('lswarn');
+  if(n)n.hidden=false;
+}
+const HIDDEN=loadParked();
 let ON={};PARAMS.forEach(p=>ON[p.k]=true);
 let VIS={};COLS.forEach(c=>VIS[c.k]=true);
 let sortKey='score',sortDir='desc';
@@ -922,16 +968,16 @@ function render(){
     let x=a[sortKey],y=b[sortKey];if(x==null)return 1;if(y==null)return -1;
     const v=col.type==='str'?String(x).localeCompare(String(y)):x-y;return sortDir==='asc'?v:-v;});
 
-  document.getElementById('shown').textContent=rows.length;
-  document.getElementById('empty').hidden=rows.length>0;
-  document.querySelector('.tablewrap').style.display=rows.length?'':'none';
-  scatter(rows);
+  scatter(rows.filter(r=>!HIDDEN.has(r.model)));
 
   const hl=s=>F.q&&s.toLowerCase().includes(F.q)
     ?esc(s).replace(new RegExp('('+F.q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>'):esc(s);
   const sc=v=>`<td class="sc"><div class="scw"><div class="track"><div class="fill b${bnd(v)}" style="width:${(v/5*100).toFixed(1)}%"></div></div><div class="v">${v.toFixed(2)}</div></div></td>`;
 
   const cell=(r,c)=>{switch(c.k){
+    case 'act':return `<td class="act"><button class="hidebtn${HIDDEN.has(r.model)?' back':''}" data-hide="${esc(r.model)}" title="${HIDDEN.has(r.model)?'Bring back':'Put on hold'}" aria-label="${HIDDEN.has(r.model)?'Bring back':'Put on hold'}">${HIDDEN.has(r.model)
+      ?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>'
+      :'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3l18 18"/><path d="M10.6 5.1A9.7 9.7 0 0 1 12 5c5.5 0 9 6 9 6a15 15 0 0 1-2.8 3.5M6.6 6.6A15 15 0 0 0 3 11s3.5 6 9 6a9.5 9.5 0 0 0 4.2-1"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>'}</button></td>`;
     case 'rank':return `<td class="rank">${r.rank}</td>`;
     case 'score':return sc(r.score);
     case 'value':return sc(r.value);
@@ -951,14 +997,43 @@ function render(){
     default:return '<td></td>';
   }};
 
-  document.getElementById('tbody').innerHTML=rows.map((r,i)=>
-    `<tr class="${r.pw==='EV'?'ev':'ice'}${r.rank===1?' top':''}" tabindex="0" data-i="${i}">${cols.map(c=>cell(r,c)).join('')}</tr>`).join('');
-  document.querySelectorAll('#tbody tr').forEach(tr=>{
-    const r=rows[+tr.dataset.i];
-    tr.onclick=()=>openModal(r);
+  const live=rows.filter(r=>!HIDDEN.has(r.model));
+  const park=DATA.filter(r=>HIDDEN.has(r.model)).slice().sort((a,b)=>a.rank-b.rank);
+
+  document.getElementById('shown').textContent=live.length;
+  document.getElementById('empty').hidden=live.length>0;
+  document.querySelector('.tablewrap').style.display=live.length?'':'none';
+
+  const rowHtml=r=>`<tr class="${r.pw==='EV'?'ev':'ice'}${r.rank===1&&!HIDDEN.has(r.model)?' top':''}" tabindex="0" data-m="${esc(r.model)}">${cols.map(c=>cell(r,c)).join('')}</tr>`;
+  document.getElementById('tbody').innerHTML=live.map(rowHtml).join('');
+
+  const pp=document.getElementById('parkedPanel');
+  pp.hidden=park.length===0;
+  document.getElementById('pcount').textContent=park.length;
+  if(park.length){
+    document.getElementById('pgrouprow').innerHTML=document.getElementById('grouprow').innerHTML;
+    document.getElementById('pheadrow').innerHTML=cols.map(c=>`<th>${esc(c.t)}</th>`).join('');
+    document.getElementById('ptbody').innerHTML=park.map(rowHtml).join('');
+  }
+
+  document.querySelectorAll('#tbody tr, #ptbody tr').forEach(tr=>{
+    const r=DATA.find(x=>x.model===tr.dataset.m);
+    tr.onclick=e=>{if(e.target.closest('.hidebtn'))return;openModal(r);};
     tr.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();openModal(r);}};
   });
+  document.querySelectorAll('.hidebtn').forEach(b=>b.addEventListener('click',e=>{
+    e.stopPropagation();
+    const m=b.dataset.hide;
+    HIDDEN.has(m)?HIDDEN.delete(m):HIDDEN.add(m);
+    saveParked();
+    render();
+  }));
 }
+document.getElementById('restoreAll').onclick=()=>{HIDDEN.clear();saveParked();render();};
+(()=>{const names=new Set(DATA.map(d=>d.model));let changed=false;
+  [...HIDDEN].forEach(m=>{if(!names.has(m)){HIDDEN.delete(m);changed=true;}});
+  if(changed)saveParked();
+  if(!LSOK)flagNoStorage();})();
 render();
 </script>
 </body>
