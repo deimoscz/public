@@ -238,9 +238,9 @@ footer b{color:var(--ink)}
   <div>
     <p class="kicker">Bridge car · 1–3 year hold · 12'500 km/yr</p>
     <h1>Car shortlist</h1>
-    <p class="sub">26 models · 189 listings · Switzerland · August 2026</p>
+    <p class="sub">27 models · 190 listings · Switzerland · August 2026</p>
   </div>
-  <div class="counts"><b id="shown">26</b><span>models shown</span></div>
+  <div class="counts"><b id="shown">27</b><span>models shown</span></div>
 </header>
 
 <div class="legend">
@@ -743,6 +743,26 @@ const DATA=[
    ['Allrad permanent',''],['Lederpolster',''],['Schiebedach elektrisch',''],['Navigationssystem',''],
    ['CD-Wechsler',''],['Scheinwerfer Waschanlage',''],['Diebstahlwarnanlage',''],
    ['Ab MFK 01.07.2026','Fresh inspection \u2014 the one thing on this car that is unambiguously good.']]}
+,
+{model:'Porsche 911 Carrera 4 (997.2)',price:57900,year:'06.2011',yr:2011,km:93600,ps:345,zh:5.0,pw:'ICE',doors:2,
+ depmid:1500,tax:800,energy:2320,wear:1600,war:12,wint:0,rate:4.9,rev:204,boot:135,legr:1.5,
+ lux:3.9,exc:4.8,fea:3.4,mnt:2.6,rel:3.8,fixed:1,
+ train:'3.6 DFI flat-six \u00b7 345 PS \u00b7 390 Nm \u00b7 permanent AWD \u00b7 six-speed MANUAL \u00b7 10.6 l/100 km',
+ seller:'AUTORAIN AG, Rain',listings:1,
+ url:'https://www.autoscout24.ch/de/d/porsche-911-carrera-4-9972-handschaltung-20672636',
+ img:'https://listing-images.autoscout24.ch/listing/636/20672636/219171132.JPG?w=1200&q=90',
+ oq:['THE SECOND DREAM ENTRY, NOT A BRIDGE CAR \u2014 same caveat as the 996. Fifteen years old, and the scoring model was built for 2019-26 cars.',
+     'THE IMS PROBLEM DOES NOT APPLY HERE. The 997.2 uses the 9A1 direct-injection engine introduced in 2009, which dropped the IMS bearing entirely. That is the single biggest difference between this and the 996, and it is why maintenance and reliability score far higher.',
+     'Depreciation is entered at CHF 1,500/yr. Manual 997.2 coupes are close to their floor and the good ones have begun appreciating \u2014 treat this as an estimate with real upside, not a prediction.',
+     '93,600 km. Not high for a 997, but ask for the full service file, the IPO/borescope report if one exists, and when the clutch was last done.',
+     'Confirm what the 12-month warranty actually covers on a 15-year-old Porsche \u2014 the exclusions matter far more than the headline.'],
+ opts:[['Schaltgetriebe manuell','Six-speed. The manual 997.2 is the configuration collectors want \u2014 most were sold as PDK.'],
+   ['9A1 Motor (DFI)','The 2009-on direct-injection engine. No IMS bearing, no bore-scoring reputation. The reason to pay double the 996.'],
+   ['Porsche Active Suspension Management','PASM adaptive dampers.'],
+   ['Leichtmetallr\u00e4der Turbo','Turbo-design alloys.'],
+   ['Elektrisches Schiebe-/Hebedach',''],['Dachhimmel in Leder',''],['BOSE Soundsystem',''],
+   ['3-Speichen-Sportlenkrad',''],['Allrad permanent',''],
+   ['Neu ab MFK + 12 Monate Garantie','The only 911 in this search with any warranty at all.']]}
 ];
 DATA.forEach(r=>{
   r.dep=dsc(r.depmid);
@@ -751,6 +771,7 @@ DATA.forEach(r=>{
 });
 
 const FIN={
+ 'Porsche 911 Carrera 4 (997.2)':[['AUTORAIN AG, Rain',57900,'CANDIDATE \u2014 the only listing: manual, 9A1 engine, fresh MFK, 12-month warranty, 4.9/204','https://www.autoscout24.ch/de/d/porsche-911-carrera-4-9972-handschaltung-20672636']],
  'Porsche 911 Carrera 4 (996)':[['Private, Wetzikon',25000,'Cheapest way in and a MANUAL \u2014 but 95,850 km and no warranty','https://www.autoscout24.ch/de/d/porsche-34-carrera-4-20551082'],['Private, Thierachern',30000,'Cabriolet, 320 PS 3.6, 60,000 km \u2014 but nicht ab MFK','https://www.autoscout24.ch/de/d/porsche-911-20644310'],['Porsche Zentrum Z\u00fcrich',37500,'56,000 km from the official dealer, 4.6/498 \u2014 but Tiptronic, not manual','https://www.autoscout24.ch/de/d/porsche-911-carrera-4-coupe-20639129']],
  'Tesla Model 3 Perf. pre-facelift':[['Private, Frenkendorf',25500,'Cheapest entry, but no warranty at all','https://www.autoscout24.ch/de/d/tesla-performance-d-facelift-20663079'],['4X4 GS Saxon',25900,'CHF 400 more and a dealer with a 72-month claim','https://www.autoscout24.ch/de/d/tesla-model-3-performance-dual-motor-awd-20625915'],['Private, Emmenbr\u00fccke',27500,'CANDIDATE \u2014 AMD Ryzen and heat pump, the 2022 hardware that matters','https://www.autoscout24.ch/de/d/tesla-model-y-performance-20715630'],['Private, Renens',29000,'42,000 km and garage-kept, but summer wheels only','https://www.autoscout24.ch/de/d/tesla-model-3-performance-dual-motor-awd-10403102'],['Private, Dietikon',33990,'Enhanced Autopilot and the last spec with radar and ultrasonics','https://www.autoscout24.ch/de/d/tesla-model-3-performance-dual-motor-awd-12599335']],
  'MG IM5 Performance':[['F. + M. Konstantin, Oftringen',50990,'CANDIDATE \u2014 the only listing; new car at exactly list price','https://www.autoscout24.ch/de/d/mg-im5-100-kwh-performance-4wd-20241549']],
