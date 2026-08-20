@@ -9,157 +9,211 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#141C26;
-  --ink-2:#47576A;
-  --ink-3:#8496A8;
-  --paper:#E7ECF0;
-  --paper-2:#DDE4EA;
-  --panel:#FFFFFF;
-  --rule:#CFD8E0;
-  --rule-soft:#E5EAEF;
-  --signal:#C8102E;
-  --ev:#0E6E6E;
-  --ice:#96591D;
-  --good:#177A4A;
-  --mid:#B8801A;
-  --bad:#B03A2A;
-  --hl:#FFF0B8;
-  --shadow:0 1px 0 rgba(20,28,38,.04), 0 4px 16px -6px rgba(20,28,38,.18);
+  --bg:#F2F5FB; --ink:#151D33; --ink2:#4B5875; --ink3:#8792AC;
+  --panel:#FFFFFF; --rule:#DFE5F0; --rule2:#EDF1F7;
+  --brand:#4F46E5; --brand2:#7C6BF5;
+  --ev:#0D9488; --evbg:#E6F6F4;
+  --ice:#D97706; --icebg:#FDF3E3;
+  --warn:#E11D48; --warnbg:#FDECF1;
+  --g5:#059669; --g4:#4D9E5F; --g3:#8792AC; --g2:#E0921A; --g1:#E11D48;
+  --sh:0 1px 2px rgba(21,29,51,.05), 0 8px 24px -10px rgba(21,29,51,.22);
+  --sh2:0 20px 60px -12px rgba(21,29,51,.4);
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{
   background:
-    radial-gradient(1200px 600px at 12% -10%, #F3F7FA 0%, transparent 60%),
-    var(--paper);
-  color:var(--ink);
-  font-family:'Space Grotesk',system-ui,sans-serif;
+    radial-gradient(900px 500px at 8% -8%, #E8EDFF 0%, transparent 55%),
+    radial-gradient(700px 400px at 96% 0%, #E4F7F4 0%, transparent 50%),
+    var(--bg);
+  color:var(--ink);font-family:'Space Grotesk',system-ui,sans-serif;
   font-size:14px;line-height:1.45;-webkit-font-smoothing:antialiased;
 }
-.wrap{max-width:1840px;margin:0 auto;padding:32px 22px 90px}
+.wrap{max-width:1860px;margin:0 auto;padding:34px 22px 90px}
+.mono{font-family:'IBM Plex Mono',monospace}
 
-/* masthead */
-header{
-  display:flex;flex-wrap:wrap;align-items:flex-end;gap:18px 34px;
-  padding-bottom:16px;margin-bottom:24px;
-  border-bottom:2px solid var(--ink);
-}
-.brandmark{
-  font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--signal);margin:0 0 6px;
-}
-h1{font-size:29px;font-weight:700;letter-spacing:-.025em;margin:0;line-height:1}
+/* header */
+header{display:flex;flex-wrap:wrap;align-items:flex-end;gap:20px 36px;
+  padding-bottom:18px;margin-bottom:22px;border-bottom:2px solid var(--ink)}
+.kicker{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--brand);margin:0 0 7px;font-weight:600}
+h1{font-size:31px;font-weight:700;letter-spacing:-.03em;margin:0;line-height:1;
+  background:linear-gradient(92deg,var(--ink) 30%,var(--brand) 130%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
 .sub{font-family:'IBM Plex Mono',monospace;font-size:11px;text-transform:uppercase;
-  letter-spacing:.13em;color:var(--ink-3);margin:8px 0 0}
-.counts{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;
-  color:var(--ink-3);text-align:right;text-transform:uppercase;letter-spacing:.1em}
-.counts b{display:block;font-weight:600;color:var(--ink);font-size:24px;letter-spacing:-.02em}
+  letter-spacing:.13em;color:var(--ink3);margin:9px 0 0}
+.counts{margin-left:auto;text-align:right}
+.counts b{display:block;font-size:27px;font-weight:700;letter-spacing:-.03em;line-height:1}
+.counts span{font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--ink3)}
+
+/* legend */
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;margin-bottom:18px;
+  font-size:12px;color:var(--ink2)}
+.lg{display:inline-flex;align-items:center;gap:7px}
+.sw{width:15px;height:15px;border-radius:3px;flex:none}
+.sw.ev{background:var(--evbg);border:1.5px solid var(--ev)}
+.sw.ice{background:var(--icebg);border:1.5px solid var(--ice)}
+.sw.d2{background:var(--warnbg);border:1.5px solid var(--warn)}
+.sw.d4{background:#fff;border:1.5px solid var(--rule)}
 
 /* panels */
-.panel{
-  background:var(--panel);border:1px solid var(--rule);border-radius:2px;
-  box-shadow:var(--shadow);margin-bottom:18px;
-}
-.panel-hd{
-  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-  padding:11px 18px;border-bottom:1px solid var(--rule-soft);
-  font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.14em;
-  color:var(--ink-2);
-}
-.panel-hd .note{text-transform:none;letter-spacing:0;font-size:11.5px;color:var(--ink-3);font-family:'Space Grotesk',sans-serif}
-.panel-bd{padding:16px 18px}
-details.panel > summary{list-style:none;cursor:pointer}
-details.panel > summary::-webkit-details-marker{display:none}
-details.panel > summary .caret{margin-left:auto;font-size:11px;color:var(--ink-3);transition:transform .15s}
-details.panel[open] > summary .caret{transform:rotate(180deg)}
+.panel{background:var(--panel);border:1px solid var(--rule);border-radius:10px;
+  box-shadow:var(--sh);margin-bottom:16px;overflow:hidden}
+.phd{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 18px;
+  background:linear-gradient(180deg,#FAFBFF,#F4F6FC);border-bottom:1px solid var(--rule2);
+  font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;
+  letter-spacing:.15em;color:var(--ink2);font-weight:600}
+.phd .note{text-transform:none;letter-spacing:0;font-size:11.5px;color:var(--ink3);
+  font-family:'Space Grotesk',sans-serif;font-weight:400}
+.pbd{padding:16px 18px}
+details.panel>summary{list-style:none;cursor:pointer}
+details.panel>summary::-webkit-details-marker{display:none}
+details.panel>summary .caret{margin-left:auto;color:var(--ink3);transition:transform .18s}
+details.panel[open]>summary .caret{transform:rotate(180deg)}
 
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:18px 26px}
-.ctl label{display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;
-  letter-spacing:.13em;color:var(--ink-3);margin-bottom:7px}
-input[type=search]{width:100%;padding:8px 10px;border:1px solid var(--rule);background:#FBFCFD;
-  font-family:'Space Grotesk',sans-serif;font-size:13px;color:var(--ink);border-radius:2px}
-input[type=search]:focus,input[type=range]:focus,.chip:focus-visible,.tog:focus-within{
-  outline:2px solid var(--signal);outline-offset:1px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(212px,1fr));gap:18px 26px}
+.ctl label{display:block;font-family:'IBM Plex Mono',monospace;font-size:9.5px;
+  text-transform:uppercase;letter-spacing:.13em;color:var(--ink3);margin-bottom:7px}
+input[type=search]{width:100%;padding:9px 11px;border:1px solid var(--rule);background:#FBFCFF;
+  font-family:inherit;font-size:13px;color:var(--ink);border-radius:7px}
+input[type=search]:focus,input[type=range]:focus,.chip:focus-visible,.tog:focus-within,
+tbody tr:focus-visible{outline:2px solid var(--brand);outline-offset:1px}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.05em;padding:6px 11px;
-  border:1px solid var(--rule);background:#FBFCFD;cursor:pointer;color:var(--ink-2);border-radius:2px;
-  transition:background .12s,color .12s}
-.chip[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
-.rangeout{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink);font-weight:500}
-input[type=range]{width:100%;accent-color:var(--ink);margin:2px 0 0}
-.btn{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
-  padding:6px 12px;border:1px solid var(--ink);background:#fff;color:var(--ink);cursor:pointer;border-radius:2px}
-.btn:hover{background:var(--ink);color:#fff}
-
-/* toggles */
+.chip{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.05em;
+  padding:6px 12px;border:1px solid var(--rule);background:#FBFCFF;cursor:pointer;
+  color:var(--ink2);border-radius:20px;transition:.14s}
+.chip[aria-pressed=true]{background:var(--brand);color:#fff;border-color:var(--brand);
+  box-shadow:0 2px 8px -2px rgba(79,70,229,.5)}
+.rangeout{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--brand);font-weight:600}
+input[type=range]{width:100%;accent-color:var(--brand);margin:2px 0 0}
+.btn{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;padding:7px 13px;border:1px solid var(--rule);background:#fff;
+  color:var(--ink2);cursor:pointer;border-radius:6px;font-weight:600}
+.btn:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
 .togs{display:flex;flex-wrap:wrap;gap:8px}
-.tog{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border:1px solid var(--rule);
-  background:#FBFCFD;border-radius:2px;cursor:pointer;font-size:12.5px;color:var(--ink-2);user-select:none}
-.tog input{accent-color:var(--ink);margin:0;cursor:pointer}
-.tog.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.tog .w{font-family:'IBM Plex Mono',monospace;font-size:10px;opacity:.65}
-.togs.cols .tog{font-size:12px;padding:5px 9px}
+.tog{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border:1px solid var(--rule);
+  background:#FBFCFF;border-radius:20px;cursor:pointer;font-size:12.5px;color:var(--ink3);user-select:none;transition:.14s}
+.tog input{accent-color:#fff;margin:0;cursor:pointer}
+.tog.on{background:var(--brand);color:#fff;border-color:var(--brand);
+  box-shadow:0 2px 8px -2px rgba(79,70,229,.45)}
+.tog .w{font-family:'IBM Plex Mono',monospace;font-size:10px;opacity:.7}
+
+/* scatter */
+#scatter{width:100%;height:330px;display:block}
+.sc-dot{cursor:pointer;transition:r .15s}
+.sc-dot:hover{stroke:var(--ink);stroke-width:2}
+.sc-lbl{font-family:'IBM Plex Mono',monospace;font-size:9px;fill:var(--ink2);pointer-events:none}
+.sc-ax{stroke:var(--rule);stroke-width:1}
+.sc-gr{stroke:var(--rule2);stroke-width:1}
+.sc-tk{font-family:'IBM Plex Mono',monospace;font-size:9px;fill:var(--ink3)}
+.sc-ttl{font-family:'IBM Plex Mono',monospace;font-size:9.5px;fill:var(--ink3);
+  text-transform:uppercase;letter-spacing:.13em}
 
 /* table */
-.tablewrap{background:var(--panel);border:1px solid var(--rule);border-radius:2px;
-  box-shadow:var(--shadow);overflow-x:auto}
+.tablewrap{background:var(--panel);border:1px solid var(--rule);border-radius:10px;
+  box-shadow:var(--sh);overflow-x:auto}
 table{border-collapse:separate;border-spacing:0;width:100%}
-thead th{position:sticky;top:0;z-index:3;background:var(--ink);color:#F4F7F9;
-  font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:500;text-transform:uppercase;
-  letter-spacing:.09em;padding:10px 9px;text-align:left;white-space:nowrap;vertical-align:bottom}
-thead tr.groups th{background:#0B121A;font-size:9px;letter-spacing:.18em;color:#7B90A4;
-  padding:7px 9px;border-left:1px solid #26303C}
+thead th{position:sticky;top:0;z-index:3;background:linear-gradient(180deg,#1D2745,#151D33);
+  color:#DCE3F5;font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:500;
+  text-transform:uppercase;letter-spacing:.1em;padding:11px 9px;text-align:left;
+  white-space:nowrap;vertical-align:bottom}
+thead tr.groups th{background:#0D1425;font-size:8.5px;letter-spacing:.2em;color:#6F7EA0;
+  padding:8px 9px;border-left:1px solid #232E4C}
 thead tr.groups th:first-child{border-left:none}
 thead th.sortable{cursor:pointer;user-select:none}
-thead th.sortable:hover{background:#22303F}
-thead th .arrow{opacity:.3;margin-left:4px}
-thead th[aria-sort] .arrow{opacity:1;color:#FF7488}
-tbody td{padding:9px;border-bottom:1px solid var(--rule-soft);vertical-align:middle;white-space:nowrap}
-tbody tr:nth-child(even){background:#FAFBFC}
-tbody tr:hover{background:#F1F6FA}
+thead th.sortable:hover{background:#2A3760}
+thead th .arrow{opacity:.35;margin-left:4px}
+thead th[aria-sort] .arrow{opacity:1;color:#A5B4FC}
+tbody tr{cursor:pointer;transition:background .12s}
+tbody td{padding:10px 9px;border-bottom:1px solid var(--rule2);vertical-align:middle;white-space:nowrap}
+tbody tr:hover{background:#F0F3FE}
+tbody tr.ev td:first-child{box-shadow:inset 4px 0 0 var(--ev)}
+tbody tr.ice td:first-child{box-shadow:inset 4px 0 0 var(--ice)}
 
-.rank{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-3);text-align:right;width:38px}
-tbody tr.top .rank{color:var(--signal);font-weight:600}
+.rank{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink3);text-align:right;width:40px;font-weight:600}
+tbody tr.top .rank{color:var(--brand);font-size:14px}
 .num{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right}
-.model{font-weight:600;letter-spacing:-.012em;font-size:14px;min-width:180px}
-.tag{font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.11em;
-  color:var(--ink-3);border:1px solid var(--rule);padding:1px 4px;margin-left:7px;vertical-align:1.5px}
-.pw{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.09em;padding:2px 6px;
-  border:1px solid currentColor;border-radius:2px}
-.pw.ev{color:var(--ev)} .pw.ice{color:var(--ice)}
-.doors{font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:center}
-.doors.two{color:var(--signal);font-weight:600}
-.spec{font-size:12px;color:var(--ink-2);white-space:normal;min-width:186px}
-.rate{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;width:54px}
-.r5{color:var(--good);font-weight:600} .r4{color:#3C8A5C} .r3{color:var(--ink-2)}
-.r2{color:var(--mid)} .r1{color:var(--bad);font-weight:600}
+.model{font-weight:600;letter-spacing:-.012em;font-size:14px;min-width:186px}
+.model .nm{border-bottom:2px solid transparent;padding-bottom:1px}
+tr.ev .model .nm{border-color:var(--ev)}
+tr.ice .model .nm{border-color:var(--ice)}
+.d2b{display:inline-block;margin-left:7px;padding:1px 6px;border-radius:20px;
+  background:var(--warnbg);color:var(--warn);border:1px solid var(--warn);
+  font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.09em;font-weight:600}
+.tag{display:inline-block;margin-left:6px;padding:1px 6px;border-radius:20px;
+  background:#F1F4FA;color:var(--ink3);border:1px solid var(--rule);
+  font-family:'IBM Plex Mono',monospace;font-size:8.5px;letter-spacing:.09em}
+.rate{font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;width:52px;font-weight:500}
+.v5{color:var(--g5)}.v4{color:var(--g4)}.v3{color:var(--g3)}.v2{color:var(--g2)}.v1{color:var(--g1)}
+.off{opacity:.28}
+td.sc{width:106px}
+.scw{display:flex;align-items:center;gap:8px}
+.scw .track{flex:1;height:7px;background:#E9EDF6;border-radius:20px;overflow:hidden}
+.scw .fill{height:100%;border-radius:20px}
+.scw .v{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;width:33px;
+  text-align:right;letter-spacing:-.03em}
+.b5{background:linear-gradient(90deg,#34D399,#059669)}
+.b4{background:linear-gradient(90deg,#6EE7B7,#4D9E5F)}
+.b3{background:linear-gradient(90deg,#A5B4FC,#7C6BF5)}
+.b2{background:linear-gradient(90deg,#FCD34D,#E0921A)}
+.b1{background:linear-gradient(90deg,#FDA4AF,#E11D48)}
+.stab{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink2);text-align:center;width:60px}
+.stab b{color:var(--ink);font-weight:600}
+mark{background:#FEF3C7;padding:0 2px;border-radius:2px}
+.empty{padding:40px;text-align:center;color:var(--ink2)}
 
-td.sc{width:104px}
-.scw{display:flex;align-items:center;gap:7px}
-.scw .track{flex:1;height:6px;background:var(--paper-2);border-radius:1px;position:relative;overflow:hidden}
-.scw .fill{position:absolute;left:0;top:0;bottom:0;border-radius:1px}
-.scw .v{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;width:32px;text-align:right;
-  letter-spacing:-.02em}
-.f5{background:var(--good)} .f4{background:#3C8A5C} .f3{background:#7C93A6}
-.f2{background:var(--mid)} .f1{background:var(--bad)}
+/* modal */
+.ovl{position:fixed;inset:0;background:rgba(13,20,37,.55);backdrop-filter:blur(3px);
+  display:none;align-items:flex-start;justify-content:center;padding:40px 18px;z-index:50;overflow-y:auto}
+.ovl.open{display:flex}
+.mdl{background:var(--panel);border-radius:14px;box-shadow:var(--sh2);max-width:900px;width:100%;
+  overflow:hidden;animation:pop .18s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.99)}to{opacity:1;transform:none}}
+.mhd{padding:20px 24px;background:linear-gradient(120deg,#1D2745,#2E2A63);color:#fff;position:relative}
+.mhd h2{margin:0;font-size:23px;letter-spacing:-.025em}
+.mhd .msub{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#A9B6D8;margin-top:7px;letter-spacing:.05em}
+.mhd .mprice{position:absolute;right:24px;top:20px;text-align:right}
+.mhd .mprice b{display:block;font-family:'IBM Plex Mono',monospace;font-size:22px;letter-spacing:-.03em}
+.mhd .mprice span{font-family:'IBM Plex Mono',monospace;font-size:9px;color:#A9B6D8;letter-spacing:.14em;text-transform:uppercase}
+.mclose{position:absolute;right:16px;bottom:-16px;width:34px;height:34px;border-radius:50%;
+  background:#fff;border:1px solid var(--rule);color:var(--ink2);cursor:pointer;font-size:17px;
+  line-height:1;box-shadow:var(--sh);z-index:2}
+.mclose:hover{background:var(--warn);color:#fff;border-color:var(--warn)}
+.mbd{padding:24px}
+.mphoto{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:9px;background:#EDF1F8;display:block}
+.mphoto-ph{width:100%;aspect-ratio:16/9;border-radius:9px;display:flex;align-items:center;
+  justify-content:center;flex-direction:column;gap:9px;color:var(--ink3);
+  background:linear-gradient(135deg,#EDF1F8,#E3E9F5);border:1px dashed var(--rule)}
+.msec{margin-top:22px}
+.msec h3{font-family:'IBM Plex Mono',monospace;font-size:9.5px;text-transform:uppercase;
+  letter-spacing:.17em;color:var(--brand);margin:0 0 11px;font-weight:600}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:12px}
+.kv div{background:#F7F9FD;border:1px solid var(--rule2);border-radius:8px;padding:10px 12px}
+.kv dt{font-family:'IBM Plex Mono',monospace;font-size:9px;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--ink3);margin:0 0 4px}
+.kv dd{margin:0;font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600;letter-spacing:-.02em}
+.oq{list-style:none;padding:0;margin:0}
+.oq li{padding:10px 13px;border-left:3px solid var(--warn);background:var(--warnbg);
+  border-radius:0 7px 7px 0;margin-bottom:8px;font-size:13px;color:#7C2437}
+.oq li.none{border-color:var(--g5);background:#E9F7F1;color:#136B4C}
+.opts{list-style:none;padding:0;margin:0;display:grid;gap:7px}
+.opts li{padding:9px 12px;background:#F7F9FD;border:1px solid var(--rule2);border-radius:7px;font-size:13px}
+.opts b{font-weight:600}
+.opts em{font-style:normal;color:var(--ink2);font-size:12.5px}
+.mlink{display:inline-flex;align-items:center;gap:8px;margin-top:6px;padding:11px 17px;
+  background:var(--brand);color:#fff;text-decoration:none;border-radius:8px;
+  font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.05em;font-weight:500}
+.mlink:hover{background:#3F35C4}
+.mnote{font-size:12.5px;color:var(--ink3);margin-top:8px}
 
-a.listing{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink);text-decoration:none;
-  border-bottom:1.5px solid var(--signal);padding-bottom:1px}
-a.listing:hover{background:var(--hl)}
-.nolink{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-3)}
-mark{background:var(--hl);color:inherit;padding:0 1px}
-.empty{padding:38px 18px;text-align:center;color:var(--ink-2)}
-
-footer{margin-top:24px;border-top:1px solid var(--rule);padding-top:16px;font-size:12px;
-  color:var(--ink-2);max-width:1000px}
-footer p{margin:0 0 8px}
+footer{margin-top:26px;border-top:1px solid var(--rule);padding-top:18px;font-size:12px;
+  color:var(--ink2);max-width:1020px}
+footer p{margin:0 0 9px}
 footer b{color:var(--ink)}
-
-@media (max-width:640px){
-  .wrap{padding:20px 12px 60px}h1{font-size:22px}
-  .counts{margin-left:0;text-align:left}
-}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (max-width:640px){.wrap{padding:20px 12px 60px}h1{font-size:23px}
+  .counts{margin-left:0;text-align:left}.mhd .mprice{position:static;text-align:left;margin-top:12px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -167,32 +221,31 @@ footer b{color:var(--ink)}
 
 <header>
   <div>
-    <p class="brandmark">Bridge car · 1–3 year hold</p>
+    <p class="kicker">Bridge car · 1–3 year hold · 12'500 km/yr</p>
     <h1>Car shortlist</h1>
     <p class="sub">16 models · 116 listings · Switzerland · August 2026</p>
   </div>
-  <div class="counts"><b id="shown">16</b> models shown</div>
+  <div class="counts"><b id="shown">16</b><span>models shown</span></div>
 </header>
 
-<!-- score config -->
+<div class="legend">
+  <span class="lg"><span class="sw ev"></span> Electric — teal underline</span>
+  <span class="lg"><span class="sw ice"></span> Petrol — amber underline</span>
+  <span class="lg"><span class="sw d2"></span> Two doors</span>
+  <span class="lg"><span class="sw d4"></span> Four doors</span>
+  <span class="lg" style="color:var(--ink3)">Click any row for photo, options and open questions</span>
+</div>
+
 <section class="panel">
-  <div class="panel-hd">
-    Score inputs
-    <span class="note">Untick a factor to leave it out of both scores. Weights are fixed.</span>
-    <button class="btn" id="resetParams" type="button" style="margin-left:auto">All on</button>
-  </div>
-  <div class="panel-bd"><div class="togs" id="paramTogs"></div></div>
+  <div class="phd">Score inputs<span class="note">Untick a factor to drop it from both scores. Weights fixed.</span>
+    <button class="btn" id="resetParams" type="button" style="margin-left:auto">All on</button></div>
+  <div class="pbd"><div class="togs" id="paramTogs"></div></div>
 </section>
 
-<!-- columns -->
-<details class="panel" id="colPanel">
-  <summary class="panel-hd">
-    Columns
-    <span class="note">Hide what you don't need.</span>
-    <span class="caret">▾</span>
-  </summary>
-  <div class="panel-bd">
-    <div class="togs cols" id="colTogs"></div>
+<details class="panel">
+  <summary class="phd">Columns<span class="note">Hide what you don't need.</span><span class="caret">▾</span></summary>
+  <div class="pbd">
+    <div class="togs" id="colTogs"></div>
     <div style="margin-top:14px;display:flex;gap:8px">
       <button class="btn" id="colAll" type="button">Show all</button>
       <button class="btn" id="colCore" type="button">Core only</button>
@@ -200,365 +253,547 @@ footer b{color:var(--ink)}
   </div>
 </details>
 
-<!-- filters -->
+<details class="panel" open>
+  <summary class="phd">Score vs three-year cost<span class="note">Top-left is the efficient corner: high score, low cost.</span><span class="caret">▾</span></summary>
+  <div class="pbd"><svg id="scatter" viewBox="0 0 1000 330" preserveAspectRatio="xMidYMid meet"></svg></div>
+</details>
+
 <section class="panel">
-  <div class="panel-hd">Filters<span class="note">Narrow the field.</span></div>
-  <div class="panel-bd">
-    <div class="grid">
-      <div class="ctl">
-        <label for="q">Search model</label>
-        <input type="search" id="q" placeholder="Audi, M3, Taycan…" autocomplete="off">
-      </div>
-      <div class="ctl">
-        <label>Powertrain</label>
-        <div class="chips" id="pwchips">
-          <button class="chip" data-pw="all" aria-pressed="true">All</button>
-          <button class="chip" data-pw="EV" aria-pressed="false">Electric</button>
-          <button class="chip" data-pw="ICE" aria-pressed="false">Petrol</button>
-        </div>
-      </div>
-      <div class="ctl">
-        <label>Doors</label>
-        <div class="chips" id="drchips">
-          <button class="chip" data-dr="all" aria-pressed="true">All</button>
-          <button class="chip" data-dr="4" aria-pressed="false">Four only</button>
-        </div>
-      </div>
-      <div class="ctl">
-        <label>Candidate</label>
-        <div class="chips" id="fxchips">
-          <button class="chip" data-fx="all" aria-pressed="true">All</button>
-          <button class="chip" data-fx="fixed" aria-pressed="false">Fixed only</button>
-        </div>
-      </div>
-      <div class="ctl">
-        <label for="maxprice">Max price · <span class="rangeout" id="maxpriceout">CHF 70'000</span></label>
-        <input type="range" id="maxprice" min="34000" max="70000" step="1000" value="70000">
-      </div>
-      <div class="ctl">
-        <label for="maxkm">Max mileage · <span class="rangeout" id="maxkmout">64'000 km</span></label>
-        <input type="range" id="maxkm" min="0" max="64000" step="1000" value="64000">
-      </div>
-      <div class="ctl">
-        <label for="minyear">Earliest reg · <span class="rangeout" id="minyearout">2021</span></label>
-        <input type="range" id="minyear" min="2021" max="2026" step="1" value="2021">
-      </div>
-      <div class="ctl">
-        <label for="maxdep">Max depreciation · <span class="rangeout" id="maxdepout">CHF 7'930/yr</span></label>
-        <input type="range" id="maxdep" min="3250" max="7930" step="100" value="7930">
-      </div>
-      <div class="ctl">
-        <label for="minlist">Min listings seen · <span class="rangeout" id="minlistout">0</span></label>
-        <input type="range" id="minlist" min="0" max="11" step="1" value="0">
-      </div>
-    </div>
-  </div>
+  <div class="phd">Filters</div>
+  <div class="pbd"><div class="grid">
+    <div class="ctl"><label for="q">Search model</label>
+      <input type="search" id="q" placeholder="Audi, M3, Taycan…" autocomplete="off"></div>
+    <div class="ctl"><label>Powertrain</label><div class="chips" id="pwchips">
+      <button class="chip" data-pw="all" aria-pressed="true">All</button>
+      <button class="chip" data-pw="EV" aria-pressed="false">Electric</button>
+      <button class="chip" data-pw="ICE" aria-pressed="false">Petrol</button></div></div>
+    <div class="ctl"><label>Doors</label><div class="chips" id="drchips">
+      <button class="chip" data-dr="all" aria-pressed="true">All</button>
+      <button class="chip" data-dr="4" aria-pressed="false">Four only</button></div></div>
+    <div class="ctl"><label>Candidate</label><div class="chips" id="fxchips">
+      <button class="chip" data-fx="all" aria-pressed="true">All</button>
+      <button class="chip" data-fx="fixed" aria-pressed="false">Fixed only</button></div></div>
+    <div class="ctl"><label for="maxprice">Max price · <span class="rangeout" id="maxpriceout">CHF 70'000</span></label>
+      <input type="range" id="maxprice" min="34000" max="70000" step="1000" value="70000"></div>
+    <div class="ctl"><label for="maxkm">Max mileage · <span class="rangeout" id="maxkmout">64'000 km</span></label>
+      <input type="range" id="maxkm" min="0" max="64000" step="1000" value="64000"></div>
+    <div class="ctl"><label for="minyear">Earliest reg · <span class="rangeout" id="minyearout">2021</span></label>
+      <input type="range" id="minyear" min="2021" max="2026" step="1" value="2021"></div>
+    <div class="ctl"><label for="maxcost">Max 3-yr cost · <span class="rangeout" id="maxcostout">CHF 34'000</span></label>
+      <input type="range" id="maxcost" min="19000" max="34000" step="500" value="34000"></div>
+    <div class="ctl"><label for="minwar">Min warranty left · <span class="rangeout" id="minwarout">0 mo</span></label>
+      <input type="range" id="minwar" min="0" max="72" step="1" value="0"></div>
+    <div class="ctl"><label for="minboot">Min boot · <span class="rangeout" id="minbootout">0 l</span></label>
+      <input type="range" id="minboot" min="0" max="700" step="10" value="0"></div>
+  </div></div>
 </section>
 
 <div class="tablewrap">
   <table id="tbl">
-    <thead>
-      <tr class="groups" id="grouprow"></tr>
-      <tr id="headrow"></tr>
-    </thead>
+    <thead><tr class="groups" id="grouprow"></tr><tr id="headrow"></tr></thead>
     <tbody id="tbody"></tbody>
   </table>
 </div>
 <div class="empty" id="empty" hidden>No models match these filters.</div>
 
 <footer>
-  <p><b>Score</b> is a weighted mean of the ticked factors: depreciation ×3, maintenance ×1.5, reliability ×1.5, luxury ×1, excitement ×1, features ×1. <b>Value</b> is that score divided by the candidate price, rescaled across all 16 models so the best quality-per-franc reads 5.00 and the worst 1.00. The rank number always reflects Score, whatever the table is sorted by.</p>
-  <p><b>Depreciation is derived, not judged</b> — band midpoint in CHF/yr mapped linearly, 3'250 → 5.00 and 7'930 → 1.00, shown to two decimals. The BYD Seal figure is exact: CHF 42'790 new against a stated CHF 19'000 residual after three years. <b>The other five ratings are judgement</b>, relative to this field only, shown to one decimal. They sort well but won't decide between two close cars.</p>
-  <p><b>Open</b> marks a model with finalists but no fixed candidate. Tax is the Schwyz formula, ±10% on actual kerb weight; energy assumes 12'500 km/yr.</p>
+  <p><b>Score</b> is a weighted mean of the ticked factors: depreciation ×3, maintenance ×1.5, reliability ×1.5, luxury ×1, excitement ×1, features ×1. <b>Value</b> is that score divided by candidate price, rescaled across all 16 so best quality-per-franc reads 5.00. The rank number always reflects Score, whatever the sort.</p>
+  <p><b>3-yr cost</b> = depreciation + tax + energy + a tyre and service allowance, over three years. <b>Stability</b> shows best and worst Score rank across seven weightings — a narrow range means the car doesn't depend on one configuration to look good.</p>
+  <p><b>Depreciation is derived</b>: band midpoint mapped 3'250 → 5.00, 7'500 → 1.00. The BYD figure is exact — CHF 39'800 against a stated CHF 19'000 residual. <b>The other five ratings are judgement</b>, relative to this field only. <b>Open</b> marks a model with finalists but no fixed candidate.</p>
 </footer>
-
 </div>
 
+<div class="ovl" id="ovl"><div class="mdl" id="mdl"></div></div>
+
 <script>
-/* ---------- columns ---------- */
-const COLS = [
-  {k:'rank',  t:'#',           g:'',                 cls:'rank', sort:false, core:true, lock:true},
-  {k:'score', t:'Score',       g:'',                 cls:'sc',   type:'num', core:true, lock:true},
-  {k:'value', t:'Value',       g:'',                 cls:'sc',   type:'num', core:true},
-  {k:'model', t:'Model',       g:'',                 cls:'model',type:'str', core:true, lock:true},
-  {k:'price', t:'Price CHF',   g:'Candidate car',    cls:'num',  type:'num', core:true},
-  {k:'year',  t:'Reg',         g:'Candidate car',    cls:'num',  type:'str', core:true},
-  {k:'km',    t:'km',          g:'Candidate car',    cls:'num',  type:'num', core:true},
-  {k:'ps',    t:'PS',          g:'Candidate car',    cls:'num',  type:'num'},
-  {k:'zh',    t:'0–100 s',     g:'Candidate car',    cls:'num',  type:'num'},
-  {k:'pw',    t:'Drive',       g:'Candidate car',    cls:'',     type:'str'},
-  {k:'doors', t:'Doors',       g:'Candidate car',    cls:'doors',type:'num'},
-  {k:'train', t:'Battery / engine', g:'Candidate car', cls:'spec', type:'str'},
-  {k:'rlo',   t:'Model range', g:'Model & costs',    cls:'num',  type:'num'},
-  {k:'listings',t:'Listings',  g:'Model & costs',    cls:'num',  type:'num'},
-  {k:'depmid',t:'Deprec/yr',   g:'Model & costs',    cls:'num',  type:'num', core:true},
-  {k:'tax',   t:'Tax/yr',      g:'Model & costs',    cls:'num',  type:'num'},
-  {k:'energy',t:'Energy/yr',   g:'Model & costs',    cls:'num',  type:'num'},
-  {k:'lux',   t:'Lux',         g:'Ratings 1–5',      cls:'rate', type:'num'},
-  {k:'exc',   t:'Excite',      g:'Ratings 1–5',      cls:'rate', type:'num'},
-  {k:'fea',   t:'Feat',        g:'Ratings 1–5',      cls:'rate', type:'num'},
-  {k:'dep',   t:'Deprec',      g:'Ratings 1–5',      cls:'rate', type:'num'},
-  {k:'mnt',   t:'Maint',       g:'Ratings 1–5',      cls:'rate', type:'num'},
-  {k:'rel',   t:'Reli',        g:'Ratings 1–5',      cls:'rate', type:'num'},
-  {k:'link',  t:'Listing',     g:'Source',           cls:'',     sort:false, core:true}
+const COLS=[
+ {k:'rank', t:'#',           g:'',              core:1,lock:1,sort:0},
+ {k:'score',t:'Score',       g:'',              core:1,lock:1,type:'num'},
+ {k:'value',t:'Value',       g:'',              core:1,type:'num'},
+ {k:'model',t:'Model',       g:'',              core:1,lock:1,type:'str'},
+ {k:'price',t:'Price CHF',   g:'Candidate',     core:1,type:'num'},
+ {k:'year', t:'Reg',         g:'Candidate',     core:1,type:'str'},
+ {k:'km',   t:'km',          g:'Candidate',     core:1,type:'num'},
+ {k:'exkm', t:'Exit km',     g:'Candidate',     type:'num'},
+ {k:'ps',   t:'PS',          g:'Candidate',     type:'num'},
+ {k:'zh',   t:'0–100 s',     g:'Candidate',     type:'num'},
+ {k:'war',  t:'Warr. mo',    g:'Candidate',     core:1,type:'num'},
+ {k:'wint', t:'Winter set',  g:'Candidate',     type:'num'},
+ {k:'rate', t:'Seller',      g:'Candidate',     type:'num'},
+ {k:'cost3',t:'3-yr cost',   g:'Cost & space',  core:1,type:'num'},
+ {k:'depmid',t:'Deprec/yr',  g:'Cost & space',  core:1,type:'num'},
+ {k:'energy',t:'Energy/yr',  g:'Cost & space',  type:'num'},
+ {k:'boot', t:'Boot l',      g:'Cost & space',  type:'num'},
+ {k:'legr', t:'Rear room',   g:'Cost & space',  type:'num'},
+ {k:'lux',  t:'Lux',         g:'Ratings',       type:'num'},
+ {k:'exc',  t:'Excite',      g:'Ratings',       type:'num'},
+ {k:'fea',  t:'Feat',        g:'Ratings',       type:'num'},
+ {k:'dep',  t:'Deprec',      g:'Ratings',       type:'num'},
+ {k:'mnt',  t:'Maint',       g:'Ratings',       type:'num'},
+ {k:'rel',  t:'Reli',        g:'Ratings',       type:'num'},
+ {k:'stab', t:'Stability',   g:'Ratings',       core:1,sort:0}
 ];
+const PARAMS=[{k:'lux',t:'Luxury',w:1},{k:'exc',t:'Excitement',w:1},{k:'fea',t:'Features',w:1},
+ {k:'dep',t:'Depreciation',w:3},{k:'mnt',t:'Maintenance',w:1.5},{k:'rel',t:'Reliability',w:1.5}];
+const D_LO=3250,D_HI=7500;
+const dsc=m=>Math.max(1,Math.min(5,5-4*(m-D_LO)/(D_HI-D_LO)));
 
-const PARAMS = [
-  {k:'lux', t:'Luxury',       w:1},
-  {k:'exc', t:'Excitement',   w:1},
-  {k:'fea', t:'Features',     w:1},
-  {k:'dep', t:'Depreciation', w:3},
-  {k:'mnt', t:'Maintenance',  w:1.5},
-  {k:'rel', t:'Reliability',  w:1.5}
-];
-
-const D_LO=3250, D_HI=7930;
-const depScore = m => Math.max(1, Math.min(5, 5 - 4*(m-D_LO)/(D_HI-D_LO)));
-
-const DATA = [
+const DATA=[
 {model:'BMW M440i xDrive GC',price:46890,year:'01.2022',yr:2022,km:29973,ps:374,zh:4.7,pw:'ICE',doors:4,
- train:'3.0 B58 I6 turbo + 48V, 500 Nm',rlo:43500,rhi:51500,listings:10,depmid:3750,tax:770,energy:1750,
- lux:3.9,exc:3.2,fea:4.8,mnt:4.0,rel:4.8,fixed:true,
- seller:'Falcon Otelfingen',url:'https://www.autoscout24.ch/de/d/bmw-m440i-xdrive-48v-gran-coupe-steptronic-12611675'},
+ depmid:3750,tax:770,energy:1750,wear:800,war:24,wint:1,rate:4.4,rev:74,boot:470,legr:3.5,
+ lux:3.9,exc:3.2,fea:4.8,mnt:4.0,rel:4.8,fixed:1,
+ train:'3.0 B58 inline-six turbo + 48 V mild hybrid · 374 PS · 500 Nm · 8-speed ZF · 8.1 l/100 km',
+ seller:'Falcon AG, Otelfingen',listings:10,
+ url:'https://www.autoscout24.ch/de/d/bmw-m440i-xdrive-48v-gran-coupe-steptronic-12611675',
+ img:'https://listing-images.autoscout24.ch/listing/675/12611675/2048058377.jpg?w=1200&q=90',
+ oq:['The 24-month warranty is listed "auf Anfrage erhältlich" — it costs extra. Get the price before comparing.',
+     'A recent Google review of the seller reads "Nicht Vertrauenswürdig". Worth reading the rest before visiting.'],
+ opts:[['Technologie Paket','Bundles Laserlicht, gesture control and the upgraded display.'],
+   ['BMW Laserlicht','Laser high beam, roughly double the range of LED. Deleted at the 2024 facelift, so pre-facelift only.'],
+   ['Glasschiebedach',''],['Standheizung','Auxiliary heater — warms the cabin before you get in, on a timer or from the app.'],
+   ['Head-Up Display',''],['Driving Assistant Professional','Lane keeping, steering assist and adaptive cruise with stop and go.'],
+   ['Parking Assistant Plus','Automated parking plus the 360° camera and reversing assistant.'],
+   ['360° Kamera',''],['harman/kardon Surround',''],['Gestiksteuerung','Hand-gesture control for volume and calls.'],
+   ['Komfortzugang','Keyless entry and start.'],['El. Vordersitze mit Memory',''],['Lenkradheizung',''],
+   ['M Interieurleisten Carbon Fibre',''],['Sonnenschutzverglasung','Tinted rear glass.'],
+   ['8-fach bereift','Two full wheel sets — summer and winter, on separate rims.']]},
+
 {model:'BMW M340i xDrive',price:41800,year:'01.2021',yr:2021,km:56400,ps:374,zh:4.4,pw:'ICE',doors:4,
- train:'3.0 B58 I6 turbo + 48V, 500 Nm',rlo:39900,rhi:49900,listings:7,depmid:3250,tax:770,energy:1750,
- lux:3.4,exc:3.2,fea:3.9,mnt:4.0,rel:4.8,fixed:false,
- seller:'A&S Dorfgarage',url:'https://www.autoscout24.ch/de/d/bmw-m340i-xdrive-20529448'},
+ depmid:3250,tax:770,energy:1750,wear:800,war:12,wint:0,rate:4.3,rev:120,boot:480,legr:4.0,
+ lux:3.4,exc:3.2,fea:3.9,mnt:4.0,rel:4.8,fixed:0,
+ train:'3.0 B58 inline-six turbo + 48 V mild hybrid · 374 PS · 500 Nm · 8-speed ZF · ~8 l/100 km',
+ seller:'A&S Dorfgarage, Kirchdorf AG',listings:7,
+ url:'https://www.autoscout24.ch/de/d/bmw-m340i-xdrive-20529448',img:'https://listing-images.autoscout24.ch/listing/448/20529448/631634360.jpg?w=1200&q=90',
+ oq:['Candidate not fixed — still weighing this against M&F Automobile at CHF 46,900.',
+     'Warranty costs CHF 1,350 extra here. The M&F car makes three different warranty claims that need untangling.'],
+ opts:[['Head-Up Display',''],['Surround View','Multi-camera all-round view for parking.'],
+   ['Parking Assistant Plus',''],['Komfortzugang','Keyless entry and start.'],['Lenkradheizung',''],
+   ['Lordosenstütze','Adjustable lumbar support.'],
+   ['Gratis Servicepaket 10 Jahre','Servicing covered for ten years — unusual, and transfers with the car.']]},
+
 {model:'Kia Stinger GT',price:39900,year:'06.2022',yr:2022,km:64000,ps:366,zh:4.9,pw:'ICE',doors:4,
- train:'3.3 V6 twin-turbo, AWD',rlo:39900,rhi:45999,listings:2,depmid:3500,tax:750,energy:2360,
- lux:3.2,exc:3.4,fea:3.8,mnt:3.6,rel:4.0,fixed:true,
- seller:'Garage P&P, official Kia',url:'https://www.autoscout24.ch/de/d/kia-stinger-gt-33-t-gdi-20586855'},
+ depmid:3500,tax:750,energy:2360,wear:800,war:34,wint:0,rate:4.7,rev:56,boot:406,legr:4.2,
+ lux:3.2,exc:3.4,fea:3.8,mnt:3.6,rel:4.0,fixed:1,
+ train:'3.3 V6 twin-turbo · 366 PS · AWD · 8-speed auto · 10.8 l/100 km',
+ seller:'Garage P&P AG, Aesch — official Kia',listings:2,
+ url:'https://www.autoscout24.ch/de/d/kia-stinger-gt-33-t-gdi-20586855',img:'https://listing-images.autoscout24.ch/listing/855/20586855/1614675397.jpeg?w=1200&q=90',
+ oq:['Modified: body kit and NAP valved exhaust. Listing says both are eingetragen und vorgeführt — confirm on the Fahrzeugausweis.',
+     'Two listings in the whole country and the model is discontinued. Selling it in three years means waiting for the one buyer who wants one.'],
+ opts:[['Kia Werksgarantie 84 Monate / 150,000 km','Seven years from first registration — the longest cover of any car in this search, running to about 06.2029.'],
+   ['360° Kamera',''],['Adaptives Kurvenlicht','Headlights that steer into the corner.'],
+   ['Adaptives variables Fahrwerk','Electronically adjustable damping.'],
+   ['Body-Kit + NAP Klappenauspuffanlage','Aftermarket bodywork and a valved exhaust that opens under load.']]},
+
 {model:'BMW M3 Competition',price:69790,year:'03.2022',yr:2022,km:45100,ps:510,zh:3.5,pw:'ICE',doors:4,
- train:'3.0 S58 I6 twin-turbo, 650 Nm',rlo:65960,rhi:70990,listings:9,depmid:4500,tax:1020,energy:2190,
- lux:4.0,exc:4.9,fea:4.5,mnt:2.4,rel:4.0,fixed:true,
- seller:'automoor Stäfa',url:'https://www.autoscout24.ch/de/d/bmw-m3-competition-m-xdrive-ch-fahrzeug-20710056'},
+ depmid:4500,tax:1020,energy:2190,wear:1200,war:24,wint:0,rate:4.7,rev:525,boot:480,legr:4.0,
+ lux:4.0,exc:4.9,fea:4.5,mnt:2.4,rel:4.0,fixed:1,
+ train:'3.0 S58 inline-six twin-turbo · 510 PS · 650 Nm · 8-speed M Steptronic · M xDrive · 10.2 l/100 km',
+ seller:'automoor AG, Stäfa',listings:9,
+ url:'https://www.autoscout24.ch/de/d/bmw-m3-competition-m-xdrive-ch-fahrzeug-20710056',img:'https://listing-images.autoscout24.ch/listing/56/20710056/974245230.JPG?w=1200&q=90',
+ oq:['Ask directly whether the car has seen track use — the main thing that separates a good S58 from an expensive one.',
+     'CHF 69,790 is above the roughly CHF 65,000 available after the MX-5 sells.'],
+ opts:[['24 Monate / 40,000 km Quality1','The only real included warranty among the M3 finalists.'],
+   ['Elektrisches Glasdach',''],['harman/kardon',''],['Gestiksteuerung',''],
+   ['Driving Assistant Professional',''],['Parking Assistant Plus',''],['BMW Laserlicht',''],
+   ['Shadow Line','Gloss-black exterior trim in place of chrome.'],
+   ['BMW Individual Interieurleisten Pianolack','Individual-programme piano-black cabin trim.']]},
+
 {model:'BMW i4 M50',price:38900,year:'08.2022',yr:2022,km:43000,ps:544,zh:3.9,pw:'EV',doors:4,
- train:'83.9 kWh · 400 V · 205 kW DC',rlo:36900,rhi:40900,listings:7,depmid:5000,tax:1065,energy:1250,
- lux:4.0,exc:3.2,fea:4.5,mnt:4.2,rel:4.2,fixed:false,
- seller:'Steiner Kriens',url:'https://www.autoscout24.ch/de/d/bmw-i4-m50-20705719'},
+ depmid:5000,tax:1065,energy:1250,wear:700,war:12,wint:0,rate:4.3,rev:199,boot:470,legr:3.8,
+ lux:4.0,exc:3.2,fea:4.5,mnt:4.2,rel:4.2,fixed:0,
+ train:'83.9 kWh gross (~81 net) · 400 V · 205 kW DC peak · ~31 min 10–80% · 544 PS · 416 km (listing figure, 19" wheels)',
+ seller:'Steiner Group, Kriens',listings:7,
+ url:'https://www.autoscout24.ch/de/d/bmw-i4-m50-20705719',img:'https://listing-images.autoscout24.ch/listing/719/20705719/2100575425.jpg?w=1200&q=90',
+ oq:['Candidate not fixed — three finalists at CHF 38,900–39,900.',
+     'This car shows 96% battery at only 43,000 km, the weakest per-km figure of the three. Ask why, and which tool measured it.',
+     'Still waiting on an SoH number from the Pierig car.'],
+ opts:[['Gratis Service 10 Jahre / 100,000 km','Servicing covered and transferable.'],
+   ['Glasdach',''],['Sitzbelüftung',''],['harman/kardon',''],['BMW Laserlicht',''],
+   ['Driving Assistant Professional',''],['Parking Assistant Plus',''],['19" Räder','']]},
+
 {model:'Audi e-tron GT quattro',price:47600,year:'02.2022',yr:2022,km:22000,ps:476,zh:4.1,pw:'EV',doors:4,
- train:'93.4 kWh · 800 V · 270 kW DC',rlo:42990,rhi:49990,listings:11,depmid:5750,tax:1050,energy:1250,
- lux:4.8,exc:3.9,fea:4.9,mnt:3.4,rel:4.0,fixed:true,
- seller:'Auto Heidegg Hitzkirch',url:'https://www.autoscout24.ch/en/d/audi-e-tron-gt-quattro-20481725'},
+ depmid:5750,tax:1050,energy:1250,wear:700,war:12,wint:0,rate:4.8,rev:107,boot:405,legr:3.2,
+ lux:4.8,exc:3.9,fea:4.9,mnt:3.4,rel:4.0,fixed:1,
+ train:'93.4 kWh · 800 V · 270 kW DC peak · 476 PS (530 on overboost) · 501 km · 400-Volt-Booster plus',
+ seller:'Auto Heidegg, Hitzkirch',listings:11,
+ url:'https://www.autoscout24.ch/en/d/audi-e-tron-gt-quattro-20481725',img:'https://listing-images.autoscout24.ch/listing/725/20481725/1013857261.JPG?w=1200&q=90',
+ oq:['Ask for the service history and the list of completed recall campaigns — J1-platform cars had early software and 12-volt issues, closed by VIN not by model year.'],
+ opts:[['Optikpaket schwarz','Gloss-black exterior trim package.'],
+   ['Sportsitze pro','Higher-bolstered sports seats with more adjustment.'],
+   ['Adaptive Luftfederung','Air suspension with adjustable height and damping.'],
+   ['Sitzbelüftung mit Massagefunktion','Ventilated seats with massage — nothing else in this field has it.'],
+   ['Matrix LED','Pixel-controlled high beam that masks oncoming traffic rather than dipping.'],
+   ['Bang & Olufsen Premium 3D',''],['360° Kamera',''],['Adaptiver Fahrassistent','Lane centring plus adaptive cruise.'],
+   ['Sportlenkrad unten abgeflacht mit Lenkradheizung',''],
+   ['Ambiente-Lichtpaket plus','Multi-colour interior lighting.'],['Feinnappa / Dinamica','']]},
+
 {model:'Tesla Model 3 Performance',price:44490,year:'08.2024',yr:2024,km:22500,ps:627,zh:3.1,pw:'EV',doors:4,
- train:'79 kWh · 400 V · 250 kW DC',rlo:36900,rhi:49499,listings:7,depmid:5000,tax:1120,energy:1200,
- lux:2.4,exc:3.8,fea:2.8,mnt:4.8,rel:4.2,fixed:true,
- seller:'Aarauto Aarau',url:'https://www.autoscout24.ch/de/d/tesla-model-3-dual-motor-performance-awd-20689926'},
+ depmid:5000,tax:1120,energy:1200,wear:700,war:72,wint:0,rate:5.0,rev:232,boot:594,legr:4.0,
+ lux:2.4,exc:3.8,fea:2.8,mnt:4.8,rel:4.2,fixed:1,
+ train:'79 kWh · 400 V · ~250 kW DC peak · 627 PS Highland Performance · 580 km',
+ seller:'Aarauto, Aarau',listings:7,
+ url:'https://www.autoscout24.ch/de/d/tesla-model-3-dual-motor-performance-awd-20689926',img:'https://listing-images.autoscout24.ch/listing/926/20689926/472521060.JPG?w=1200&q=90',
+ oq:['Nothing outstanding. Confirm the 97.7% SoH figure came from a proper report rather than the car\u2019s own display.'],
+ opts:[['Highland facelift','The 2024 revision — includes the 8" rear-seat screen.'],
+   ['SoH 97.7% stated','Battery health published in the listing.'],
+   ['96 Monate / 192,000 km','Battery and drive unit cover.'],
+   ['Metallic + red special paint','']]},
+
 {model:'Ford Mustang Fastback GT',price:43900,year:'06.2021',yr:2021,km:33400,ps:449,zh:4.5,pw:'ICE',doors:2,
- train:'5.0 Coyote V8, RWD',rlo:42400,rhi:49897,listings:5,depmid:4250,tax:910,energy:2540,
- lux:2.2,exc:4.7,fea:4.0,mnt:2.6,rel:3.6,fixed:false,
- seller:'Schloss-Garage Buckten',url:'https://www.autoscout24.ch/en/d/ford-mustang-fastback-50-v8-gt-automat-20374174'},
+ depmid:4250,tax:910,energy:2540,wear:1200,war:12,wint:1,rate:4.7,rev:156,boot:408,legr:1.5,
+ lux:2.2,exc:4.7,fea:4.0,mnt:2.6,rel:3.6,fixed:0,
+ train:'5.0 Coyote V8 naturally aspirated · 449 PS · RWD · 10-speed auto · ~11.6 l/100 km',
+ seller:'Schloss-Garage Tartari, Buckten',listings:5,
+ url:'https://www.autoscout24.ch/en/d/ford-mustang-fastback-50-v8-gt-automat-20374174',img:'https://listing-images.autoscout24.ch/listing/174/20374174/1813031456.jpg?w=1200&q=90',
+ oq:['Two doors — this is the rule that removed the M440i and M3 coupés from the search. Decide whether it still applies.',
+     'Candidate not fixed. The Vettiger car at CHF 48,500 has Recaros and Premium-Paket III; the VOGELS car has 4,046 km.'],
+ opts:[['Navi-Paket mit B&O 12-Lautsprecher',''],
+   ['Sitzbelüftung und -heizung vorne',''],['Adaptive Geschwindigkeitsregelung',''],
+   ['Rückfahrkamera',''],['4 Winterreifen','Winter set included.'],
+   ['Garantie Motor und Automat, europaweit','Cover on the two most expensive components, valid across Europe.']]},
+
 {model:'BMW i4 M60',price:59900,year:'09.2025',yr:2025,km:18000,ps:601,zh:3.7,pw:'EV',doors:4,
- train:'83.9 kWh · 400 V · 205 kW DC',rlo:59900,rhi:59900,listings:1,depmid:6250,tax:1165,energy:1250,
- lux:4.1,exc:3.4,fea:4.6,mnt:4.2,rel:4.1,fixed:true,
- seller:'Steiner Luzern',url:'https://www.autoscout24.ch/de/d/bmw-i4-m60-m-sport-pro-20698494'},
+ depmid:6250,tax:1165,energy:1250,wear:700,war:25,wint:0,rate:4.2,rev:367,boot:470,legr:3.8,
+ lux:4.1,exc:3.4,fea:4.6,mnt:4.2,rel:4.1,fixed:1,
+ train:'83.9 kWh gross · 400 V · 205 kW DC peak · 601 PS · 433 km (listing figure)',
+ seller:'Steiner Group AG, Luzern',listings:1,
+ url:'https://www.autoscout24.ch/de/d/bmw-i4-m60-m-sport-pro-20698494',img:'https://listing-images.autoscout24.ch/listing/494/20698494/1658963824.jpg?w=1200&q=90',
+ oq:['Only one listing under CHF 65,000 nationally — no comparables, no negotiating room, no fallback if it disappoints on inspection.',
+     'Eleven months old and already down roughly 40% from a ~CHF 100,000 list price.'],
+ opts:[['BMW Werksgarantie bis 09.2028','Factory cover through a full three-year hold.'],
+   ['Gratisservice 10 Jahre / 100,000 km',''],['Batteriezertifikat 98%',''],
+   ['M Sportpaket Pro',''],['Komfort Paket',''],['Innovationspaket II','Bundles the head-up display and driving assistants.'],
+   ['harman/kardon',''],['Driving Assistant Professional',''],['Glasdach',''],['Lenkradheizung','']]},
+
 {model:'Porsche Taycan 4S',price:49900,year:'08.2021',yr:2021,km:38195,ps:490,zh:4.0,pw:'EV',doors:4,
- train:'93.4 kWh PB+ · 800 V · 270 kW DC',rlo:43999,rhi:59880,listings:9,depmid:6000,tax:1110,energy:1250,
- lux:4.9,exc:4.2,fea:3.8,mnt:3.0,rel:3.9,fixed:true,
- seller:'Carvolution Langenthal',url:'https://www.autoscout24.ch/de/d/porsche-taycan-4s-20579229'},
+ depmid:6000,tax:1110,energy:1250,wear:1100,war:12,wint:1,rate:null,rev:null,boot:407,legr:3.2,
+ lux:4.9,exc:4.2,fea:3.8,mnt:3.0,rel:3.9,fixed:1,
+ train:'93.4 kWh Performance Battery Plus · 800 V · 270 kW DC peak · 490 PS continuous / 571 overboost · 400 V booster on board',
+ seller:'Carvolution Outlet, Langenthal',listings:9,
+ url:'https://www.autoscout24.ch/de/d/porsche-taycan-4s-20579229',img:'https://listing-images.autoscout24.ch/listing/229/20579229/835993004.JPG?w=1200&q=90',
+ oq:['The listing says Porsche Approved-Garantie, but Carvolution is a used-car outlet, not a Porsche Centre. Ask who issued it and whether it transfers.',
+     'Ask for the certification date alongside the completed campaign list — Approved is a point-in-time inspection and says nothing about campaigns issued since.',
+     'The 319 km range in the listing data is a data-entry artefact; this is a Performance Battery Plus car.'],
+ opts:[['Panorama-Festglasdach','Fixed glass roof, no sliding panel.'],
+   ['Adaptive Sportsitze Plus, 18-Wege mit Memory','Eighteen-way electric adjustment including bolster width.'],
+   ['Abstandsregeltempostat','Adaptive cruise control.'],
+   ['ParkAssistent inkl. Rückfahrkamera',''],['Spurwechselassistent','Blind-spot and lane-change warning.'],
+   ['8-fach bereift','Both wheel sets included.']]},
+
 {model:'Audi RS e-tron GT',price:49800,year:'08.2021',yr:2021,km:44150,ps:599,zh:3.3,pw:'EV',doors:4,
- train:'93.4 kWh · 800 V · 270 kW DC',rlo:49800,rhi:53900,listings:2,depmid:6250,tax:1180,energy:1300,
- lux:4.8,exc:4.6,fea:3.9,mnt:2.8,rel:3.9,fixed:true,
- seller:'NAF Gelterkinden',url:'https://www.autoscout24.ch/en/d/audi-rs-e-tron-gt-quattro-20509864'},
+ depmid:6250,tax:1180,energy:1300,wear:1100,war:36,wint:0,rate:4.9,rev:474,boot:405,legr:3.2,
+ lux:4.8,exc:4.6,fea:3.9,mnt:2.8,rel:3.9,fixed:1,
+ train:'93.4 kWh · 800 V · 270 kW DC peak · 599 PS (637 on overboost) · 469 km · 400-Volt-Booster plus',
+ seller:'NAF Automobile GmbH, Gelterkinden',listings:2,
+ url:'https://www.autoscout24.ch/en/d/audi-rs-e-tron-gt-quattro-20509864',img:'https://listing-images.autoscout24.ch/listing/864/20509864/927191831.jpeg?w=1200&q=90',
+ oq:['Three different warranty claims in one listing: 96 months on the HV battery in the data field, 10 years free servicing and 6 years battery cover in the headline. Ask which is contractual and what covers the rest of the car.',
+     'Two listings nationally — thin market, no price discovery.',
+     'Ask for the completed recall campaign list, same as the e-tron GT.'],
+ opts:[['96 Monate / 160,000 km Hochvolt-Batterie','Battery cover only — the rest of the car is not included.'],
+   ['Akustikverglasung','Laminated acoustic glass, noticeably quieter at speed.'],
+   ['Adaptiver Fahrassistent mit Notfallassistent','Adds an emergency assistant that stops the car if the driver is unresponsive.'],
+   ['Audi connect Diebstahl-Ortung','Vehicle tracking.'],
+   ['Audi exclusive Lederausstattung','Individual-programme leather on the controls.'],
+   ['Carbon Köper Dekor',''],['400-Volt-Booster plus','Lets an 800 V car draw high power from ordinary 400 V chargers.']]},
+
 {model:'BMW i5 M60 xDrive',price:56900,year:'08.2023',yr:2023,km:27790,ps:601,zh:3.8,pw:'EV',doors:4,
- train:'84.3 kWh · 400 V · 205 kW DC',rlo:46900,rhi:59900,listings:10,depmid:6750,tax:1165,energy:1250,
- lux:4.7,exc:3.0,fea:4.7,mnt:4.1,rel:4.0,fixed:true,
- seller:'IBA Niederlenz',url:'https://www.autoscout24.ch/de/d/bmw-i5-m60-xdrive-20718687'},
+ depmid:6750,tax:1165,energy:1250,wear:700,war:0,wint:0,rate:4.6,rev:164,boot:490,legr:4.6,
+ lux:4.7,exc:3.0,fea:4.7,mnt:4.1,rel:4.0,fixed:1,
+ train:'84.3 kWh gross (~81.2 net) · 400 V · 205 kW DC peak · 601 PS · 457 km (listing figure, 21" wheels)',
+ seller:'IBA Niederlenz',listings:10,
+ url:'https://www.autoscout24.ch/de/d/bmw-i5-m60-xdrive-20718687',img:'https://listing-images.autoscout24.ch/listing/687/20718687/2076154143.jpg?w=1200&q=90',
+ oq:['Vehicle warranty is 36 months from 08.2023, so it runs out this month. But the listing also carries a battery warranty of 8 years / 160,000 km to ~08.2031 and Gratisservice 10 years / 100,000 km — so it is not uncovered, as Claude earlier said. Confirm both transfer.',
+     'No SoH figure published. Get a battery certificate before committing.'],
+ opts:[['Batteriegarantie 8 Jahre / 160,000 km','Runs to about 08.2031 — far longer than the vehicle warranty.'],['Gratisservice 10 Jahre / 100,000 km',''],['Panoramadach SkyLounge','Illuminated panoramic glass roof.'],
+   ['Innovationspaket',''],['Komfortpaket',''],['Travel Paket',''],
+   ['Anhängerkupplung','Tow bar.'],['Driving Assistant Professional',''],['Parking Assistant Plus','']]},
+
 {model:'Polestar 4 LR Dual',price:41899,year:'09.2024',yr:2024,km:18700,ps:544,zh:3.8,pw:'EV',doors:4,
- train:'100 kWh · 400 V · 200 kW DC',rlo:41899,rhi:49995,listings:7,depmid:5500,tax:1150,energy:1300,
- lux:4.2,exc:3.0,fea:2.4,mnt:4.6,rel:3.0,fixed:true,
- seller:'Auto Bonau',url:'https://www.autoscout24.ch/de/d/polestar-4-long-range-dual-motor-20361782'},
+ depmid:5500,tax:1150,energy:1300,wear:700,war:1,wint:0,rate:5.0,rev:234,boot:526,legr:4.8,
+ lux:4.2,exc:3.0,fea:2.4,mnt:4.6,rel:3.0,fixed:1,
+ train:'100 kWh · 400 V · ~200 kW DC peak · 544 PS · 590 km',
+ seller:'Auto Bonau AG, Bonau',listings:7,
+ url:'https://www.autoscout24.ch/de/d/polestar-4-long-range-dual-motor-20361782',img:'https://listing-images.autoscout24.ch/listing/782/20361782/888140199.jpg?w=1200&q=90',
+ oq:['THE key question: this listing shows 24 months expiring around 09.2026, while other 2024 Polestar 4s show 60. Either a data-entry error or a non-Swiss-delivery car. One call settles it — and if the Swiss five-year term applies, this is the cheapest strong car in the whole search.',
+     'Base specification: metallic paint is the only option listed. No Pack Plus, so no head-up display, no harman/kardon, no Pixel LED.',
+     'No rear window at all — the mirror is camera-fed.'],
+ opts:[['Batteriezertifikat','Battery certificate attached to the listing.'],
+   ['Metallic-Lackierung',''],
+   ['Kamera-Rückspiegel','There is no rear window; the mirror shows a roof-camera feed.']]},
+
 {model:'BMW M5 Competition',price:69900,year:'05.2023',yr:2023,km:51800,ps:600,zh:3.4,pw:'ICE',doors:4,
- train:'4.4 S63 V8 twin-turbo, 750 Nm',rlo:69490,rhi:69900,listings:4,depmid:5750,tax:1170,energy:2190,
- lux:4.6,exc:4.8,fea:4.8,mnt:2.0,rel:3.0,fixed:true,
- seller:'AUTO MAXL Herisau',url:'https://www.autoscout24.ch/de/d/bmw-m5-xdrive-drivelogic-20458141'},
+ depmid:5750,tax:1170,energy:2190,wear:1200,war:21,wint:0,rate:null,rev:null,boot:530,legr:4.6,
+ lux:4.6,exc:4.8,fea:4.8,mnt:2.0,rel:3.0,fixed:1,
+ train:'4.4 S63 V8 twin-turbo · 600 PS · 750 Nm · 8-speed M Steptronic · xDrive · ~11 l/100 km',
+ seller:'AUTO MAXL AG, Herisau',listings:4,
+ url:'https://www.autoscout24.ch/de/d/bmw-m5-xdrive-drivelogic-20458141',img:'https://listing-images.autoscout24.ch/listing/141/20458141/681973983.jpg?w=1200&q=90',
+ oq:['This is a 600 PS standard M5, not the 625 PS Competition. If Competition specifically is what you want, it is off-model.',
+     'The S63 is the weakest engine here on paper — turbo oil lines, hot-V coolant leaks, timing chain guides. The factory warranty to 05.2028 is doing real work on this specific car.',
+     'CHF 69,900 against roughly CHF 65,000 available.'],
+ opts:[['BMW Werksgarantie bis 05.2028','Sixty months from first registration — covers a full three-year hold.'],
+   ['Bowers & Wilkins',''],['Soft-Close-Türen','Doors pull themselves shut from ajar.'],
+   ['Glasdach',''],['Sitzbelüftung',''],['M Multifunktionssitze',''],['BMW Laserlicht',''],
+   ['Driving Assistant Professional',''],['Active Protection','Pre-tensions belts and closes windows when a crash is detected.'],
+   ['BMW Display Key','Key with a screen showing range, locks and the auxiliary heater.'],
+   ['Wireless Charging',''],['Lenkradheizung','']]},
+
 {model:'Tesla Model S Plaid',price:68770,year:'06.2023',yr:2023,km:31400,ps:1020,zh:2.1,pw:'EV',doors:4,
- train:'100 kWh · 400 V · 250 kW DC',rlo:54900,rhi:69900,listings:4,depmid:7500,tax:1300,energy:1400,
- lux:3.9,exc:4.9,fea:4.2,mnt:3.2,rel:3.2,fixed:true,
- seller:'Outrun Carouge',url:'https://www.autoscout24.ch/de/d/tesla-model-s-100-kwh-plaid-20643802'},
-{model:'BYD Seal AWD',price:42790,year:'09.2026',yr:2026,km:0,ps:530,zh:3.8,pw:'EV',doors:4,
- train:'82.5 kWh · 400 V · 150 kW DC · new car',rlo:42790,rhi:42790,listings:null,depmid:7930,tax:1040,energy:1250,
- lux:3.3,exc:3.0,fea:4.0,mnt:4.6,rel:2.8,fixed:true,seller:null,url:null}
+ depmid:7500,tax:1300,energy:1400,wear:1100,war:10,wint:1,rate:4.9,rev:285,boot:709,legr:4.4,
+ lux:3.9,exc:4.9,fea:4.2,mnt:3.2,rel:3.2,fixed:1,
+ train:'100 kWh · 400 V · ~250 kW DC peak · tri-motor 1,020 PS · 600 km',
+ seller:'Outrun Motor Company SA, Carouge',listings:4,
+ url:'https://www.autoscout24.ch/de/d/tesla-model-s-100-kwh-plaid-20643802',img:'https://listing-images.autoscout24.ch/listing/802/20643802/588623339.png?w=1200&q=90',
+ oq:['Warranty runs out around 06.2027 — roughly ten months. Out-of-warranty Model S costs are high and Swiss service capacity is thinner than for a Model 3.',
+     'CHF 68,770 against roughly CHF 65,000 available.',
+     'Confirm whether the included Full Self-Driving transfers to you on resale — historically Tesla has not allowed it.'],
+ opts:[['Full Self-Driving Capability','A roughly CHF 8,000 option, included here. Confirm transferability.'],
+   ['Yoke-Lenkrad','The aircraft-style half wheel rather than a round one.'],
+   ['Panorama-Glasdach',''],['21" Arachnid Räder',''],
+   ['Black & White Interieur mit Carbon',''],['Sommer- und Winterräder','Both sets included.']]},
+
+{model:'BYD Seal AWD Excellence',price:39800,year:'2026',yr:2026,km:10,ps:530,zh:3.8,pw:'EV',doors:4,
+ depmid:6933,tax:1040,energy:1250,wear:700,war:72,wint:0,rate:4.7,rev:236,boot:400,legr:4.0,
+ lux:3.3,exc:3.0,fea:4.0,mnt:4.6,rel:2.8,fixed:1,
+ train:'82.5 kWh blade LFP · 400 V · ~150 kW DC peak · 530 PS · 520 km',
+ seller:'Auto Steiner Zürich AG',listings:1,
+ url:'https://www.autoscout24.ch/de/d/byd-seal-82-5-kwh-excellence-20685340',
+ img:'https://listing-images.autoscout24.ch/listing/340/20685340/1880769663.jpg?w=1200&q=90',
+ oq:['Effectively a new car — Tageszulassung with 10 km. You absorb the entire first-year depreciation, which is the specific thing this exercise has been avoiding.',
+     'Depreciation here is exact, not a band: CHF 39,800 against your stated CHF 19,000 residual is CHF 6,933 a year.',
+     'List price is CHF 56,090, so the discount is already CHF 16,290 — worth checking what the next batch is priced at before committing.'],
+ opts:[['6 Jahre / 150,000 km Werksgarantie','Vehicle warranty from first registration.'],
+   ['8 Jahre / 150,000 km Antriebseinheit','Motor and controller cover — separate and longer.'],
+   ['Blade-Batterie LFP','Lithium iron phosphate — longer cycle life and no cobalt, but lower energy density and slower DC charging.'],
+   ['11 kW Bordladegerät','On-board AC charger.'],
+   ['2 Smartkeys + NFC-Schlüsselkarte',''],['Premium Metallic-Lackierung','']]}
 ];
-DATA.forEach(r=>{ r.dep = depScore(r.depmid); });
+DATA.forEach(r=>{
+  r.dep=dsc(r.depmid);
+  r.cost3=(r.depmid+r.tax+r.energy+r.wear)*3;
+  r.exkm=r.km+37500;
+});
 
-let ON = {}; PARAMS.forEach(p=>ON[p.k]=true);
-let VIS = {}; COLS.forEach(c=>VIS[c.k]=true);
-let sortKey='score', sortDir='desc';
-const F={q:'',pw:'all',dr:'all',fx:'all',maxprice:70000,maxkm:64000,minyear:2021,maxdep:7930,minlist:0};
+let ON={};PARAMS.forEach(p=>ON[p.k]=true);
+let VIS={};COLS.forEach(c=>VIS[c.k]=true);
+let sortKey='score',sortDir='desc';
+const F={q:'',pw:'all',dr:'all',fx:'all',maxprice:70000,maxkm:64000,minyear:2021,maxcost:34000,minwar:0,minboot:0};
 
-const fmt = n => n==null ? '—' : n.toLocaleString('en-CH').replace(/,/g,"'");
-const esc = s => String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const band = v => v>=4.5?5 : v>=3.5?4 : v>=2.5?3 : v>=1.5?2 : 1;
+const fmt=n=>n==null?'—':n.toLocaleString('en-CH').replace(/,/g,"'");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const bnd=v=>v>=4.5?5:v>=3.5?4:v>=2.5?3:v>=1.5?2:1;
 
-/* recompute score, value and rank across ALL rows */
+const SCEN=[{lux:1,exc:1,fea:1,dep:3,mnt:1.5,rel:1.5},{lux:1,exc:1,fea:1,dep:1,mnt:1,rel:1},
+ {lux:3,exc:1,fea:1,dep:1,mnt:1,rel:1},{lux:1,exc:3,fea:1,dep:1,mnt:1,rel:1},
+ {lux:1,exc:1,fea:3,dep:1,mnt:1,rel:1},{lux:1,exc:1,fea:1,dep:1,mnt:3,rel:1},
+ {lux:1,exc:1,fea:1,dep:1,mnt:1,rel:3}];
+
 function recompute(){
-  const active = PARAMS.filter(p=>ON[p.k]);
-  const wsum = active.reduce((s,p)=>s+p.w,0);
+  const act=PARAMS.filter(p=>ON[p.k]), ws=act.reduce((s,p)=>s+p.w,0);
   DATA.forEach(r=>{
-    r.score = wsum ? active.reduce((s,p)=>s+r[p.k]*p.w,0)/wsum : 0;
-    r._raw  = r.score / r.price;
+    r.score=ws?act.reduce((s,p)=>s+r[p.k]*p.w,0)/ws:0;
+    r._raw=r.score/r.price;
   });
-  const raws = DATA.map(r=>r._raw), lo=Math.min(...raws), hi=Math.max(...raws);
-  DATA.forEach(r=>{ r.value = (hi>lo) ? 1 + 4*(r._raw-lo)/(hi-lo) : 3; });
-  [...DATA].sort((a,b)=>b.score-a.score).forEach((r,i)=>{ r.rank = i+1; });
+  const raws=DATA.map(r=>r._raw),lo=Math.min(...raws),hi=Math.max(...raws);
+  DATA.forEach(r=>r.value=hi>lo?1+4*(r._raw-lo)/(hi-lo):3);
+  [...DATA].sort((a,b)=>b.score-a.score).forEach((r,i)=>r.rank=i+1);
+  DATA.forEach(r=>{r._rs=[]});
+  SCEN.forEach(sc=>{
+    const tot=Object.values(sc).reduce((a,b)=>a+b,0);
+    const tmp=DATA.map(r=>({r,s:PARAMS.reduce((a,p)=>a+r[p.k]*sc[p.k],0)/tot}));
+    tmp.sort((a,b)=>b.s-a.s).forEach((o,i)=>o.r._rs.push(i+1));
+  });
+  DATA.forEach(r=>{r.rbest=Math.min(...r._rs);r.rworst=Math.max(...r._rs)});
 }
 
-/* ---------- param toggles ---------- */
-const paramTogs=document.getElementById('paramTogs');
+const pT=document.getElementById('paramTogs');
 PARAMS.forEach(p=>{
-  const l=document.createElement('label');
-  l.className='tog on';
+  const l=document.createElement('label');l.className='tog on';
   l.innerHTML=`<input type="checkbox" checked id="p-${p.k}"><span>${p.t}</span><span class="w">×${p.w}</span>`;
-  paramTogs.appendChild(l);
-  l.querySelector('input').addEventListener('change',e=>{
-    ON[p.k]=e.target.checked; l.classList.toggle('on',e.target.checked); render();
-  });
+  pT.appendChild(l);
+  l.querySelector('input').addEventListener('change',e=>{ON[p.k]=e.target.checked;l.classList.toggle('on',e.target.checked);render();});
 });
-document.getElementById('resetParams').addEventListener('click',()=>{
-  PARAMS.forEach(p=>{ON[p.k]=true;const i=document.getElementById('p-'+p.k);i.checked=true;i.closest('.tog').classList.add('on');});
-  render();
-});
+document.getElementById('resetParams').onclick=()=>{PARAMS.forEach(p=>{ON[p.k]=1;
+  const i=document.getElementById('p-'+p.k);i.checked=1;i.closest('.tog').classList.add('on');});render();};
 
-/* ---------- column toggles ---------- */
-const colTogs=document.getElementById('colTogs');
+const cT=document.getElementById('colTogs');
 COLS.filter(c=>!c.lock).forEach(c=>{
-  const l=document.createElement('label');
-  l.className='tog on';
+  const l=document.createElement('label');l.className='tog on';
   l.innerHTML=`<input type="checkbox" checked id="c-${c.k}"><span>${esc(c.t)}</span>`;
-  colTogs.appendChild(l);
-  l.querySelector('input').addEventListener('change',e=>{
-    VIS[c.k]=e.target.checked; l.classList.toggle('on',e.target.checked); render();
-  });
+  cT.appendChild(l);
+  l.querySelector('input').addEventListener('change',e=>{VIS[c.k]=e.target.checked;l.classList.toggle('on',e.target.checked);render();});
 });
-function setCols(pred){
-  COLS.filter(c=>!c.lock).forEach(c=>{
-    const v=pred(c); VIS[c.k]=v;
-    const i=document.getElementById('c-'+c.k); i.checked=v; i.closest('.tog').classList.toggle('on',v);
-  });
-  render();
-}
-document.getElementById('colAll').addEventListener('click',()=>setCols(()=>true));
-document.getElementById('colCore').addEventListener('click',()=>setCols(c=>!!c.core));
+const setCols=p=>{COLS.filter(c=>!c.lock).forEach(c=>{const v=!!p(c);VIS[c.k]=v;
+  const i=document.getElementById('c-'+c.k);i.checked=v;i.closest('.tog').classList.toggle('on',v);});render();};
+document.getElementById('colAll').onclick=()=>setCols(()=>1);
+document.getElementById('colCore').onclick=()=>setCols(c=>c.core);
 
-/* ---------- filters ---------- */
 document.getElementById('q').addEventListener('input',e=>{F.q=e.target.value.trim().toLowerCase();render();});
-function chipGroup(id,key){
-  document.getElementById(id).addEventListener('click',e=>{
-    const b=e.target.closest('.chip'); if(!b)return;
-    F[key]=b.dataset[key];
-    [...e.currentTarget.querySelectorAll('.chip')].forEach(c=>c.setAttribute('aria-pressed',String(c===b)));
-    render();
-  });
-}
-chipGroup('pwchips','pw'); chipGroup('drchips','dr'); chipGroup('fxchips','fx');
-function slider(id,key,f){
-  const el=document.getElementById(id), out=document.getElementById(id+'out');
-  el.addEventListener('input',e=>{F[key]=parseFloat(e.target.value);out.textContent=f(F[key]);render();});
-}
-slider('maxprice','maxprice',v=>'CHF '+fmt(v));
-slider('maxkm','maxkm',v=>fmt(v)+' km');
-slider('minyear','minyear',v=>v);
-slider('maxdep','maxdep',v=>'CHF '+fmt(v)+'/yr');
-slider('minlist','minlist',v=>v);
+const chipG=(id,k)=>document.getElementById(id).addEventListener('click',e=>{
+  const b=e.target.closest('.chip');if(!b)return;F[k]=b.dataset[k];
+  [...e.currentTarget.querySelectorAll('.chip')].forEach(c=>c.setAttribute('aria-pressed',String(c===b)));render();});
+chipG('pwchips','pw');chipG('drchips','dr');chipG('fxchips','fx');
+const sl=(id,k,f)=>{const el=document.getElementById(id),o=document.getElementById(id+'out');
+  el.addEventListener('input',e=>{F[k]=+e.target.value;o.textContent=f(F[k]);render();});};
+sl('maxprice','maxprice',v=>'CHF '+fmt(v));sl('maxkm','maxkm',v=>fmt(v)+' km');
+sl('minyear','minyear',v=>v);sl('maxcost','maxcost',v=>'CHF '+fmt(v));
+sl('minwar','minwar',v=>v+' mo');sl('minboot','minboot',v=>v+' l');
 
-/* ---------- render ---------- */
+/* ---- modal ---- */
+const ovl=document.getElementById('ovl');
+function openModal(r){
+  const photo = r.img
+    ? `<img class="mphoto" src="${r.img}" alt="${esc(r.model)}" loading="lazy">`
+    : `<div class="mphoto-ph"><div class="mono" style="font-size:11px;letter-spacing:.14em">NO PHOTO CACHED</div>
+       <div style="font-size:12.5px">This listing URL was reconstructed from a listing ID, so it could not be fetched. Verify the link before relying on it.</div></div>`;
+  document.getElementById('mdl').innerHTML=`
+  <div class="mhd">
+    <h2>${esc(r.model)}</h2>
+    <div class="msub">${r.year} · ${r.km===10?'10 km, Tageszulassung':fmt(r.km)+' km'} · ${r.ps} PS · ${r.pw==='EV'?'Electric':'Petrol'} · ${r.doors} doors</div>
+    <div class="mprice"><span>Candidate</span><b>CHF ${fmt(r.price)}</b></div>
+    <button class="mclose" id="mx" aria-label="Close">×</button>
+  </div>
+  <div class="mbd">
+    ${photo}
+    <div class="msec"><h3>Battery / engine</h3>
+      <p style="margin:0;font-size:13.5px;line-height:1.6">${esc(r.train)}</p></div>
+    <div class="msec"><h3>Key numbers</h3><div class="kv">
+      <div><dt>3-year cost</dt><dd>CHF ${fmt(r.cost3)}</dd></div>
+      <div><dt>Deprec/yr</dt><dd>CHF ${fmt(r.depmid)}</dd></div>
+      <div><dt>Tax/yr</dt><dd>CHF ${fmt(r.tax)}</dd></div>
+      <div><dt>Energy/yr</dt><dd>CHF ${fmt(r.energy)}</dd></div>
+      <div><dt>Warranty left</dt><dd>${r.war} mo</dd></div>
+      <div><dt>Listings seen</dt><dd>${r.listings==null?'—':r.listings}</dd></div>
+      <div><dt>Boot</dt><dd>${r.boot} l</dd></div>
+      <div><dt>Exit km @3yr</dt><dd>${fmt(r.exkm)}</dd></div>
+    </div></div>
+    <div class="msec"><h3>Open questions</h3>
+      ${r.oq&&r.oq.length?`<ul class="oq">${r.oq.map(q=>`<li>${esc(q)}</li>`).join('')}</ul>`
+        :`<ul class="oq"><li class="none">Nothing outstanding on this one.</li></ul>`}</div>
+    <div class="msec"><h3>Options on this car</h3>
+      <ul class="opts">${r.opts.map(([n,d])=>`<li><b>${esc(n)}</b>${d?` — <em>${esc(d)}</em>`:''}</li>`).join('')}</ul></div>
+    <div class="msec"><h3>Listing</h3>
+      ${r.url?`<a class="mlink" href="${r.url}" target="_blank" rel="noopener">${esc(r.seller)} ↗</a>`
+        :`<p class="mnote">No listing.</p>`}
+      <p class="mnote">${r.rate?`Seller rated ${r.rate} from ${r.rev} reviews.`:'No seller rating published.'}${r.fixed?'':' Candidate not yet fixed for this model.'}</p>
+    </div>
+  </div>`;
+  ovl.classList.add('open');document.body.style.overflow='hidden';
+  document.getElementById('mx').onclick=closeModal;
+}
+function closeModal(){ovl.classList.remove('open');document.body.style.overflow='';}
+ovl.addEventListener('click',e=>{if(e.target===ovl)closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+/* ---- scatter ---- */
+function scatter(rows){
+  const W=1000,H=330,mL=64,mR=18,mT=18,mB=46;
+  const xs=rows.map(r=>r.cost3),ys=rows.map(r=>r.score);
+  if(!rows.length){document.getElementById('scatter').innerHTML='';return;}
+  const x0=Math.min(...xs)*.97,x1=Math.max(...xs)*1.03;
+  const y0=Math.max(0,Math.min(...ys)-.3),y1=Math.min(5,Math.max(...ys)+.3);
+  const px=v=>mL+(v-x0)/(x1-x0||1)*(W-mL-mR);
+  const py=v=>H-mB-(v-y0)/(y1-y0||1)*(H-mT-mB);
+  let s='';
+  for(let i=0;i<=4;i++){const y=mT+i*(H-mT-mB)/4;s+=`<line class="sc-gr" x1="${mL}" y1="${y}" x2="${W-mR}" y2="${y}"/>`;}
+  s+=`<line class="sc-ax" x1="${mL}" y1="${H-mB}" x2="${W-mR}" y2="${H-mB}"/>`;
+  s+=`<line class="sc-ax" x1="${mL}" y1="${mT}" x2="${mL}" y2="${H-mB}"/>`;
+  for(let i=0;i<=4;i++){const v=y0+(y1-y0)*i/4,y=py(v);
+    s+=`<text class="sc-tk" x="${mL-9}" y="${y+3}" text-anchor="end">${v.toFixed(1)}</text>`;}
+  for(let i=0;i<=4;i++){const v=x0+(x1-x0)*i/4,x=px(v);
+    s+=`<text class="sc-tk" x="${x}" y="${H-mB+16}" text-anchor="middle">${Math.round(v/1000)}k</text>`;}
+  s+=`<text class="sc-ttl" x="${(W+mL)/2}" y="${H-8}" text-anchor="middle">Three-year cost, CHF</text>`;
+  s+=`<text class="sc-ttl" x="-${(H-mB+mT)/2}" y="15" transform="rotate(-90)" text-anchor="middle">Score</text>`;
+  rows.forEach(r=>{
+    const c=r.pw==='EV'?'#0D9488':'#D97706';
+    s+=`<circle class="sc-dot" data-m="${esc(r.model)}" cx="${px(r.cost3)}" cy="${py(r.score)}" r="${r.rank===1?9:6.5}"
+        fill="${c}" fill-opacity=".78" stroke="#fff" stroke-width="1.5"><title>${esc(r.model)} — score ${r.score.toFixed(2)}, CHF ${fmt(r.cost3)}</title></circle>`;
+    s+=`<text class="sc-lbl" x="${px(r.cost3)}" y="${py(r.score)-11}" text-anchor="middle">${esc(r.model.replace(/^(BMW|Audi|Tesla|Porsche|Ford|Kia|BYD|Polestar) ?/,''))}</text>`;
+  });
+  const el=document.getElementById('scatter');
+  el.innerHTML=s;
+  el.querySelectorAll('.sc-dot').forEach(d=>d.addEventListener('click',()=>{
+    const r=DATA.find(x=>x.model===d.dataset.m);if(r)openModal(r);}));
+}
+
+/* ---- render ---- */
 function render(){
   recompute();
-  const cols = COLS.filter(c=>VIS[c.k]);
-
-  /* group header */
-  const groups=[];
-  cols.forEach(c=>{
-    const last=groups[groups.length-1];
-    if(last && last.g===c.g) last.n++; else groups.push({g:c.g,n:1});
-  });
-  document.getElementById('grouprow').innerHTML =
-    groups.map(g=>`<th colspan="${g.n}">${esc(g.g)}</th>`).join('');
-
-  /* column header */
-  const headrow=document.getElementById('headrow');
-  headrow.innerHTML = cols.map(c=>{
-    if(c.sort===false) return `<th>${esc(c.t)}</th>`;
-    const s = sortKey===c.k ? ` aria-sort="${sortDir==='asc'?'ascending':'descending'}"` : '';
-    const a = sortKey===c.k ? (sortDir==='asc'?'↑':'↓') : '↕';
+  const cols=COLS.filter(c=>VIS[c.k]);
+  const gs=[];cols.forEach(c=>{const l=gs[gs.length-1];if(l&&l.g===c.g)l.n++;else gs.push({g:c.g,n:1});});
+  document.getElementById('grouprow').innerHTML=gs.map(g=>`<th colspan="${g.n}">${esc(g.g)}</th>`).join('');
+  const hr=document.getElementById('headrow');
+  hr.innerHTML=cols.map(c=>{
+    if(c.sort===0)return `<th>${esc(c.t)}</th>`;
+    const a=sortKey===c.k?(sortDir==='asc'?'↑':'↓'):'↕';
+    const s=sortKey===c.k?` aria-sort="${sortDir==='asc'?'ascending':'descending'}"`:'';
     return `<th class="sortable" tabindex="0" data-k="${c.k}"${s}>${esc(c.t)}<span class="arrow">${a}</span></th>`;
   }).join('');
-  headrow.querySelectorAll('th.sortable').forEach(th=>{
-    const k=th.dataset.k, col=COLS.find(c=>c.k===k);
-    const go=()=>{
-      if(sortKey===k) sortDir = sortDir==='asc'?'desc':'asc';
-      else {sortKey=k; sortDir = col.type==='str'?'asc':'desc';}
-      render();
-    };
-    th.addEventListener('click',go);
-    th.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}});
+  hr.querySelectorAll('th.sortable').forEach(th=>{
+    const k=th.dataset.k,col=COLS.find(c=>c.k===k);
+    const go=()=>{if(sortKey===k)sortDir=sortDir==='asc'?'desc':'asc';
+      else{sortKey=k;sortDir=col.type==='str'?'asc':'desc';}render();};
+    th.onclick=go;th.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}};
   });
 
-  /* rows */
   const rows=DATA.filter(r=>{
-    if(F.q && !r.model.toLowerCase().includes(F.q)) return false;
-    if(F.pw!=='all' && r.pw!==F.pw) return false;
-    if(F.dr==='4' && r.doors!==4) return false;
-    if(F.fx==='fixed' && !r.fixed) return false;
-    if(r.price>F.maxprice) return false;
-    if(r.km>F.maxkm) return false;
-    if(r.yr<F.minyear) return false;
-    if(r.depmid>F.maxdep) return false;
-    if(F.minlist>0 && (r.listings==null || r.listings<F.minlist)) return false;
-    return true;
+    if(F.q&&!r.model.toLowerCase().includes(F.q))return 0;
+    if(F.pw!=='all'&&r.pw!==F.pw)return 0;
+    if(F.dr==='4'&&r.doors!==4)return 0;
+    if(F.fx==='fixed'&&!r.fixed)return 0;
+    if(r.price>F.maxprice)return 0;
+    if(r.km>F.maxkm)return 0;
+    if(r.yr<F.minyear)return 0;
+    if(r.cost3>F.maxcost)return 0;
+    if(r.war<F.minwar)return 0;
+    if(r.boot<F.minboot)return 0;
+    return 1;
   });
-  rows.sort((a,b)=>{
-    const col=COLS.find(c=>c.k===sortKey)||{type:'num'};
-    let x=a[sortKey],y=b[sortKey];
-    if(x==null)return 1; if(y==null)return -1;
-    const v = col.type==='str' ? String(x).localeCompare(String(y)) : x-y;
-    return sortDir==='asc'? v : -v;
-  });
+  rows.sort((a,b)=>{const col=COLS.find(c=>c.k===sortKey)||{type:'num'};
+    let x=a[sortKey],y=b[sortKey];if(x==null)return 1;if(y==null)return -1;
+    const v=col.type==='str'?String(x).localeCompare(String(y)):x-y;return sortDir==='asc'?v:-v;});
 
   document.getElementById('shown').textContent=rows.length;
   document.getElementById('empty').hidden=rows.length>0;
   document.querySelector('.tablewrap').style.display=rows.length?'':'none';
+  scatter(rows);
 
-  const hi = s => (F.q && s.toLowerCase().includes(F.q))
-    ? esc(s).replace(new RegExp('('+F.q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>')
-    : esc(s);
+  const hl=s=>F.q&&s.toLowerCase().includes(F.q)
+    ?esc(s).replace(new RegExp('('+F.q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>'):esc(s);
+  const sc=v=>`<td class="sc"><div class="scw"><div class="track"><div class="fill b${bnd(v)}" style="width:${(v/5*100).toFixed(1)}%"></div></div><div class="v">${v.toFixed(2)}</div></div></td>`;
 
-  const scoreCell = v =>
-    `<td class="sc"><div class="scw"><div class="track"><div class="fill f${band(v)}" style="width:${(v/5*100).toFixed(1)}%"></div></div><div class="v">${v.toFixed(2)}</div></div></td>`;
+  const cell=(r,c)=>{switch(c.k){
+    case 'rank':return `<td class="rank">${r.rank}</td>`;
+    case 'score':return sc(r.score);
+    case 'value':return sc(r.value);
+    case 'model':return `<td class="model"><span class="nm">${hl(r.model)}</span>${r.doors===2?'<span class="d2b">2-DOOR</span>':''}${r.fixed?'':'<span class="tag">OPEN</span>'}</td>`;
+    case 'price':return `<td class="num">${fmt(r.price)}</td>`;
+    case 'year':return `<td class="num">${r.year}</td>`;
+    case 'km':return `<td class="num">${r.km===10?'new':fmt(r.km)}</td>`;
+    case 'exkm':return `<td class="num">${fmt(r.exkm)}</td>`;
+    case 'ps':return `<td class="num">${r.ps}</td>`;
+    case 'zh':return `<td class="num">${r.zh.toFixed(1)}</td>`;
+    case 'war':return `<td class="num v${r.war>=36?5:r.war>=24?4:r.war>=12?3:r.war>=1?2:1}">${r.war}</td>`;
+    case 'wint':return `<td class="num">${r.wint?'yes':'—'}</td>`;
+    case 'rate':return `<td class="num">${r.rate?r.rate.toFixed(1)+' / '+r.rev:'—'}</td>`;
+    case 'cost3':return `<td class="num">${fmt(r.cost3)}</td>`;
+    case 'depmid':return `<td class="num">${fmt(r.depmid)}</td>`;
+    case 'energy':return `<td class="num">${fmt(r.energy)}</td>`;
+    case 'boot':return `<td class="num">${r.boot}</td>`;
+    case 'legr':return `<td class="rate v${bnd(r.legr)}">${r.legr.toFixed(1)}</td>`;
+    case 'dep':return `<td class="rate v${bnd(r.dep)}${ON.dep?'':' off'}">${r.dep.toFixed(2)}</td>`;
+    case 'lux':case 'exc':case 'fea':case 'mnt':case 'rel':
+      return `<td class="rate v${bnd(r[c.k])}${ON[c.k]?'':' off'}">${r[c.k].toFixed(1)}</td>`;
+    case 'stab':return `<td class="stab"><b>${r.rbest}</b>–${r.rworst}</td>`;
+    default:return '<td></td>';
+  }};
 
-  const cell = (r,c) => {
-    switch(c.k){
-      case 'rank':  return `<td class="rank">${r.rank}</td>`;
-      case 'score': return scoreCell(r.score);
-      case 'value': return scoreCell(r.value);
-      case 'model': return `<td class="model">${hi(r.model)}${r.fixed?'':'<span class="tag">OPEN</span>'}</td>`;
-      case 'price': return `<td class="num">${fmt(r.price)}</td>`;
-      case 'year':  return `<td class="num">${r.year}</td>`;
-      case 'km':    return `<td class="num">${r.km===0?'new':fmt(r.km)}</td>`;
-      case 'ps':    return `<td class="num">${r.ps}</td>`;
-      case 'zh':    return `<td class="num">${r.zh.toFixed(1)}</td>`;
-      case 'pw':    return `<td><span class="pw ${r.pw.toLowerCase()}">${r.pw}</span></td>`;
-      case 'doors': return `<td class="doors ${r.doors===2?'two':''}">${r.doors}</td>`;
-      case 'train': return `<td class="spec">${esc(r.train)}</td>`;
-      case 'rlo':   return `<td class="num">${r.rlo===r.rhi?fmt(r.rlo):fmt(r.rlo)+'–'+fmt(r.rhi)}</td>`;
-      case 'listings': return `<td class="num">${r.listings==null?'—':r.listings}</td>`;
-      case 'depmid':return `<td class="num">${fmt(r.depmid)}</td>`;
-      case 'tax':   return `<td class="num">${fmt(r.tax)}</td>`;
-      case 'energy':return `<td class="num">${fmt(r.energy)}</td>`;
-      case 'dep':   return `<td class="rate r${band(r.dep)}">${r.dep.toFixed(2)}</td>`;
-      case 'lux': case 'exc': case 'fea': case 'mnt': case 'rel':
-        return `<td class="rate r${band(r[c.k])}${ON[c.k]?'':' r3'}" ${ON[c.k]?'':'style="opacity:.35"'}>${r[c.k].toFixed(1)}</td>`;
-      case 'link':  return `<td>${r.url
-        ? `<a class="listing" href="${r.url}" target="_blank" rel="noopener">${esc(r.seller)} ↗</a>`
-        : `<span class="nolink">new car</span>`}</td>`;
-      default: return '<td></td>';
-    }
-  };
-
-  document.getElementById('tbody').innerHTML = rows.map(r=>
-    `<tr class="${r.rank===1?'top':''}">${cols.map(c=>cell(r,c)).join('')}</tr>`
-  ).join('');
+  document.getElementById('tbody').innerHTML=rows.map((r,i)=>
+    `<tr class="${r.pw==='EV'?'ev':'ice'}${r.rank===1?' top':''}" tabindex="0" data-i="${i}">${cols.map(c=>cell(r,c)).join('')}</tr>`).join('');
+  document.querySelectorAll('#tbody tr').forEach(tr=>{
+    const r=rows[+tr.dataset.i];
+    tr.onclick=()=>openModal(r);
+    tr.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();openModal(r);}};
+  });
 }
 render();
 </script>
