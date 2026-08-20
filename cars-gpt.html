@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Swiss EV Finalists — Decision Tool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef3f8;--panel:#fff;--ink:#132033;--muted:#67758a;--line:#dce5ef;
+  --navy:#101c2d;--blue:#2f6fed;--cyan:#00a6c8;--green:#1b9b65;--amber:#c98514;--red:#d34b4b;--slate:#64748b;
+  --v800:#7957e8;--v400:#139ab5;--rank1:#f6b73c;--shadow:0 12px 32px rgba(31,49,78,.10);
+}
+*{box-sizing:border-box}
+html{background:var(--bg);color:var(--ink);font-family:"DM Sans",system-ui,sans-serif}
+body{margin:0;min-width:320px}
+body.modal-open{overflow:hidden}
+h1,h2,h3,.display{font-family:"Space Grotesk",system-ui,sans-serif}
+button,input{font:inherit}
+button{cursor:pointer}
+.mono,.num,td:not(.name-cell),.metric-value{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+.hero{
+  background:linear-gradient(125deg,#0d1a2b 0%,#18324e 58%,#15465b 100%);
+  color:#fff;padding:34px clamp(18px,4vw,56px) 30px;box-shadow:0 10px 28px rgba(11,25,43,.18)
+}
+.hero-inner{max-width:1700px;margin:auto}
+.eyebrow{font-size:.78rem;text-transform:uppercase;letter-spacing:.16em;color:#9fd9ed;font-weight:700}
+h1{font-size:clamp(2rem,4vw,3.8rem);line-height:1.02;margin:.35rem 0 .7rem}
+.hero p{max-width:980px;color:#d4dfeb;margin:.3rem 0;line-height:1.55}
+.hero .snapshot{font-size:.82rem;color:#9eb0c4;margin-top:1rem}
+main{max-width:1780px;margin:0 auto;padding:22px clamp(10px,2.2vw,34px) 56px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);margin-bottom:18px;overflow:hidden}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.panel-head h2{font-size:1.05rem;margin:0}
+.toggle-btn{border:1px solid #c9d6e5;background:#f8fbfe;color:var(--ink);border-radius:10px;padding:7px 11px}
+.panel-body{padding:16px 18px}
+.controls-grid{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:18px}
+.control-section h3{font-size:.86rem;margin:0 0 9px;color:#34455d}
+.score-checks,.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip,.score-chip{position:relative;display:inline-flex;align-items:center;gap:7px;border:1px solid #cfdae7;background:#f8fafc;border-radius:999px;padding:7px 10px;font-size:.78rem;color:#3d4d63}
+.chip input,.score-chip input{accent-color:var(--blue)}
+.chip.active,.score-chip:has(input:checked){background:#edf4ff;border-color:#9ab9ef;color:#154998}
+.filter-stack{display:grid;gap:12px}
+.searchbox input{width:100%;padding:10px 11px;border:1px solid #cbd7e4;border-radius:10px;background:#fff}
+.range-wrap label{display:flex;justify-content:space-between;gap:12px;font-size:.78rem;color:#46566b;margin-bottom:3px}
+.range-wrap input{width:100%;accent-color:var(--blue)}
+.small-note{font-size:.73rem;line-height:1.45;color:var(--muted);margin-top:8px}
+.legend{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:11px 16px;border-bottom:1px solid var(--line);font-size:.78rem;color:#536175}
+.legend-item{display:inline-flex;align-items:center;gap:6px}
+.legend-swatch{width:14px;height:4px;border-radius:5px}
+.legend-swatch.v800{background:var(--v800)} .legend-swatch.v400{background:var(--v400)}
+.table-shell{overflow:auto;max-height:74vh}
+table{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%;font-size:.78rem}
+thead{position:sticky;top:0;z-index:5}
+thead tr.group-row th{background:#0b1727;color:#8fa7c2;font-size:.67rem;text-transform:uppercase;letter-spacing:.11em;border-bottom:1px solid #24364d}
+thead tr.header-row th{background:var(--navy);color:#ecf4fc;border-bottom:1px solid #32455f}
+th{padding:9px 10px;text-align:left;white-space:nowrap}
+th.sortable{cursor:pointer;user-select:none}
+th.sortable:hover,th.sortable:focus{background:#1a2b42;outline:none}
+th .sort-mark{font-size:.65rem;margin-left:4px;color:#8ea5c0}
+td{padding:9px 10px;border-bottom:1px solid #e4ebf2;white-space:nowrap;background:#fff}
+tbody tr:nth-child(even) td{background:#f8fbfd}
+tbody tr{position:relative;cursor:pointer}
+tbody tr:hover td{background:#edf5fc}
+tbody tr::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--row-accent)}
+.name-cell{font-weight:700;max-width:300px;overflow:hidden;text-overflow:ellipsis;text-decoration:underline 3px var(--row-accent);text-underline-offset:5px}
+.dimmed{opacity:.30;filter:saturate(.3)}
+.rating{font-weight:700}
+.band-high{color:var(--green)} .band-mid{color:var(--slate)} .band-low{color:var(--amber)} .band-bad{color:var(--red)}
+.rank{font-weight:800;font-size:.9rem;text-align:center}
+.rank.one{color:#744b00;background:linear-gradient(90deg,#fff4d7,#fff)}
+.score-wrap{display:grid;grid-template-columns:58px 35px;gap:7px;align-items:center}
+.bar{height:7px;background:#e6edf4;border-radius:999px;overflow:hidden;min-width:58px}
+.bar > span{display:block;height:100%;border-radius:inherit}
+.bar-high{background:var(--green)} .bar-mid{background:var(--slate)} .bar-low{background:var(--amber)} .bar-bad{background:var(--red)}
+.highlight{background:#ffe59a;border-radius:3px;padding:0 1px}
+.status{font-family:"DM Sans",sans-serif;font-size:.68rem;font-weight:700;padding:3px 7px;border-radius:999px;background:#edf2f7;color:#536174}
+.status.fixed{background:#e7f5ed;color:#14734d}
+.column-tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:11px}
+.preset{border:1px solid #cbd7e4;background:#fff;border-radius:9px;padding:6px 9px;font-size:.76rem}
+.column-chips{display:flex;gap:7px;flex-wrap:wrap}
+.scatter-wrap{height:460px;position:relative}
+#scatter{width:100%;height:100%;display:block}
+.axis-label{fill:#65758b;font:12px "DM Sans",sans-serif}
+.dot-label{fill:#1c2d43;font:600 11px "DM Sans",sans-serif}
+.dot{cursor:pointer;stroke:#fff;stroke-width:2}
+.footnotes{padding:18px 20px;color:#57667a;font-size:.79rem;line-height:1.6}
+.footnotes h3{font-size:.95rem;color:var(--ink);margin:0 0 8px}
+.footnotes ol{margin:.2rem 0 0;padding-left:1.25rem}
+.source-note{margin-top:15px;padding:12px;border-radius:12px;background:#f4f8fc;border:1px solid #dce6f0}
+.backdrop{position:fixed;inset:0;background:rgba(7,18,31,.72);display:none;z-index:30;padding:18px;overflow:auto}
+.backdrop.open{display:flex;align-items:flex-start;justify-content:center}
+.modal{width:min(960px,100%);margin:auto;background:#fff;border-radius:20px;box-shadow:0 30px 90px rgba(0,0,0,.34);overflow:hidden;position:relative}
+.modal-close{position:absolute;right:13px;top:13px;z-index:3;border:none;border-radius:50%;width:38px;height:38px;background:rgba(10,25,42,.78);color:#fff;font-size:1.3rem}
+.photo{height:min(43vw,390px);min-height:220px;background:linear-gradient(135deg,#1d2c41,#41566f);display:flex;align-items:center;justify-content:center;color:#d7e2ed;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover}
+.modal-content{padding:22px}
+.modal-title{margin:0 0 5px;font-size:1.65rem}
+.spec{color:#516177;line-height:1.5;margin:.2rem 0 17px}
+.key-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:0 0 20px}
+.metric{background:#f4f8fb;border:1px solid #dde7f0;border-radius:11px;padding:10px}
+.metric-label{font-size:.68rem;color:#708095;text-transform:uppercase;letter-spacing:.06em}
+.metric-value{margin-top:3px;font-weight:700}
+.detail-section{margin-top:19px}
+.detail-section h3{font-size:.96rem;margin:0 0 8px}
+.detail-section ul{margin:0;padding-left:1.2rem;color:#46566c;line-height:1.55}
+.option-list{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.option{border:1px solid #dde6ef;border-radius:10px;padding:9px}
+.option b{display:block;font-size:.81rem}
+.option span{font-size:.75rem;color:#6a788a}
+.listing-link{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px;border:1px solid #cfdbe7;border-radius:11px;background:#f6faff;color:#174f9c;text-decoration:none;font-weight:700}
+.listing-link small{display:block;color:#66778b;font-weight:400}
+.empty{color:#8794a4;font-style:italic}
+@media(max-width:1000px){.controls-grid{grid-template-columns:1fr}.key-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){
+  .hero{padding:26px 17px 24px}.panel{border-radius:13px}.panel-body{padding:13px}
+  .key-grid{grid-template-columns:1fr 1fr}.option-list{grid-template-columns:1fr}
+  .scatter-wrap{height:390px}.modal-content{padding:17px}.photo{min-height:190px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Swiss performance EV shortlist</div>
+    <h1>17 models. One decision tool.</h1>
+    <p>One representative Swiss candidate for every retained model in the wide-net performance-EV landscape. The dataset deliberately uses one record per model so Value, rank and Stability are not distorted by duplicate listings from the same model family.</p>
+    <div class="snapshot">Inventory snapshot researched 20 August 2026 · Swiss listings · cost model assumes 15'000 km/year and CHF 0.35/kWh blended charging.</div>
+  </div>
+</header>
+
+<main>
+<section class="panel">
+ <div class="panel-head"><h2>Decision controls</h2><button class="toggle-btn" data-toggle="controlsBody" aria-expanded="true">Hide</button></div>
+ <div class="panel-body" id="controlsBody">
+  <div class="controls-grid">
+   <div class="control-section">
+    <h3>Factors included in Score</h3>
+    <div class="score-checks" id="factorChecks"></div>
+    <div class="small-note">Fixed weights: Depreciation ×3 · Maintenance ×1.5 · Reliability ×1.5 · Luxury ×1 · Excitement ×1 · Features ×1. Untick a factor to exclude it; its table column greys out.</div>
+    <h3 style="margin-top:16px">Columns</h3>
+    <div class="column-tools"><button class="preset" id="showAll">Show all</button><button class="preset" id="coreOnly">Core only</button></div>
+    <div class="column-chips" id="columnChips"></div>
+   </div>
+   <div class="control-section">
+    <h3>Category & shortlist filters</h3>
+    <div class="filter-stack">
+      <div class="searchbox"><input id="search" type="search" placeholder="Search model or candidate…" aria-label="Search name"></div>
+      <div><div class="small-note">Charging architecture</div><div class="chips" id="catFilters"></div></div>
+      <div><div class="small-note">Cargo structure</div><div class="chips" id="structFilters"></div></div>
+      <div><div class="small-note">Candidate state</div><div class="chips" id="stateFilters"></div></div>
+    </div>
+   </div>
+   <div class="control-section">
+    <h3>Numeric filters</h3>
+    <div class="filter-stack" id="rangeFilters"></div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section class="panel">
+ <div class="panel-head"><h2>Score vs 3-year ownership cost</h2><button class="toggle-btn" data-toggle="scatterBody" aria-expanded="true">Hide</button></div>
+ <div class="panel-body" id="scatterBody"><div class="scatter-wrap"><svg id="scatter" role="img" aria-label="Scatter plot of Score against three-year cost"></svg></div></div>
+</section>
+
+<section class="panel">
+  <div class="legend">
+    <strong>Row colour:</strong>
+    <span class="legend-item"><span class="legend-swatch v800"></span>800V-class</span>
+    <span class="legend-item"><span class="legend-swatch v400"></span>400V-class</span>
+    <span>·</span><span>Click any row for listing detail.</span>
+    <span id="resultCount" style="margin-left:auto;font-weight:700"></span>
+  </div>
+  <div class="table-shell">
+    <table id="carsTable">
+      <thead><tr class="group-row" id="groupRow"></tr><tr class="header-row" id="headerRow"></tr></thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+  <div class="footnotes">
+   <h3>How to read this tool</h3>
+   <ol>
+    <li><b>Score</b> is the weighted mean of the factors currently ticked above; weights are renormalised over only the included factors. <b>Value</b> is Score ÷ price and is then min–max rescaled to 1.00–5.00 across the full 17-record set, never just the filtered rows.</li>
+    <li>The <b>rank number always reflects Score</b>, even when you sort the table by price, mileage, date or another column.</li>
+    <li><b>3-year cost</b> = (estimated depreciation midpoint + Schwyz road tax + energy + wear/service allowance) × 3. Energy assumes 15'000 km/year and CHF 0.35/kWh, using a realistic planning-consumption assumption including charging losses. Insurance and financing are deliberately excluded.</li>
+    <li><b>Stability</b> is the best–worst Score rank reached across seven fixed weighting scenarios: the default weighting plus six scenarios where one factor is ×3 and every other factor is ×1. It is computed on all 17 model records.</li>
+    <li><b>Depreciation rating is derived</b>: each candidate's forecast depreciation-band midpoint is mapped linearly across this field, cheapest/year = 5.00 and dearest/year = 1.00. The other five ratings are judgement calls relative to this field only and are shown to one decimal.</li>
+    <li>These ratings are useful for sorting, but are <b>not precise enough to decide between two close records</b>. Listing facts, warranty terms, condition, battery health, exact equipment and a pre-purchase inspection are more reliable than a 0.1-point score difference.</li>
+   </ol>
+   <div class="source-note">
+    <b>Data provenance.</b> Listing price, date/vintage, mileage, seller and explicitly advertised equipment/warranty come from the linked Swiss AutoScout24 inventory snapshot; where only a model/dealer search page could be verified, the popup says so explicitly. Model specifications use manufacturer or high-quality technical sources. Schwyz EV road tax is modelled from the canton’s weight-based EV formula; because the actual Swiss registration document controls taxation, treat the tax number as a planning estimate. Missing listing-specific data is shown as “—”, never silently filled.
+   </div>
+  </div>
+</section>
+</main>
+
+<div class="backdrop" id="backdrop" aria-hidden="true">
+ <article class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <button class="modal-close" id="modalClose" aria-label="Close detail panel">×</button>
+  <div class="photo" id="photo"></div>
+  <div class="modal-content" id="modalContent"></div>
+ </article>
+</div>
+
+<script>
+"use strict";
+
+const ASSUMPTIONS={annualKm:15000,kwhPrice:.35};
+const factorDefs=[
+ {key:"dep",label:"Depreciation",weight:3},
+ {key:"maint",label:"Maintenance",weight:1.5},
+ {key:"reliability",label:"Reliability",weight:1.5},
+ {key:"luxury",label:"Luxury",weight:1},
+ {key:"excitement",label:"Excitement",weight:1},
+ {key:"features",label:"Features",weight:1}
+];
+
+const modelContext={"models":{"priceRange":[68770,79500],"listingCount":4,"perf":2.1,"dc":250,"battery":100.0,"boot":709,"arch":"400V-class","structure":"Liftback","tax":350,"cons":22.0,"wear":1500,"spec":"Tesla Model S Plaid · tri-motor AWD · listing reports 750 kW / 1'020 PS · ~100 kWh battery class · 250 kW Supercharging · adaptive air suspension · rear passenger display. Tesla's headline 0–100 km/h figure is 2.1 s with rollout conditions.","base":{"maint":3.8,"reliability":3.6,"luxury":4.3,"excitement":5.0,"features":4.6}},"model3":{"priceRange":[17900,38990],"listingCount":12,"perf":3.3,"dc":250,"battery":75.0,"boot":561,"arch":"400V-class","structure":"Separate trunk","tax":260,"cons":19.0,"wear":1000,"spec":"Tesla Model 3 Performance (2022 generation) · dual-motor AWD · listing reports 377 kW · ~75 kWh usable-class battery · up to 250 kW Supercharging · performance brakes / Track Mode generation. 2022 European cars are the pre-Highland interior and do not have the rear passenger display.","base":{"maint":4.5,"reliability":4.2,"luxury":3.2,"excitement":4.6,"features":4.0}},"im5":{"priceRange":[50900,55850],"listingCount":9,"perf":3.2,"dc":396,"battery":96.5,"boot":457,"arch":"800V-class","structure":"Liftback","tax":345,"cons":21.0,"wear":1200,"spec":"MG IM5 100 kWh Performance AWD · dual-motor AWD · Swiss listings report 751–778 PS depending data feed · ~96.5 kWh usable / 100 kWh class battery · 800V-class platform · ~396 kW peak DC · rear-wheel steering · air suspension · 457 L rear cargo plus small frunk.","base":{"maint":4.4,"reliability":3.5,"luxury":4.0,"excitement":4.6,"features":4.9}},"ioniq6n":{"priceRange":[65900,73550],"listingCount":3,"perf":3.2,"dc":258,"battery":84.0,"boot":401,"arch":"800V-class","structure":"Separate trunk","tax":330,"cons":24.0,"wear":1400,"spec":"Hyundai IONIQ 6 N · dual-motor AWD · listing reports 478 kW / 650 PS · 84 kWh battery · E-GMP 800V architecture · ~18-minute 10–80% charging on a suitable HPC · N e-Shift / N Active Sound / electronically controlled performance dampers.","base":{"maint":4.3,"reliability":4.4,"luxury":3.6,"excitement":4.9,"features":4.7}},"taycants":{"priceRange":[64890,89900],"listingCount":3,"perf":2.8,"dc":270,"battery":83.7,"boot":366,"arch":"800V-class","structure":"Separate trunk","tax":390,"cons":24.0,"wear":2500,"spec":"Porsche Taycan Turbo S (first generation) · dual-motor AWD · 560 kW / 761 PS overboost specification · 83.7 kWh usable Performance Battery Plus · 800V architecture · 270 kW peak DC · adaptive air suspension · rear 366 L plus front luggage compartment.","base":{"maint":2.9,"reliability":3.6,"luxury":4.8,"excitement":5.0,"features":4.5}},"taycanturbo":{"priceRange":[54900,75900],"listingCount":4,"perf":3.2,"dc":270,"battery":83.7,"boot":366,"arch":"800V-class","structure":"Separate trunk","tax":385,"cons":23.5,"wear":2300,"spec":"Porsche Taycan Turbo (first generation) · dual-motor AWD · listing reports 500 kW / 680 PS · 83.7 kWh usable Performance Battery Plus · 800V architecture · 270 kW peak DC · adaptive air suspension.","base":{"maint":3.0,"reliability":3.6,"luxury":4.8,"excitement":4.9,"features":4.5}},"taycan4s":{"priceRange":[42800,79970],"listingCount":10,"perf":4.0,"dc":270,"battery":83.7,"boot":407,"arch":"800V-class","structure":"Separate trunk","tax":365,"cons":22.5,"wear":2100,"spec":"Porsche Taycan 4S (first generation) · dual-motor AWD · representative listing reports 420 kW / 571 PS · 800V architecture · up to 270 kW DC with Performance Battery Plus specification. Equipment and battery version vary materially between used cars.","base":{"maint":3.2,"reliability":3.7,"luxury":4.7,"excitement":4.7,"features":4.4}},"rsetron":{"priceRange":[46900,125000],"listingCount":16,"perf":3.3,"dc":270,"battery":83.7,"boot":350,"arch":"800V-class","structure":"Separate trunk","tax":370,"cons":22.0,"wear":2000,"spec":"Audi RS e-tron GT quattro (first generation) · dual-motor AWD · 440 kW / 599 PS, with up to 475 kW / 646 PS boost specification depending model year · 83.7 kWh usable · 800V architecture · 270 kW DC · adaptive air suspension.","base":{"maint":3.1,"reliability":3.6,"luxury":4.8,"excitement":4.9,"features":4.4}},"etron":{"priceRange":[29490,89900],"listingCount":8,"perf":4.1,"dc":270,"battery":83.7,"boot":405,"arch":"800V-class","structure":"Separate trunk","tax":365,"cons":22.0,"wear":1900,"spec":"Audi e-tron GT quattro (first generation) · dual-motor AWD · representative listing reports 350 kW / 476 PS · 83.7 kWh usable · 800V architecture · 270 kW DC · adaptive air suspension; this candidate also advertises all-wheel steering.","base":{"maint":3.3,"reliability":3.7,"luxury":4.7,"excitement":4.5,"features":4.3}},"s6":{"priceRange":[75990,117870],"listingCount":7,"perf":3.9,"dc":270,"battery":94.9,"boot":502,"arch":"800V-class","structure":"Liftback","tax":370,"cons":21.0,"wear":1500,"spec":"Audi S6 Sportback e-tron quattro · dual-motor AWD · listing reports 370 kW / 503 PS · ~94.9 kWh usable battery · PPE 800V architecture · 270 kW peak DC · 502 L liftback cargo area plus frunk.","base":{"maint":4.0,"reliability":4.0,"luxury":4.6,"excitement":4.2,"features":4.8}},"eqe":{"priceRange":[55900,124800],"listingCount":5,"perf":3.5,"dc":170,"battery":90.6,"boot":430,"arch":"400V-class","structure":"Separate trunk","tax":418,"cons":23.0,"wear":1800,"spec":"Mercedes-AMG EQE 53 4MATIC+ · dual-motor AWD · 460 kW / 625 PS · ~90.6 kWh usable battery · AMG RIDE CONTROL+ air suspension · rear-axle steering · 170 kW DC · 430 L boot.","base":{"maint":3.8,"reliability":3.7,"luxury":4.9,"excitement":4.2,"features":4.8}},"i4m60":{"priceRange":[82990,87900],"listingCount":3,"perf":3.7,"dc":205,"battery":81.1,"boot":470,"arch":"400V-class","structure":"Liftback","tax":330,"cons":21.0,"wear":1300,"spec":"BMW i4 M60 xDrive Gran Coupé · dual-motor AWD · listing reports 442 kW / 601 PS · ~81 kWh usable battery class · 205 kW peak DC · adaptive M suspension · 470 L liftback boot.","base":{"maint":4.1,"reliability":4.2,"luxury":4.3,"excitement":4.4,"features":4.2}},"i4m50":{"priceRange":[37900,64900],"listingCount":3,"perf":3.9,"dc":205,"battery":80.7,"boot":470,"arch":"400V-class","structure":"Liftback","tax":325,"cons":21.0,"wear":1300,"spec":"BMW i4 M50 xDrive Gran Coupé · dual-motor AWD · 400 kW / 544 PS · 80.7 kWh usable battery · 205 kW peak DC · adaptive M suspension · 470 L liftback boot.","base":{"maint":4.1,"reliability":4.2,"luxury":4.2,"excitement":4.3,"features":4.1}},"i5":{"priceRange":[54900,132500],"listingCount":40,"perf":3.8,"dc":205,"battery":81.2,"boot":490,"arch":"400V-class","structure":"Separate trunk","tax":377,"cons":21.0,"wear":1500,"spec":"BMW i5 M60 xDrive (G60) · dual-motor AWD · 442 kW / 601 PS · 795 Nm · 81.2 kWh usable battery · 205 kW DC · 490 L boot.","base":{"maint":4.0,"reliability":4.1,"luxury":4.6,"excitement":4.1,"features":4.6}},"byd":{"priceRange":[38200,47500],"listingCount":10,"perf":3.8,"dc":150,"battery":82.5,"boot":400,"arch":"400V-class","structure":"Separate trunk","tax":315,"cons":20.5,"wear":1000,"spec":"BYD Seal Excellence AWD · dual-motor AWD · listing reports 390 kW / 530 PS · 82.5 kWh Blade Battery · ~150 kW-class DC charging for this generation · 400 L rear boot plus front storage.","base":{"maint":4.5,"reliability":4.0,"luxury":3.7,"excitement":4.0,"features":4.5}},"polestar":{"priceRange":[23800,61900],"listingCount":6,"perf":4.4,"dc":155,"battery":75.0,"boot":405,"arch":"400V-class","structure":"Liftback","tax":315,"cons":21.0,"wear":1200,"spec":"Polestar 2 Launch Edition Performance with Performance software upgrade · dual-motor AWD · listing reports 350 kW / 476 PS · 78 kWh nominal / ~75 kWh usable battery · Öhlins dampers · Brembo front brakes · early-generation ~150–155 kW DC charging.","base":{"maint":4.0,"reliability":4.0,"luxury":4.0,"excitement":4.2,"features":4.0}},"es90":{"priceRange":[79900,99950],"listingCount":4,"perf":4.0,"dc":350,"battery":102.0,"boot":424,"arch":"800V-class","structure":"Liftback","tax":390,"cons":21.5,"wear":1300,"spec":"Volvo ES90 Twin Performance Ultra AWD · dual-motor AWD · listing reports 500 kW / 680 PS · ~102 kWh usable-class battery · 800V architecture · up to 350 kW DC · premium Ultra equipment with Bowers & Wilkins, HUD and ventilated Nappa seats.","base":{"maint":4.3,"reliability":4.0,"luxury":4.8,"excitement":3.9,"features":4.9}}};
+
+const records=[{"id":"models-plaid","model":"models","name":"Tesla Model S Plaid","price":68770,"date":"2023-06","km":31400,"warranty":10,"depBand":[8000,12000],"seller":"Outrun Motor Company SA","rating":4.9,"reviews":279,"winter":"Yes","fixed":false,"url":"https://www.autoscout24.ch/de/d/tesla-model-s-100-kwh-plaid-20643802","photo":null,"options":[["Full Self-Driving Capability","Software/driver-assistance package; capability remains market- and software-dependent."],["Yoke steering wheel",""],["21-inch Arachnid wheels",""],["Summer + winter tyres","Explicitly advertised."],["Ventilated front seats",""]],"questions":["Confirm exact basic-warranty expiry and remaining kilometre allowance; the listing advertises 48 months / 80'000 km from first registration.","Confirm high-voltage battery State of Health and whether Tesla can provide a diagnostic result.","Verify FSD transferability/features currently enabled in Switzerland.","Check 21-inch wheel condition and tyre age on both sets."],"sourceNote":"AutoScout24: CHF 68'770, 06/2023, 31'400 km, 1'020 PS, FSD, Yoke, summer + winter tyres; seller 4.9/5 from 279 reviews. Remaining basic-warranty months are calculated from the listing's 48-month term."},{"id":"m3p","model":"model3","name":"Tesla Model 3 Performance","price":29100,"date":"2022-06","km":40686,"warranty":12,"depBand":[3500,5500],"seller":"Tesla Switzerland GmbH","rating":null,"reviews":null,"winter":null,"fixed":false,"url":"https://www.autoscout24.ch/de/d/tesla-model-3-performance-20654970","photo":null,"options":[["Tesla used-car warranty","Listing states 12 months; confirm start point and exclusions."],["Performance AWD",""],["Track Mode","Model-generation feature; confirm software availability on VIN."]],"questions":["Confirm whether the advertised 12-month warranty begins at delivery; AutoScout wording is ambiguous.","Request battery health / service-mode battery test if available.","Check suspension arms, wheel alignment, tyres and brake corrosion/wear.","Confirm whether any winter wheels are included."],"sourceNote":"AutoScout24/Tesla Switzerland: CHF 29'100, 06/2022, 40'686 km, 377 kW, 12-month warranty advertised."},{"id":"im5","model":"im5","name":"MG IM5 Performance","price":53990,"date":"2026-08","km":100,"warranty":84,"depBand":[9000,11000],"seller":"Garage Baumann AG","rating":null,"reviews":null,"winter":null,"fixed":false,"url":"https://www.autoscout24.ch/de/d/mg-im5-100-kwh-performance-20-4wd-20498097","photo":"https://listing-images.autoscout24.ch/listing/97/20498097/178313690.jpg?q=90&w=1920","options":[["7-year / 150'000-km warranty","Explicitly advertised in the candidate listing."],["Rear-wheel steering","Improves manoeuvrability and high-speed response."],["Air suspension",""],["360° camera",""]],"questions":["Verify the listing is still active and confirm any delivery/transport fee.","Confirm the exact Swiss homologated power figure shown in the registration document.","Ask which charging cable(s) and tyre-repair equipment are included.","Get a written offer for winter wheels."],"sourceNote":"AutoScout24 snapshot: CHF 53'990, new vehicle, 7-year/150'000-km warranty advertised. Date is shown as the Aug-2026 inventory vintage because first registration was not published."},{"id":"i6n","model":"ioniq6n","name":"Hyundai IONIQ 6 N","price":65900,"date":"2026-06","km":3500,"warranty":58,"depBand":[10000,14000],"seller":"Automobiles Zimmermann SA","rating":4.4,"reviews":110,"winter":null,"fixed":false,"url":"https://www.autoscout24.ch/de/d/hyundai-ioniq-6-n-84kwh-4wd-20305266","photo":null,"options":[["Electric glass sunroof",""],["Pearl paint",""],["5-year unlimited-km vehicle warranty","Listing wording says five years, unlimited kilometres under Hyundai Switzerland conditions."],["N performance chassis","Includes the N-specific electronic damping / software systems."]],"questions":["Confirm exact remaining vehicle-warranty date and battery-warranty terms in writing.","Check tyre condition after 3'500 km; N cars can consume expensive tyres quickly.","Confirm whether the ventilated bucket-seat option is fitted on this exact car.","Confirm winter-wheel availability and price."],"sourceNote":"AutoScout24: CHF 65'900, 06/2026, 3'500 km, 650 PS, 487-km listed range, 60-month factory warranty; seller 4.4/5 from 110 reviews."},{"id":"ts","model":"taycants","name":"Porsche Taycan Turbo S","price":64890,"date":"2020-06","km":63000,"warranty":null,"depBand":[6000,9000],"seller":"Carmotion AG","rating":4.8,"reviews":528,"winter":null,"fixed":false,"url":"https://www.autoscout24.ch/en/d/porsche-taycan-turbo-s-ch-fahrzeug-keramik-brems-anlage-panorama-alcantara-lenkrad-sport-chrono-20580554","photo":null,"options":[["PCCB ceramic brakes","Very expensive brake hardware; inspect condition carefully."],["Panoramic roof",""],["BOSE audio",""],["360° camera",""],["Sport Chrono",""]],"questions":["The listing indicates warranty but the captured result did not provide a verified duration; get the exact warranty contract.","Request Porsche battery diagnostic / SoH.","Inspect ceramic discs for chips/damage and obtain remaining-life measurements.","Confirm all recall/campaign work and heater/battery-related updates have been completed.","Confirm winter wheel set."],"sourceNote":"AutoScout24: CHF 64'890, 06/2020, 63'000 km, 761 PS, PCCB, panorama, BOSE and 360° camera; seller 4.8/5 from 528 reviews. Warranty duration was not verified."},{"id":"tt","model":"taycanturbo","name":"Porsche Taycan Turbo","price":64500,"date":"2020-06","km":46000,"warranty":12,"depBand":[5500,8000],"seller":"Porsche Zentrum Zug","rating":4.6,"reviews":395,"winter":null,"fixed":false,"url":"https://www.autoscout24.ch/en/d/porsche-taycan-turbo-20519766","photo":null,"options":[["Rear-axle steering",""],["Porsche InnoDrive","Adaptive cruise plus Porsche predictive assistance."],["Surround View",""],["Ventilated seats",""],["18-way Adaptive Sports Seats Plus",""]],"questions":["Request battery SoH and confirm battery/heater campaigns.","Inspect tyre age and inner-edge wear on 21-inch wheels if fitted.","Confirm brake specification and remaining wear.","Ask whether winter wheels are included."],"sourceNote":"AutoScout24: CHF 64'500, 06/2020, 46'000 km, 680 PS, rear-wheel steering, InnoDrive, ventilation, 12-month warranty; Porsche Zentrum Zug 4.6/5 (395)."},{"id":"t4s","model":"taycan4s","name":"Porsche Taycan 4S","price":48500,"date":"2020-03","km":91100,"warranty":12,"depBand":[5000,7000],"seller":"Garage E. Kasper AG","rating":4.8,"reviews":48,"winter":null,"fixed":false,"url":"https://www.autoscout24.ch/en/d/porsche-taycan-4s-20660839","photo":null,"options":[["Porsche Approved","12-month / 200'000-km listing warranty."],["BOSE Surround Sound",""],["Carbon trim",""],["Adaptive cruise control",""],["PASM air suspension","Standard-equipment list in the advert includes air suspension."]],"questions":["Confirm battery version/capacity by VIN; early 4S cars were sold with different battery sizes.","Request battery SoH and campaign history.","Confirm brake and tyre remaining life at 91'100 km.","Confirm whether winter wheels are included."],"sourceNote":"AutoScout24: CHF 48'500, 03/2020, 91'100 km, 571 PS, Porsche Approved 12 months/200'000 km; seller 4.8/5 from 48 reviews."},{"id":"rs","model":"rsetron","name":"Audi RS e-tron GT","price":49490,"date":"2022-03","km":37500,"warranty":12,"depBand":[5500,7500],"seller":"MB Cars AG","rating":4.7,"reviews":103,"winter":null,"fixed":false,"url":"https://www.autoscout24.ch/de/d/rs-e-tron-gt-quattro-inklusive-audi-servicepacket-bis-2032--20666398","photo":null,"options":[["Audi service package to 2032","Potentially valuable; exact covered items and kilometre ceiling need confirmation."],["Bang & Olufsen",""],["Audi exclusive interior controls","Leather-trimmed bespoke interior pieces."],["Matrix LED with laser light",""],["Surround cameras",""]],"questions":["Get the exact Audi service-package contract and exclusions in writing.","Confirm rear-wheel steering; it was not in the captured option excerpt.","Request battery SoH.","Confirm tyres, brake wear and whether a winter set is included."],"sourceNote":"AutoScout24: CHF 49'490, 03/2022, 37'500 km, 12-month/20'000-km warranty, Audi service package through 2032; seller 4.7/5 from 103 reviews."},{"id":"egt","model":"etron","name":"Audi e-tron GT quattro","price":49900,"date":"2022-06","km":55900,"warranty":12,"depBand":[4500,6500],"seller":"Fred Eggenberg AG","rating":4.8,"reviews":185,"winter":"Yes","fixed":false,"url":"https://www.autoscout24.ch/de/d/audi-e-tron-gt-quattro-8-fach-bereift-20265492","photo":null,"options":[["AVILOO battery certificate: 94%","Independent battery-health certificate is attached to the listing."],["All-wheel steering",""],["8-wheel / summer+winter set","Explicitly advertised."],["Assist package plus",""],["Service package to 06/2032 / 100'000 km",""]],"questions":["Review the full AVILOO report, not just the 94% headline.","Confirm which wheels/tyres belong to the winter set and their remaining tread/age.","Verify service-package transferability and remaining kilometre allowance.","Check brake and suspension wear."],"sourceNote":"AutoScout24: CHF 49'900, 06/2022, 55'900 km, AVILOO SoH 94%, all-wheel steering, 8-wheel set, service package to 06/2032 / 100'000 km, 12-month AGVS warranty; seller 4.8/5 (185)."},{"id":"s6","model":"s6","name":"Audi S6 Sportback e-tron","price":90950,"date":"2026-02","km":11000,"warranty":30,"depBand":[11000,15000],"seller":"AMAG Chur","rating":4.8,"reviews":869,"winter":null,"fixed":false,"url":"https://www.autoscout24.ch/en/d/audi-s6-sportback-e-tron-quattro-20187652","photo":null,"options":[["MMI experience pro","Includes AR head-up display in the captured listing."],["Winter climate package","Includes heated steering wheel and front/rear seat heating."],["Audi Sport wheels",""],["36-month / 100'000-km new-car warranty","From first registration."]],"questions":["Confirm whether adaptive air suspension is fitted to this exact car; it is not in the captured optional-equipment excerpt.","Confirm rear-wheel steering availability/specification on this VIN.","Ask for original option list and original list price.","Confirm winter wheel set and warranty end date."],"sourceNote":"AutoScout24: CHF 90'950, 02/2026, 11'000 km, 503 PS, 639-km listed range, 36-month/100'000-km warranty; AMAG Chur 4.8/5 (869). Remaining months are calculated to Aug-2026."},{"id":"eqe","model":"eqe","name":"Mercedes-AMG EQE 53","price":55900,"date":"2022-09","km":52600,"warranty":12,"depBand":[6000,8000],"seller":"Hirsch Ruckstuhl AG, Kloten","rating":4.6,"reviews":371,"winter":null,"fixed":false,"url":"https://www.autoscout24.ch/en/d/mercedes-benz-eqe-53-amg-4-matic-20521641","photo":null,"options":[["Mercedes-AMG Certified used","Dealer-certified programme; confirm detailed coverage."],["Head-up display",""],["Driving Assistance Package Plus",""],["Heated steering wheel",""],["Heated rear seats",""]],"questions":["Confirm Hyperscreen on this exact VIN; earlier advert text indicated a high specification but the latest captured excerpt did not enumerate every option.","Confirm AMG Dynamic Plus package / exact acceleration specification.","Request battery SoH / high-voltage diagnostic.","Confirm massage/ventilated seats and winter wheel set."],"sourceNote":"AutoScout24: CHF 55'900, 09/2022, 52'600 km, 625 PS, 12-month warranty; official Mercedes/AMG dealer, seller 4.6/5 from 371 reviews."},{"id":"i4m60","model":"i4m60","name":"BMW i4 M60","price":82990,"date":"2026-01","km":3873,"warranty":29,"depBand":[9000,12000],"seller":"Emil Frey Züri-Oberland Volketswil","rating":4.3,"reviews":389,"winter":null,"fixed":false,"url":"https://www.autoscout24.ch/en/d/bmw-i4-m60-20164303","photo":null,"options":[["Driving Assistant Professional",""],["Tow bar",""],["Adaptive LED headlights",""],["Galvanic control trim",""],["36-month / 200'000-km warranty","From first registration."]],"questions":["Confirm exact warranty end date; 29 months remaining is calculated from the listing term and 01/2026 registration.","Request battery SoH / BMW diagnostic.","Confirm Parking Assistant package and exact seat/upholstery equipment.","Ask for winter-wheel set and original list price."],"sourceNote":"AutoScout24: CHF 82'990, 01/2026, 3'873 km, 601 PS, 36-month/200'000-km warranty; seller 4.3/5 from 389 reviews."},{"id":"i4m50","model":"i4m50","name":"BMW i4 M50","price":37900,"date":"2022-04","km":35000,"warranty":null,"depBand":[4500,6500],"seller":"AUTO BALA AG","rating":null,"reviews":null,"winter":null,"fixed":false,"url":"https://www.autoscout24.ch/en/d/bmw-i4-m50-ch-20559755","photo":null,"options":[["Battery capacity 99.1%","Explicit seller headline; request the underlying test/report."],["Harman/Kardon",""],["360° camera",""],["Laserlight",""],["Heated steering wheel",""]],"questions":["Request the document behind the advertised 99.1% battery-capacity figure.","Confirm exact used-car warranty duration; the advert is marked with warranty but captured text did not establish months.","Inspect tyres, brakes and suspension at 35'000 km.","Confirm winter-wheel set."],"sourceNote":"AutoScout24: CHF 37'900, 04/2022, 35'000 km, 544 PS; advert headline states 99.1% battery capacity and original new price CHF 108'400."},{"id":"i5","model":"i5","name":"BMW i5 M60","price":56900,"date":"2023-08","km":27790,"warranty":null,"depBand":[7500,9500],"seller":"I.B.A. Automobile AG","rating":null,"reviews":null,"winter":null,"fixed":false,"url":"https://www.autoscout24.ch/de/s/mo-i5/mk-bmw/bt-saloon?makeModelVersions%5B0%5D%5BversionFullName%5D=M60","photo":null,"options":[["Tow bar",""],["Innovation package",""],["Comfort package",""],["Travel package",""],["Panoramic glass roof",""]],"questions":["A direct individual listing URL was not independently resolved; match CHF 56'900 / 08.2023 / 27'790 km in the linked M60 search.","Confirm remaining factory/used warranty; the search result says factory warranty but did not expose an unambiguous remaining month count.","Request battery SoH.","Confirm Driving Assistant Professional, Parking Assistant Professional and rear-wheel steering."],"sourceNote":"AutoScout24 M60 search: CHF 56'900, 08/2023, 27'790 km, 601 PS, original list price stated CHF 150'670; factory warranty/free service advertised. Direct candidate URL not verified."},{"id":"byd","model":"byd","name":"BYD Seal Excellence AWD","price":38472,"date":"2025-03","km":18000,"warranty":79,"depBand":[7000,9000],"seller":"BYD Zürich","rating":null,"reviews":null,"winter":null,"fixed":false,"url":"https://www.autoscout24.ch/de/d/byd-seal-excellence-awd-12482906","photo":null,"options":[["8-year / 200'000-km warranty","Listing states 96 months / 200'000 km from first registration."],["360° camera",""],["Adaptive cruise control",""],["Polar White",""]],"questions":["Confirm whether the 96-month wording applies to the whole vehicle or specific warranty components; get Swiss warranty schedule in writing.","Request battery-health diagnostic.","Confirm tyre condition and winter-wheel availability.","Confirm the exact DC charging limit/software for this MY2025 car."],"sourceNote":"AutoScout24: CHF 38'472, 03/2025, 18'000 km, 530 PS, 520-km listed range, 96-month/200'000-km warranty wording. Remaining months calculated to Aug-2026."},{"id":"polestar","model":"polestar","name":"Polestar 2 Performance","price":23800,"date":"2021-12","km":98430,"warranty":4,"depBand":[3500,5500],"seller":"Auto-Center Ebikon AG","rating":4.2,"reviews":80,"winter":null,"fixed":false,"url":"https://www.autoscout24.ch/de/d/polestar-polestar-2-launch-edition-78-kwh-performance-20215865","photo":null,"options":[["Performance Pack","Öhlins dampers, Brembo front brakes, forged wheels and gold details."],["Performance software upgrade","Listing explicitly shows the software upgrade."],["5-year premium service / warranty wording","From first registration; confirm exact transferability/expiry."]],"questions":["Confirm exact warranty end date and whether any extended cover remains after Dec-2026.","Request battery SoH; mileage is 98'430 km.","Inspect Öhlins dampers, Brembo brakes, wheel bearings and suspension bushings.","Confirm winter wheels and tyre condition."],"sourceNote":"AutoScout24: CHF 23'800, 12/2021, 98'430 km, 476 PS, Performance Pack + software upgrade, 60-month warranty wording; seller 4.2/5 from 80 reviews."},{"id":"es90","model":"es90","name":"Volvo ES90 Twin Performance Ultra","price":79900,"date":"2026-08","km":6000,"warranty":null,"depBand":[12000,16000],"seller":"Häusermann Automobile AG","rating":null,"reviews":null,"winter":null,"fixed":false,"url":"https://www.autoscout24.ch/de/s/seller-61472","photo":null,"options":[["680 PS Twin Performance AWD",""],["Bowers & Wilkins",""],["Head-up display",""],["Ventilated Nappa seats with memory",""],["Panoramic glass roof",""],["Pilot Assist",""]],"questions":["The current AutoScout result is on the dealer inventory page rather than a verified direct listing URL; match CHF 79'900 / 08.2026 / 6'000 km / 680 PS.","Confirm exact factory-warranty term and remaining months.","Confirm adaptive air suspension on the candidate VIN.","Confirm massage/rear-seat ventilation specification and winter wheels."],"sourceNote":"AutoScout24 Häusermann inventory: CHF 79'900 (down from CHF 99'900), 08/2026, 6'000 km, 680 PS, 700-km listed range. Direct candidate URL and warranty months were not independently verified."}];
+
+const sourceLinks={
+ rs:"https://www.autoscout24.ch/de/s/mo-e-tron-gt/mk-audi/ft-electric",
+ i5:"https://www.autoscout24.ch/de/s/mo-i5/mk-bmw/bt-saloon?makeModelVersions%5B0%5D%5BversionFullName%5D=M60",
+ eqe:"https://www.autoscout24.ch/de/s/mo-eqe-53-amg/mk-mercedes-benz",
+ im5:"https://www.autoscout24.ch/de/s/mo-mg-im5/mk-mg"
+};
+
+records.forEach(r=>{
+ const m=modelContext[r.model];
+ r.performance=m.perf;r.speed=m.dc;r.category=m.arch;r.structure=m.structure;r.status=r.fixed?"Fixed":"Open";
+ r.boot=m.boot;r.capacity=m.battery;r.priceRange=m.priceRange;r.listingCount=m.listingCount;r.spec=m.spec;
+ r.tax=m.tax;r.energy=Math.round(ASSUMPTIONS.annualKm/100*m.cons*ASSUMPTIONS.kwhPrice);r.wear=m.wear;
+ r.exitKm=r.km+ASSUMPTIONS.annualKm*3;
+ r.depMid=(r.depBand[0]+r.depBand[1])/2;
+ r.cost3=Math.round((r.depMid+r.tax+r.energy+r.wear)*3);
+ r.ratings={...m.base};
+});
+
+const depMin=Math.min(...records.map(r=>r.depMid)),depMax=Math.max(...records.map(r=>r.depMid));
+records.forEach(r=>r.ratings.dep=depMax===depMin?5:5-4*(r.depMid-depMin)/(depMax-depMin));
+
+const columns=[
+ {key:"rank",label:"#",group:"Decision",locked:true,sortable:false,core:true},
+ {key:"score",label:"Score",group:"Decision",locked:true,sortable:true,core:true},
+ {key:"value",label:"Value",group:"Decision",sortable:true,core:true},
+ {key:"name",label:"Name",group:"Candidate",locked:true,sortable:true,core:true},
+ {key:"price",label:"Price",group:"Candidate",sortable:true,core:true},
+ {key:"date",label:"Date",group:"Candidate",sortable:true,core:true},
+ {key:"km",label:"Usage",group:"Candidate",sortable:true,core:true},
+ {key:"performance",label:"0–100",group:"Performance",sortable:true,core:true},
+ {key:"speed",label:"DC kW",group:"Performance",sortable:true,core:true},
+ {key:"warranty",label:"Warranty",group:"Ownership",sortable:true,core:true},
+ {key:"cost3",label:"3-yr cost",group:"Ownership",sortable:true,core:true},
+ {key:"depMid",label:"Deprec/yr",group:"Ownership",sortable:true,core:true},
+ {key:"dep",label:"Depreciation",group:"Ratings",sortable:true,core:true,rating:true},
+ {key:"maint",label:"Maintenance",group:"Ratings",sortable:true,core:false,rating:true},
+ {key:"reliability",label:"Reliability",group:"Ratings",sortable:true,core:false,rating:true},
+ {key:"luxury",label:"Luxury",group:"Ratings",sortable:true,core:false,rating:true},
+ {key:"excitement",label:"Excitement",group:"Ratings",sortable:true,core:false,rating:true},
+ {key:"features",label:"Features",group:"Ratings",sortable:true,core:false,rating:true},
+ {key:"stability",label:"Stability",group:"Decision",sortable:false,core:true}
+];
+let visible=new Set(columns.filter(c=>c.core||c.locked).map(c=>c.key));
+let selectedFactors=new Set(factorDefs.map(f=>f.key));
+let sort={key:"score",dir:"desc"};
+let filterState={search:"",category:new Set(["800V-class","400V-class"]),structure:new Set(["Liftback","Separate trunk"]),status:new Set(["Fixed","Open"])};
+
+const fmtCHF=n=>n==null?"—":"CHF "+Math.round(n).toLocaleString("de-CH").replace(/\./g,"'");
+const fmtNum=n=>n==null?"—":Math.round(n).toLocaleString("de-CH").replace(/\./g,"'");
+const dateNum=s=>s?Number(s.replace("-","")):null;
+const bandClass=v=>v>=4.25?"band-high":v>=3.25?"band-mid":v>=2.25?"band-low":"band-bad";
+const barClass=v=>v>=4.25?"bar-high":v>=3.25?"bar-mid":v>=2.25?"bar-low":"bar-bad";
+function scoreRecord(r, weights=null, factors=selectedFactors){
+ let num=0,den=0;
+ factorDefs.forEach(f=>{
+   if(!factors.has(f.key))return;
+   const w=weights?weights[f.key]:f.weight;
+   num+=r.ratings[f.key]*w;den+=w;
+ });
+ return den?num/den:0;
+}
+function recompute(){
+ records.forEach(r=>r.score=scoreRecord(r));
+ const ratios=records.map(r=>r.score/r.price),lo=Math.min(...ratios),hi=Math.max(...ratios);
+ records.forEach((r,i)=>r.value=hi===lo?5:1+4*((r.score/r.price)-lo)/(hi-lo));
+ const ranked=[...records].sort((a,b)=>b.score-a.score||a.price-b.price);
+ ranked.forEach((r,i)=>r.rank=i+1);
+ computeStability();
+}
+function computeStability(){
+ const scenarios=[];
+ const def={};factorDefs.forEach(f=>def[f.key]=f.weight);scenarios.push(def);
+ factorDefs.forEach(target=>{const w={};factorDefs.forEach(f=>w[f.key]=f.key===target.key?3:1);scenarios.push(w)});
+ const ranges=new Map(records.map(r=>[r.id,[]]));
+ scenarios.forEach(w=>{
+   [...records].sort((a,b)=>scoreRecord(b,w,new Set(factorDefs.map(f=>f.key)))-scoreRecord(a,w,new Set(factorDefs.map(f=>f.key)))||a.price-b.price)
+    .forEach((r,i)=>ranges.get(r.id).push(i+1));
+ });
+ records.forEach(r=>{const a=ranges.get(r.id);r.stability=[Math.min(...a),Math.max(...a)]});
+}
+
+const factorChecks=document.getElementById("factorChecks");
+factorDefs.forEach(f=>{
+ const lab=document.createElement("label");lab.className="score-chip";
+ lab.innerHTML=`<input type="checkbox" checked data-factor="${f.key}"><span>${f.label} ×${f.weight}</span>`;
+ factorChecks.appendChild(lab);
+});
+factorChecks.addEventListener("change",e=>{
+ if(!e.target.dataset.factor)return;
+ e.target.checked?selectedFactors.add(e.target.dataset.factor):selectedFactors.delete(e.target.dataset.factor);
+ if(!selectedFactors.size){e.target.checked=true;selectedFactors.add(e.target.dataset.factor);return}
+ recompute();render();
+});
+
+const columnChips=document.getElementById("columnChips");
+function renderColumnChips(){
+ columnChips.innerHTML="";
+ columns.forEach(c=>{
+  const lab=document.createElement("label");lab.className="chip"+(visible.has(c.key)?" active":"");
+  lab.innerHTML=`<input type="checkbox" data-col="${c.key}" ${visible.has(c.key)?"checked":""} ${c.locked?"disabled":""}><span>${c.label}${c.locked?" 🔒":""}</span>`;
+  columnChips.appendChild(lab);
+ });
+}
+columnChips.addEventListener("change",e=>{const k=e.target.dataset.col;if(!k)return;e.target.checked?visible.add(k):visible.delete(k);renderColumnChips();renderTable()});
+document.getElementById("showAll").onclick=()=>{visible=new Set(columns.map(c=>c.key));renderColumnChips();renderTable()};
+document.getElementById("coreOnly").onclick=()=>{visible=new Set(columns.filter(c=>c.core||c.locked).map(c=>c.key));renderColumnChips();renderTable()};
+
+function makeChipGroup(el,vals,stateKey){
+ vals.forEach(v=>{
+  const lab=document.createElement("label");lab.className="chip active";
+  lab.innerHTML=`<input type="checkbox" checked value="${v}"><span>${v}</span>`;
+  el.appendChild(lab);
+ });
+ el.addEventListener("change",e=>{
+  const set=filterState[stateKey];e.target.checked?set.add(e.target.value):set.delete(e.target.value);
+  e.target.closest(".chip").classList.toggle("active",e.target.checked);render();
+ });
+}
+makeChipGroup(document.getElementById("catFilters"),["800V-class","400V-class"],"category");
+makeChipGroup(document.getElementById("structFilters"),["Liftback","Separate trunk"],"structure");
+makeChipGroup(document.getElementById("stateFilters"),["Fixed","Open"],"status");
+
+const rangeDefs=[
+ {key:"price",label:"Max price",min:45000,max:130000,step:1000,fmt:fmtCHF},
+ {key:"km",label:"Max usage",min:0,max:110000,step:2500,fmt:n=>fmtNum(n)+" km"},
+ {key:"date",label:"Earliest date",min:202001,max:202608,step:1,fmt:n=>String(Math.floor(n/100))+"-"+String(n%100).padStart(2,"0")},
+ {key:"cost3",label:"Max 3-year cost",min:20000,max:70000,step:500,fmt:fmtCHF},
+ {key:"warranty",label:"Minimum warranty",min:0,max:84,step:1,fmt:n=>n+" mo"}
+];
+const rangeFilters=document.getElementById("rangeFilters");
+rangeDefs.forEach(d=>{
+ filterState[d.key]=d.key==="date"?d.min:d.key==="warranty"?0:d.max;
+ const wrap=document.createElement("div");wrap.className="range-wrap";
+ wrap.innerHTML=`<label><span>${d.label}</span><b id="lab-${d.key}" class="mono">${d.fmt(filterState[d.key])}</b></label><input id="rng-${d.key}" type="range" min="${d.min}" max="${d.max}" step="${d.step}" value="${filterState[d.key]}">`;
+ rangeFilters.appendChild(wrap);
+ wrap.querySelector("input").addEventListener("input",e=>{filterState[d.key]=Number(e.target.value);document.getElementById("lab-"+d.key).textContent=d.fmt(filterState[d.key]);render()});
+});
+document.getElementById("search").addEventListener("input",e=>{filterState.search=e.target.value.trim();render()});
+
+function filtered(){
+ return records.filter(r=>{
+  if(!filterState.category.has(r.category)||!filterState.structure.has(r.structure)||!filterState.status.has(r.status))return false;
+  if(r.price>filterState.price||r.km>filterState.km||dateNum(r.date)<filterState.date||r.cost3>filterState.cost3)return false;
+  if(filterState.warranty>0&&(r.warranty==null||r.warranty<filterState.warranty))return false;
+  if(filterState.search&&!r.name.toLowerCase().includes(filterState.search.toLowerCase()))return false;
+  return true;
+ });
+}
+function sortVal(r,k){
+ if(k==="dep"||factorDefs.some(f=>f.key===k))return r.ratings[k];
+ return r[k]??null;
+}
+function sortedRows(){
+ const rows=filtered();
+ if(!sort.key)return rows;
+ return rows.sort((a,b)=>{
+  let av=sortVal(a,sort.key),bv=sortVal(b,sort.key);
+  if(av==null&&bv==null)return 0;if(av==null)return 1;if(bv==null)return -1;
+  if(typeof av==="string"){av=av.toLowerCase();bv=bv.toLowerCase()}
+  const c=av<bv?-1:av>bv?1:0;return sort.dir==="asc"?c:-c;
+ });
+}
+function highlightName(name,q){
+ if(!q)return name;
+ const i=name.toLowerCase().indexOf(q.toLowerCase());if(i<0)return name;
+ return name.slice(0,i)+`<mark class="highlight">${name.slice(i,i+q.length)}</mark>`+name.slice(i+q.length);
+}
+function barCell(v){
+ return `<div class="score-wrap"><div class="bar"><span class="${barClass(v)}" style="width:${Math.max(0,Math.min(100,v/5*100))}%"></span></div><b class="${bandClass(v)}">${v.toFixed(2)}</b></div>`;
+}
+function cellHTML(r,k){
+ switch(k){
+  case"rank":return `<span class="rank ${r.rank===1?"one":""}">${r.rank===1?"#1":"#"+r.rank}</span>`;
+  case"score":return barCell(r.score);
+  case"value":return barCell(r.value);
+  case"name":return `<div class="name-cell">${highlightName(r.name,filterState.search)}</div>`;
+  case"price":return fmtCHF(r.price);
+  case"date":return r.date;
+  case"km":return fmtNum(r.km)+" km";
+  case"performance":return r.performance.toFixed(1)+" s";
+  case"speed":return r.speed+" kW";
+  case"warranty":return r.warranty==null?"—":r.warranty+" mo";
+  case"cost3":return fmtCHF(r.cost3);
+  case"depMid":return fmtCHF(r.depMid);
+  case"stability":return `<strong>${r.stability[0]}</strong>–${r.stability[1]}`;
+  default:
+    if(factorDefs.some(f=>f.key===k)){const v=r.ratings[k];return `<span class="rating ${bandClass(v)}">${k==="dep"?v.toFixed(2):v.toFixed(1)}</span>`}
+    return "—";
+ }
+}
+function renderHeaders(){
+ const header=document.getElementById("headerRow"),group=document.getElementById("groupRow");header.innerHTML="";group.innerHTML="";
+ const vis=columns.filter(c=>visible.has(c.key));
+ let groups=[];vis.forEach(c=>{let g=groups[groups.length-1];if(!g||g.name!==c.group)groups.push({name:c.group,count:1});else g.count++});
+ groups.forEach(g=>{const th=document.createElement("th");th.colSpan=g.count;th.textContent=g.name;group.appendChild(th)});
+ vis.forEach(c=>{
+  const th=document.createElement("th");th.scope="col";th.dataset.key=c.key;
+  th.innerHTML=c.label+(c.sortable?` <span class="sort-mark">${sort.key===c.key?(sort.dir==="asc"?"▲":"▼"):"↕"}</span>`:"");
+  if(c.sortable){th.className="sortable";th.tabIndex=0;th.setAttribute("aria-sort",sort.key===c.key?(sort.dir==="asc"?"ascending":"descending"):"none");
+   const activate=()=>{if(sort.key===c.key)sort.dir=sort.dir==="asc"?"desc":"asc";else{sort.key=c.key;sort.dir=(["price","km","performance","cost3","depMid"].includes(c.key)?"asc":"desc")}renderTable()};
+   th.onclick=activate;th.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();activate()}};
+  }
+  if(c.rating&&!selectedFactors.has(c.key))th.classList.add("dimmed");
+  header.appendChild(th);
+ });
+}
+function renderTable(){
+ renderHeaders();const body=document.getElementById("tableBody");body.innerHTML="";
+ const rows=sortedRows();document.getElementById("resultCount").textContent=`${rows.length} of ${records.length} candidates`;
+ rows.forEach(r=>{
+  const tr=document.createElement("tr");tr.style.setProperty("--row-accent",r.category==="800V-class"?"var(--v800)":"var(--v400)");
+  tr.tabIndex=0;tr.setAttribute("aria-label","Open details for "+r.name);
+  tr.onclick=()=>openModal(r);tr.onkeydown=e=>{if(e.key==="Enter"){openModal(r)}};
+  columns.filter(c=>visible.has(c.key)).forEach(c=>{
+   const td=document.createElement("td");if(c.key==="name")td.className="name-cell-wrap";
+   if(c.rating&&!selectedFactors.has(c.key))td.classList.add("dimmed");
+   if(c.key==="rank"&&r.rank===1)td.classList.add("rank","one");
+   td.innerHTML=cellHTML(r,c.key);tr.appendChild(td);
+  });body.appendChild(tr);
+ });
+}
+function renderScatter(){
+ const svg=document.getElementById("scatter"),rows=filtered();svg.innerHTML="";
+ const W=svg.clientWidth||900,H=svg.clientHeight||460,p={l:66,r:25,t:22,b:55};
+ svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+ if(!rows.length){svg.innerHTML=`<text x="${W/2}" y="${H/2}" text-anchor="middle" class="axis-label">No candidates match the filters.</text>`;return}
+ const xs=records.map(r=>r.cost3),ys=records.map(r=>r.score); // full set keeps axes stable
+ const xmin=Math.floor(Math.min(...xs)/5000)*5000,xmax=Math.ceil(Math.max(...xs)/5000)*5000;
+ const ymin=Math.max(1,Math.floor((Math.min(...ys)-.15)*10)/10),ymax=Math.min(5,Math.ceil((Math.max(...ys)+.15)*10)/10);
+ const X=x=>p.l+(x-xmin)/(xmax-xmin)*(W-p.l-p.r),Y=y=>H-p.b-(y-ymin)/(ymax-ymin)*(H-p.t-p.b);
+ const ns="http://www.w3.org/2000/svg";
+ const line=(x1,y1,x2,y2,stroke="#d9e3ed")=>{const l=document.createElementNS(ns,"line");Object.entries({x1,y1,x2,y2,stroke}).forEach(([k,v])=>l.setAttribute(k,v));svg.appendChild(l)};
+ for(let i=0;i<=5;i++){let x=xmin+(xmax-xmin)*i/5;line(X(x),p.t,X(x),H-p.b);let t=document.createElementNS(ns,"text");t.setAttribute("x",X(x));t.setAttribute("y",H-p.b+22);t.setAttribute("text-anchor","middle");t.setAttribute("class","axis-label");t.textContent=fmtCHF(x).replace("CHF ","");svg.appendChild(t)}
+ for(let i=0;i<=4;i++){let y=ymin+(ymax-ymin)*i/4;line(p.l,Y(y),W-p.r,Y(y));let t=document.createElementNS(ns,"text");t.setAttribute("x",p.l-10);t.setAttribute("y",Y(y)+4);t.setAttribute("text-anchor","end");t.setAttribute("class","axis-label");t.textContent=y.toFixed(2);svg.appendChild(t)}
+ let xt=document.createElementNS(ns,"text");xt.setAttribute("x",(p.l+W-p.r)/2);xt.setAttribute("y",H-10);xt.setAttribute("text-anchor","middle");xt.setAttribute("class","axis-label");xt.textContent="3-year ownership cost (CHF) → lower is better";svg.appendChild(xt);
+ let yt=document.createElementNS(ns,"text");yt.setAttribute("transform",`translate(17 ${(p.t+H-p.b)/2}) rotate(-90)`);yt.setAttribute("text-anchor","middle");yt.setAttribute("class","axis-label");yt.textContent="Score → higher is better";svg.appendChild(yt);
+ rows.forEach(r=>{
+  const g=document.createElementNS(ns,"g");g.setAttribute("tabindex","0");g.setAttribute("role","button");g.setAttribute("aria-label",`${r.name}, score ${r.score.toFixed(2)}, 3-year cost ${fmtCHF(r.cost3)}`);
+  const c=document.createElementNS(ns,"circle");c.setAttribute("cx",X(r.cost3));c.setAttribute("cy",Y(r.score));c.setAttribute("r",7);c.setAttribute("fill",r.category==="800V-class"?"#7957e8":"#139ab5");c.setAttribute("class","dot");g.appendChild(c);
+  const t=document.createElementNS(ns,"text");t.setAttribute("x",X(r.cost3)+10);t.setAttribute("y",Y(r.score)-8);t.setAttribute("class","dot-label");t.textContent=r.name.replace(" — "," · ");g.appendChild(t);
+  g.onclick=()=>openModal(r);g.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openModal(r)}};svg.appendChild(g);
+ });
+}
+function render(){renderTable();renderScatter()}
+
+const backdrop=document.getElementById("backdrop"),photo=document.getElementById("photo"),modalContent=document.getElementById("modalContent");
+function optionHtml([n,note]){return `<div class="option"><b>${n}</b>${note?`<span>${note}</span>`:""}</div>`}
+function openModal(r){
+ photo.innerHTML=r.photo?`<img src="${r.photo}" alt="${r.name}" onerror="this.parentNode.innerHTML='<span>Listing photo unavailable — source may block hotlinking.</span>'">`:`<span>Photo URL not independently available for this listing.</span>`;
+ const sellerLine=r.rating!=null?`${r.seller} · ${r.rating.toFixed(1)}/5 (${fmtNum(r.reviews)} reviews)`:r.seller+" · seller rating not captured";
+ modalContent.innerHTML=`
+  <h2 class="modal-title" id="modalTitle">${r.name}</h2>
+  <p class="spec">${r.spec}</p>
+  <div class="key-grid">
+   ${metric("Price",fmtCHF(r.price))}${metric("First reg.",r.date)}${metric("Mileage",fmtNum(r.km)+" km")}${metric("Exit @ 3y",fmtNum(r.exitKm)+" km")}
+   ${metric("0–100",r.performance.toFixed(1)+" s")}${metric("Peak DC",r.speed+" kW")}${metric("Battery",r.capacity+" kWh")}${metric("Boot",r.boot+" L")}
+   ${metric("Warranty",r.warranty==null?"—":r.warranty+" mo")}${metric("3-year cost",fmtCHF(r.cost3))}${metric("Deprec/yr",fmtCHF(r.depMid))}${metric("Market context",fmtCHF(r.priceRange[0])+"–"+fmtCHF(r.priceRange[1])+" · "+r.listingCount+" seen")}
+   ${metric("SZ tax/yr",fmtCHF(r.tax))}${metric("Energy/yr",fmtCHF(r.energy))}${metric("Wear/service",fmtCHF(r.wear)+"/yr")}${metric("Cargo structure",r.structure)}${metric("Winter set",r.winter??"—")}${metric("Seller rating",r.rating==null?"—":r.rating.toFixed(1)+"/5 · "+fmtNum(r.reviews)+" reviews")}
+  </div>
+  <div class="detail-section"><h3>Open questions before buying</h3><ul>${r.questions.map(q=>`<li>${q}</li>`).join("")}</ul></div>
+  <div class="detail-section"><h3>Options / candidate highlights</h3><div class="option-list">${r.options.map(optionHtml).join("")}</div></div>
+  <div class="detail-section"><h3>Source note</h3><p class="small-note">${r.sourceNote}</p></div>
+  <div class="detail-section">
+   <a class="listing-link" href="${r.url}" target="_blank" rel="noopener"><span>Open listing / verified search source<small>${sellerLine}</small></span><span>↗</span></a>
+  </div>`;
+ backdrop.classList.add("open");backdrop.setAttribute("aria-hidden","false");document.body.classList.add("modal-open");document.getElementById("modalClose").focus();
+}
+function metric(label,value){return `<div class="metric"><div class="metric-label">${label}</div><div class="metric-value">${value??"—"}</div></div>`}
+function closeModal(){backdrop.classList.remove("open");backdrop.setAttribute("aria-hidden","true");document.body.classList.remove("modal-open")}
+document.getElementById("modalClose").onclick=closeModal;
+backdrop.addEventListener("click",e=>{if(e.target===backdrop)closeModal()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&backdrop.classList.contains("open"))closeModal()});
+document.querySelectorAll("[data-toggle]").forEach(btn=>btn.onclick=()=>{
+ const el=document.getElementById(btn.dataset.toggle),hidden=el.style.display==="none";el.style.display=hidden?"":"none";btn.textContent=hidden?"Hide":"Show";btn.setAttribute("aria-expanded",hidden?"true":"false");
+});
+window.addEventListener("resize",()=>requestAnimationFrame(renderScatter));
+
+recompute();renderColumnChips();render();
+</script>
+</body>
+</html>

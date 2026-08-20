@@ -223,16 +223,14 @@ footer b{color:var(--ink)}
   <div>
     <p class="kicker">Bridge car · 1–3 year hold · 12'500 km/yr</p>
     <h1>Car shortlist</h1>
-    <p class="sub">16 models · 116 listings · Switzerland · August 2026</p>
+    <p class="sub">25 models · 186 listings · Switzerland · August 2026</p>
   </div>
-  <div class="counts"><b id="shown">16</b><span>models shown</span></div>
+  <div class="counts"><b id="shown">25</b><span>models shown</span></div>
 </header>
 
 <div class="legend">
   <span class="lg"><span class="sw ev"></span> Electric — teal underline</span>
   <span class="lg"><span class="sw ice"></span> Petrol — amber underline</span>
-  <span class="lg"><span class="sw d2"></span> Two doors</span>
-  <span class="lg"><span class="sw d4"></span> Four doors</span>
   <span class="lg" style="color:var(--ink3)">Click any row for photo, options and open questions</span>
 </div>
 
@@ -274,15 +272,15 @@ footer b{color:var(--ink)}
       <button class="chip" data-fx="all" aria-pressed="true">All</button>
       <button class="chip" data-fx="fixed" aria-pressed="false">Fixed only</button></div></div>
     <div class="ctl"><label for="maxprice">Max price · <span class="rangeout" id="maxpriceout">CHF 70'000</span></label>
-      <input type="range" id="maxprice" min="34000" max="70000" step="1000" value="70000"></div>
-    <div class="ctl"><label for="maxkm">Max mileage · <span class="rangeout" id="maxkmout">64'000 km</span></label>
-      <input type="range" id="maxkm" min="0" max="64000" step="1000" value="64000"></div>
-    <div class="ctl"><label for="minyear">Earliest reg · <span class="rangeout" id="minyearout">2021</span></label>
-      <input type="range" id="minyear" min="2021" max="2026" step="1" value="2021"></div>
-    <div class="ctl"><label for="maxcost">Max 3-yr cost · <span class="rangeout" id="maxcostout">CHF 34'000</span></label>
-      <input type="range" id="maxcost" min="19000" max="34000" step="500" value="34000"></div>
+      <input type="range" id="maxprice" min="27000" max="70000" step="1000" value="70000"></div>
+    <div class="ctl"><label for="maxkm">Max mileage · <span class="rangeout" id="maxkmout">80'000 km</span></label>
+      <input type="range" id="maxkm" min="0" max="80000" step="1000" value="80000"></div>
+    <div class="ctl"><label for="minyear">Earliest reg · <span class="rangeout" id="minyearout">2019</span></label>
+      <input type="range" id="minyear" min="2019" max="2026" step="1" value="2019"></div>
+    <div class="ctl"><label for="maxcost">Max 3-yr cost · <span class="rangeout" id="maxcostout">CHF 35'000</span></label>
+      <input type="range" id="maxcost" min="17000" max="35000" step="500" value="35000"></div>
     <div class="ctl"><label for="minwar">Min warranty left · <span class="rangeout" id="minwarout">0 mo</span></label>
-      <input type="range" id="minwar" min="0" max="72" step="1" value="0"></div>
+      <input type="range" id="minwar" min="0" max="84" step="1" value="0"></div>
     <div class="ctl"><label for="minboot">Min boot · <span class="rangeout" id="minbootout">0 l</span></label>
       <input type="range" id="minboot" min="0" max="700" step="10" value="0"></div>
   </div></div>
@@ -298,7 +296,7 @@ footer b{color:var(--ink)}
 
 <footer>
   <p><b>Score</b> is a weighted mean of the ticked factors: depreciation ×3, maintenance ×1.5, reliability ×1.5, luxury ×1, excitement ×1, features ×1. <b>Value</b> is that score divided by candidate price, rescaled across all 16 so best quality-per-franc reads 5.00. The rank number always reflects Score, whatever the sort.</p>
-  <p><b>3-yr cost</b> = depreciation + tax + energy + a tyre and service allowance, over three years. <b>Stability</b> shows best and worst Score rank across seven weightings — a narrow range means the car doesn't depend on one configuration to look good.</p>
+  <p><b>3-yr cost</b> = depreciation + tax + energy + a tyre and service allowance, over three years. <b>Stability</b> shows the best and worst Score rank a car reaches across seven weightings: the default, plus six where each factor in turn is pushed to ×3 and the rest sit at ×1. A narrow range means the car ranks well however you weight things; a wide one means its position depends on a particular view.</p>
   <p><b>Depreciation is derived</b>: band midpoint mapped 3'250 → 5.00, 7'500 → 1.00. The BYD figure is exact — CHF 39'800 against a stated CHF 19'000 residual. <b>The other five ratings are judgement</b>, relative to this field only. <b>Open</b> marks a model with finalists but no fixed candidate.</p>
 </footer>
 </div>
@@ -314,17 +312,11 @@ const COLS=[
  {k:'price',t:'Price CHF',   g:'Candidate',     core:1,type:'num'},
  {k:'year', t:'Reg',         g:'Candidate',     core:1,type:'str'},
  {k:'km',   t:'km',          g:'Candidate',     core:1,type:'num'},
- {k:'exkm', t:'Exit km',     g:'Candidate',     type:'num'},
  {k:'ps',   t:'PS',          g:'Candidate',     type:'num'},
  {k:'zh',   t:'0–100 s',     g:'Candidate',     type:'num'},
  {k:'war',  t:'Warr. mo',    g:'Candidate',     core:1,type:'num'},
- {k:'wint', t:'Winter set',  g:'Candidate',     type:'num'},
- {k:'rate', t:'Seller',      g:'Candidate',     type:'num'},
  {k:'cost3',t:'3-yr cost',   g:'Cost & space',  core:1,type:'num'},
  {k:'depmid',t:'Deprec/yr',  g:'Cost & space',  core:1,type:'num'},
- {k:'energy',t:'Energy/yr',  g:'Cost & space',  type:'num'},
- {k:'boot', t:'Boot l',      g:'Cost & space',  type:'num'},
- {k:'legr', t:'Rear room',   g:'Cost & space',  type:'num'},
  {k:'lux',  t:'Lux',         g:'Ratings',       type:'num'},
  {k:'exc',  t:'Excite',      g:'Ratings',       type:'num'},
  {k:'fea',  t:'Feat',        g:'Ratings',       type:'num'},
@@ -335,7 +327,7 @@ const COLS=[
 ];
 const PARAMS=[{k:'lux',t:'Luxury',w:1},{k:'exc',t:'Excitement',w:1},{k:'fea',t:'Features',w:1},
  {k:'dep',t:'Depreciation',w:3},{k:'mnt',t:'Maintenance',w:1.5},{k:'rel',t:'Reliability',w:1.5}];
-const D_LO=3250,D_HI=7500;
+const D_LO=3000,D_HI=8250;
 const dsc=m=>Math.max(1,Math.min(5,5-4*(m-D_LO)/(D_HI-D_LO)));
 
 const DATA=[
@@ -566,6 +558,148 @@ const DATA=[
    ['Blade-Batterie LFP','Lithium iron phosphate — longer cycle life and no cobalt, but lower energy density and slower DC charging.'],
    ['11 kW Bordladegerät','On-board AC charger.'],
    ['2 Smartkeys + NFC-Schlüsselkarte',''],['Premium Metallic-Lackierung','']]}
+,
+{model:'Porsche Taycan Turbo',price:62500,year:'03.2020',yr:2020,km:52500,ps:680,zh:3.2,pw:'EV',doors:4,
+ depmid:7250,tax:1300,energy:1300,wear:1100,war:12,wint:0,rate:4.6,rev:140,boot:407,legr:3.2,
+ lux:4.9,exc:4.6,fea:4.0,mnt:2.8,rel:3.9,fixed:1,
+ train:'93.4 kWh Performance Battery Plus \u00b7 800 V \u00b7 270 kW DC peak \u00b7 626 PS continuous / 680 overboost \u00b7 400 V booster on board',
+ seller:'Centre Porsche Sierre',listings:5,
+ url:'https://www.autoscout24.ch/de/d/porsche-taycan-turbo-12754089',
+ img:'https://listing-images.autoscout24.ch/listing/89/12754089/591929791.jpg?w=1200&q=90',
+ oq:['Earliest build in either Taycan set at 03.2020 \u2014 ask for the completed recall campaign list, closed by VIN not by model year.',
+     'Only 12 months of dealer cover, and the listing gives no range figure at all.',
+     'At the top of its range the Turbo costs the same as a Turbo S with 81 PS more. This car only makes sense because it is the cheap end.'],
+ opts:[['Porsche Surface Coated Brakes (PSCB)','Tungsten-carbide coated discs \u2014 less dust and longer life than steel, far cheaper than carbon-ceramic.'],
+   ['4+1 Sitzanlage','A middle rear seat, so five seats rather than four.'],
+   ['Adaptive Sportsitze Plus, 18-Wege mit Memory-Paket',''],
+   ['Ambientebeleuchtung',''],['Bremss\u00e4ttel schwarz Hochglanz',''],['Digitalradio','']]},
+
+{model:'Porsche Taycan Turbo S',price:69870,year:'03.2021',yr:2021,km:39970,ps:761,zh:2.8,pw:'EV',doors:4,
+ depmid:7500,tax:1430,energy:1300,wear:1100,war:12,wint:0,rate:4.9,rev:285,boot:407,legr:3.2,
+ lux:4.9,exc:4.9,fea:4.4,mnt:2.6,rel:3.9,fixed:1,
+ train:'93.4 kWh Performance Battery Plus \u00b7 800 V \u00b7 270 kW DC peak \u00b7 625 PS continuous / 761 overboost \u00b7 400 V booster on board',
+ seller:'Outrun Motor Company SA, Carouge',listings:6,
+ url:'https://www.autoscout24.ch/de/d/porsche-taycan-turbo-s-20251707',
+ img:'https://listing-images.autoscout24.ch/listing/707/20251707/1103191736.jpg?w=1200&q=90',
+ oq:['Ask for the completed recall campaign list \u2014 03.2021 is a later build but campaigns are closed by VIN, not year.',
+     'Twelve months of dealer cover. The Marc Robin finalist offers 48 months from takeover at the same price \u2014 worth using as leverage.',
+     'Carbon wheels are superb but expensive to replace if kerbed. Check them closely.'],
+ opts:[['PDCC','Porsche Dynamic Chassis Control \u2014 active anti-roll bars that flatten the car in corners.'],
+   ['PDLS+','Dynamic light system with cornering and adaptive high beam.'],
+   ['Carbonfelgen','Carbon-fibre wheels \u2014 a large unsprung-weight saving, and a large bill if damaged.'],
+   ['Porsche InnoDrive inkl. Abstandsregeltempostat','Reads the road ahead from map data and adjusts speed before the corner arrives.'],
+   ['Head-Up Display',''],['5 Sitze','Middle rear seat fitted.'],
+   ['Mamba Green Metallic','A low-volume Porsche colour \u2014 polarising, but it narrows the buyer pool on resale.'],
+   ['Batteriezertifikat','Battery certificate attached to the listing.']]}
+,
+{model:'Tesla Model 3 Perf. pre-facelift',price:27500,year:'09.2022',yr:2022,km:56000,ps:534,zh:3.3,pw:'EV',doors:4,
+ depmid:3000,tax:1020,energy:1200,wear:700,war:0,wint:1,rate:null,rev:null,boot:594,legr:4.0,
+ lux:2.3,exc:3.8,fea:3.2,mnt:4.8,rel:4.2,fixed:1,
+ train:'79 kWh \u00b7 400 V \u00b7 ~250 kW DC \u00b7 534 PS \u00b7 470 km \u00b7 AMD Ryzen and heat pump',
+ seller:'Private, Emmenbr\u00fccke',listings:9,
+ url:'https://www.autoscout24.ch/de/d/tesla-model-y-performance-20715630',
+ img:'https://listing-images.autoscout24.ch/listing/630/20715630/1104362752.jpg?w=1200&q=90',
+ oq:['Warranty is drive-unit and battery only \u2014 96 months / 196,000 km. There is no vehicle cover, which is true of nearly every car in this set.',
+     'Private sale. Ask to see the service history and confirm the MFK from 31.10.2025.'],
+ opts:[['AMD Ryzen','The 2022 infotainment processor \u2014 dramatically faster than the Intel unit it replaced.'],
+   ['W\u00e4rmepumpe','Heat pump. The difference between losing about 20% and about 35% of range in a Swiss winter.'],
+   ['8-fach bereift','Both wheel sets included.'],
+   ['96 Monate / 196,000 km','Tesla drive and battery cover \u2014 not the vehicle itself.']]},
+
+{model:'MG IM5 Performance',price:50990,year:'2026',yr:2026,km:25,ps:778,zh:3.2,pw:'EV',doors:4,
+ depmid:8250,tax:1420,energy:1250,wear:700,war:84,wint:0,rate:4.5,rev:146,boot:457,legr:4.6,
+ lux:3.6,exc:4.0,fea:4.3,mnt:4.5,rel:2.6,fixed:1,
+ train:'100 kWh NMC (96 net) \u00b7 800 V \u00b7 396 kW DC peak \u00b7 10\u201380% in 17 min \u00b7 778 PS \u00b7 575 km \u00b7 new car',
+ seller:'F. + M. Konstantin, Oftringen',listings:1,
+ url:'https://www.autoscout24.ch/de/d/mg-im5-100-kwh-performance-4wd-20241549',
+ img:'https://listing-images.autoscout24.ch/listing/549/20241549/562538537.jpg?w=1200&q=90',
+ oq:['The listing says 778 PS; MG\u2019s own press material says 751. Confirm which figure is on the Fahrzeugausweis.',
+     'CHF 50,990 is exactly list price, so there is no discount built in. Ask what the next batch is priced at.',
+     'Effectively a new car \u2014 you absorb the whole first-year depreciation, the thing this exercise has been avoiding.',
+     'Reviews consistently criticise the chassis and steering feel rather than the powertrain. Drive it before deciding.'],
+ opts:[['396 kW DC charging','By a wide margin the fastest-charging car in this search \u2014 the Porsche and both Audis peak around 270 kW.'],
+   ['84 Monate / 150,000 km Werksgarantie','Seven years, tied with the Kia for the longest cover here.'],
+   ['Vierradlenkung','Rear-axle steering \u2014 tightens the turning circle and steadies it at speed.'],
+   ['Automatisiertes Pr\u00e4zisionsfahren',''],['Panoramadach',''],['360-Grad-Kamera',''],
+   ['Park-Distanz-Sensoren vorne und hinten',''],['Adaptiver Tempomat','']]},
+
+{model:'BMW M2 Competition',price:55900,year:'05.2019',yr:2019,km:36900,ps:410,zh:4.4,pw:'ICE',doors:2,
+ depmid:3750,tax:830,energy:2190,wear:1000,war:12,wint:0,rate:5.0,rev:31,boot:390,legr:2.5,
+ lux:3.4,exc:4.8,fea:4.0,mnt:3.0,rel:4.2,fixed:1,
+ train:'3.0 S55 inline-six twin-turbo \u00b7 410 PS \u00b7 550 Nm \u00b7 RWD \u00b7 SIX-SPEED MANUAL \u00b7 10 l/100 km',
+ seller:'AUTO SPORT CLASSICA, Etziken',listings:15,
+ url:'https://www.autoscout24.ch/de/d/bmw-m2-competition-handschalter-20710220',
+ img:'https://listing-images.autoscout24.ch/listing/220/20710220/1648152491.jpeg?w=1200&q=90',
+ oq:['Ask directly whether it has seen track use \u2014 the main thing separating a good S55 from an expensive one.',
+     'Five of the fifteen M2s in this set are modified. This one is not, which is worth protecting: keep it standard.'],
+ opts:[['Schaltgetriebe manuell','The only manual in the fifteen cars seen \u2014 and the specific reason F87 M2 values hold up.'],
+   ['S55 Motor','The engine from the F80 M3, not the N55 of the pre-Competition car. The whole point of the Competition.'],
+   ['Elektrisches Glasschiebedach',''],['harman/kardon',''],['R\u00fcckfahrkamera',''],['Driving Assistant',''],
+   ['BMW Service Plus 10 Jahre / 100,000 km','Servicing covered and transferable \u2014 standard on most M2s here.']]},
+
+{model:'Alfa Giulia Quadrifoglio',price:56900,year:'02.2021',yr:2021,km:79800,ps:510,zh:3.9,pw:'ICE',doors:4,
+ depmid:5000,tax:1040,energy:2360,wear:1200,war:12,wint:0,rate:4.8,rev:501,boot:480,legr:4.0,
+ lux:4.2,exc:4.9,fea:4.0,mnt:2.2,rel:2.8,fixed:1,
+ train:'2.9 V6 biturbo \u00b7 510 PS \u00b7 600 Nm \u00b7 RWD \u00b7 8-speed auto \u00b7 10.3 l/100 km',
+ seller:'Garage Aliz\u00e9 SA, Collombey',listings:3,
+ url:'https://www.autoscout24.ch/de/d/alfa-romeo-giulia-29-v6-quadrifoglio-automatic-20266337',
+ img:'https://listing-images.autoscout24.ch/listing/337/20266337/1421892336.jpg?w=1200&q=90',
+ oq:['NICHT ab MFK \u2014 budget for the inspection and any work it turns up.',
+     'HIGHEST MILEAGE OF ANY CAR IN THIS SEARCH at 79,800 km, and it exits a three-year hold near 117,000 km.',
+     'Three listings nationally, all high-mileage. Thin Swiss service coverage for the marque.'],
+ opts:[['Swiss Free Service 10 Jahre / 100,000 km','Servicing covered \u2014 unusually valuable on a car already at 79,800 km.'],
+   ['Pack Power Seats','Eight-way electric driver seat with heating.'],
+   ['Paket Komfort','Keyless entry and start, illuminated door handles.'],
+   ['Driver Assistance Plus','Adaptive cruise, Traffic Jam Assist and Highway Assist.'],
+   ['Official Alfa Romeo dealer','4.8 from 501 \u2014 the strongest marque-specific service relationship available for this car.']]},
+
+{model:'Audi RS5 Coup\u00e9',price:58900,year:'10.2022',yr:2022,km:31900,ps:450,zh:3.9,pw:'ICE',doors:2,
+ depmid:5500,tax:910,energy:2190,wear:1100,war:2,wint:0,rate:4.4,rev:300,boot:465,legr:3.0,
+ lux:4.5,exc:4.5,fea:4.8,mnt:2.6,rel:3.6,fixed:1,
+ train:'2.9 V6 biturbo \u00b7 450 PS \u00b7 600 Nm \u00b7 quattro \u00b7 8-speed tiptronic \u00b7 10.3 l/100 km',
+ seller:'Autohaus Otelfingen',listings:4,
+ url:'https://www.autoscout24.ch/de/d/audi-rs5-coupe-29-tfsi-quattro-tiptronic-12439037',
+ img:'https://listing-images.autoscout24.ch/listing/37/12439037/1845185328.JPG?w=1200&q=90',
+ oq:['The factory warranty runs 48 months from 10.2022, so it expires around October 2026 \u2014 roughly two months away. Ask about extending before it lapses.',
+     'The 2.9 TFSI wants its timing chain tensioners checked, and some cars use oil. Worth naming at the pre-purchase inspection.'],
+ opts:[['RS competition Paket','Stiffer suspension, revised steering, RS sport exhaust and 275/30 R20 tyres. Rare, and it transforms the car.'],
+   ['Bang & Olufsen 3D',''],['Leder / Alcantara schwarz',''],['Umgebungskameras','360-degree view.'],
+   ['Audi Ringe und Schriftz\u00fcge in Schwarz gl\u00e4nzend',''],
+   ['Audi virtual cockpit plus mit RS-Layout',''],
+   ['Fortlaufende Werksgarantie','The only live factory cover among the four RS5s seen.']]},
+
+{model:'Tesla Model X Plaid',price:62500,year:'12.2023',yr:2023,km:59800,ps:1020,zh:2.6,pw:'EV',doors:4,
+ depmid:7750,tax:1300,energy:1400,wear:1100,war:27,wint:0,rate:null,rev:null,boot:1090,legr:4.8,
+ lux:4.0,exc:4.9,fea:4.4,mnt:3.0,rel:3.2,fixed:1,
+ train:'100 kWh \u00b7 400 V \u00b7 ~250 kW DC \u00b7 tri-motor 1,020 PS \u00b7 528 km \u00b7 HW4',
+ seller:'Private, Brigels',listings:9,
+ url:'https://www.autoscout24.ch/de/d/tesla-model-x-100kwh-plaid-20223619',
+ img:'https://listing-images.autoscout24.ch/listing/619/20223619/959651388.jpg?w=1200&q=90',
+ oq:['Highest mileage of the Model X finalists at 59,800 km \u2014 it exits a three-year hold near 97,000 km.',
+     'Only four photos in the listing. Ask for a full set before travelling.',
+     'Get the warranty transfer confirmed in writing. The listing states it happens automatically on private sale; that is the whole basis of this car\u2019s case.'],
+ opts:[['Tesla Gebrauchtwagengarantie bis 11.2028','Base cover to 11.2027 plus a further year, stated to transfer in full to the new owner \u2014 cover through your entire hold.'],
+   ['Batteriegarantie 8 Jahre / 160,000 km',''],
+   ['HW4','The newer autopilot computer \u2014 the hardware generation that matters for future software.'],
+   ['Enhanced Autopilot',''],['6 Sitzpl\u00e4tze','Two individual middle-row seats rather than a bench.'],
+   ['Abnehmbare Anh\u00e4ngerkupplung','']]},
+
+{model:'Tesla Model Y Performance',price:31000,year:'02.2023',yr:2023,km:52000,ps:534,zh:3.7,pw:'EV',doors:4,
+ depmid:3000,tax:1020,energy:1250,wear:700,war:0,wint:0,rate:null,rev:null,boot:854,legr:4.4,
+ lux:2.8,exc:3.9,fea:4.0,mnt:4.8,rel:4.2,fixed:1,
+ train:'79 kWh \u00b7 400 V \u00b7 ~250 kW DC \u00b7 534 PS \u00b7 511 km',
+ seller:'Private, Interlaken',listings:18,
+ url:'https://www.autoscout24.ch/de/d/tesla-performance-d-20703675',
+ img:'https://listing-images.autoscout24.ch/listing/675/20703675/1451910862.jpeg?w=1200&q=90',
+ oq:['THE ONE QUESTION THAT DECIDES THIS CAR: the AutoScout listing says Garantie Nein, but a 02.2023 Tesla should still be inside the 4-year vehicle warranty to about 02.2027. The Tesla app has a Garantie tab that settles it. If cover is live, this is the outright best value in the search.',
+     'The listing showed no equipment at all; the app spec sheet shows the car is well optioned. Do not judge it by the advert.',
+     '52,000 km now, about 89,500 km at exit after three years \u2014 the point where Model Y values fall away.'],
+ opts:[['Premium-Innenraum schwarz und weiss','A paid interior option, not the standard black.'],
+   ['Pearl White Multi-Coat (PPSW)','Tesla\u2019s premium paint, roughly CHF 2,000 new.'],
+   ['Anh\u00e4ngerkupplung',''],['Spoiler aus Karbon',''],['21-Zoll \u00dcberturbine-Felgen',''],
+   ['Performance-Bremsen',''],['Performance-Pedale',''],
+   ['Potenzial f\u00fcr Voll-Selbstst\u00e4ndiges Fahren','FSD-capable hardware fitted \u2014 the software itself is a separate purchase.'],
+   ['Autopilot',''],['F\u00fcnfsitzer-Innenraum',''],['Supercharger-Zugang + Pay-As-You-Go','']]}
 ];
 DATA.forEach(r=>{
   r.dep=dsc(r.depmid);
@@ -573,10 +707,38 @@ DATA.forEach(r=>{
   r.exkm=r.km+37500;
 });
 
+const FIN={
+ 'Tesla Model 3 Perf. pre-facelift':[['Private, Frenkendorf',25500,'Cheapest entry, but no warranty at all','https://www.autoscout24.ch/de/d/tesla-performance-d-facelift-20663079'],['4X4 GS Saxon',25900,'CHF 400 more and a dealer with a 72-month claim','https://www.autoscout24.ch/de/d/tesla-model-3-performance-dual-motor-awd-20625915'],['Private, Emmenbr\u00fccke',27500,'CANDIDATE \u2014 AMD Ryzen and heat pump, the 2022 hardware that matters','https://www.autoscout24.ch/de/d/tesla-model-y-performance-20715630'],['Private, Renens',29000,'42,000 km and garage-kept, but summer wheels only','https://www.autoscout24.ch/de/d/tesla-model-3-performance-dual-motor-awd-10403102'],['Private, Dietikon',33990,'Enhanced Autopilot and the last spec with radar and ultrasonics','https://www.autoscout24.ch/de/d/tesla-model-3-performance-dual-motor-awd-12599335']],
+ 'MG IM5 Performance':[['F. + M. Konstantin, Oftringen',50990,'CANDIDATE \u2014 the only listing; new car at exactly list price','https://www.autoscout24.ch/de/d/mg-im5-100-kwh-performance-4wd-20241549']],
+ 'BMW M2 Competition':[['Private, Villarimboud',46900,'Cheapest, unmodified, free service to 2029, but no warranty','https://www.autoscout24.ch/de/d/bmw-m2-competition-20682877'],['Autocenter Herzogenbuchsee',49999,'24 months / 40,000 km \u2014 longest cover; Bastuck exhaust fitted','https://www.autoscout24.ch/de/d/bmw-m2-competition-drivelogic-20631871'],['Private, Z\u00fcrich',52000,'Explicitly "kein Tuning", fresh MFK, both wheel sets','https://www.autoscout24.ch/de/d/bmw-m2-competition-20680495'],['Vcar Occasions',53999,'30,000 km, full origine, new tyres','https://www.autoscout24.ch/de/d/bmw-m2-competition-drivelogic-20635561'],['Sport Garage, Nendeln',54500,'BMW factory warranty to 06.05.2027, but wrapped matte black','https://www.autoscout24.ch/de/d/bmw-m2-competition-swiss-performance-edition-20481571'],['AUTO SPORT CLASSICA',55900,'CANDIDATE \u2014 the only manual, 5.0-rated seller','https://www.autoscout24.ch/de/d/bmw-m2-competition-handschalter-20710220'],['Stern Garage Matzingen',56900,'Lowest km at 29,000, Pro Edition, Quality1 cover','https://www.autoscout24.ch/de/d/bmw-m2-competition-swiss-performance-pro-edition-20382202']],
+ 'Alfa Giulia Quadrifoglio':[['Garage Aliz\u00e9 SA',56900,'CANDIDATE \u2014 free service 10 yr, official Alfa dealer 4.8/501','https://www.autoscout24.ch/de/d/alfa-romeo-giulia-29-v6-quadrifoglio-automatic-20266337'],['Emil Frey Spreitenbach',59900,'Lowest km at 65,200, but warranty capped at only 12,000 km','https://www.autoscout24.ch/de/d/alfa-romeo-giulia-29-v6-biturbo-quadrifoglio-20573134']],
+ 'Audi RS5 Coup\u00e9':[['Autohaus Otelfingen',58900,'CANDIDATE \u2014 RS competition Paket, 31,900 km, live factory cover','https://www.autoscout24.ch/de/d/audi-rs5-coupe-29-tfsi-quattro-tiptronic-12439037'],['carzone, Lenggenwil',59990,'The only Sportback \u2014 carbon pack, ceramic brakes, but seller unrated','https://www.autoscout24.ch/de/d/audi-rs5-sportback-29-tfsi-quattro-tiptronic-carbon-paket-20487212'],['Autoland Reust',59990,'Modified: H&R lowering, spacers, Maxton kit','https://www.autoscout24.ch/de/d/audi-rs5-coupe-29-tfsi-quattro-tiptronic-20098000']],
+ 'Tesla Model X Plaid':[['Private, Brigels',62500,'CANDIDATE \u2014 Tesla warranty to 11.2028, transfers on private sale','https://www.autoscout24.ch/de/d/tesla-model-x-100kwh-plaid-20223619'],['Gowago AG',68900,'43,600 km, winter set, cut from 72,900','https://www.autoscout24.ch/de/d/tesla-model-x-plaid-20526933'],['Auto-Galerie Wil',69600,'37,500 km, battery to 12.2030, cut from 74,900','https://www.autoscout24.ch/de/d/tesla-model-x-100kwh-plaid-20101732'],['streettoys, Safenwil',69990,'Lowest km at 33,000, 96 months stated','https://www.autoscout24.ch/de/d/tesla-model-x-100kwh-plaid-enhanced-autopilot-hw4-20564844']],
+ 'Tesla Model Y Performance':[['Private, Interlaken',31000,'CANDIDATE \u2014 far better equipped than the advert showed; check the Garantie tab','https://www.autoscout24.ch/de/d/tesla-performance-d-20703675'],['SwissAutomobil, Berikon',34444,'SoH 94% certified, Ryzen, heat pump, 96-month cover','https://www.autoscout24.ch/de/d/tesla-model-y-performance-soh-94-514-km-wltp-534ps-made-in-berlin-werksgarantie-20627912'],['Philipp Schnyder',34900,'35,000 km and SoH 94%, but the seller has no rating','https://www.autoscout24.ch/de/d/tesla-model-y-performance-amd-ryzen-20558076'],['Private, D\u00fcbendorf',36500,'60-month cover to about 10.2028 \u2014 longest in the set','https://www.autoscout24.ch/de/d/tesla-performance-d-20556813'],['Gowago AG',36900,'23,500 km with a 21" Pirelli winter set included','https://www.autoscout24.ch/de/d/tesla-model-y-performance-20634410'],['Auto Bonau AG',41990,'Lowest km at 15,000, battery certificate, 5.0/234','https://www.autoscout24.ch/de/d/tesla-model-y-performance-d-anhangerkupplung-20715817'],['Expert Car Broker',44990,'Newest, full FSD, Tesla Protect, battery to 2032','https://www.autoscout24.ch/de/d/tesla-model-y-performance-12771400']],
+ 'BMW M440i xDrive GC':[['Autocenter Jaha',43800,'24 mo warranty included, cheapest GC','https://www.autoscout24.ch/de/d/bmw-m440i-xdrive-48v-gran-coupe-steptronic-20225022'],['Falcon Otelfingen',46890,'CANDIDATE \u2014 best spec, 29,973 km','https://www.autoscout24.ch/de/d/bmw-m440i-xdrive-48v-gran-coupe-steptronic-12611675'],['Hedin Wohlen',46900,'Official BMW, Repair 4 yr/200,000 km','https://www.autoscout24.ch/de/d/bmw-m440i-xdrive-gran-coupe-20384210'],['Ghanem Regensdorf',47900,'Only 20,000 km, but seller unrated','https://www.autoscout24.ch/de/d/bmw-m440i-xdrive-48v-388-ps-gran-coupe-steptronic-360-kamera-20587570']],
+ 'BMW M340i xDrive':[['A&S Dorfgarage',41800,'LEADING \u2014 56,400 km, free service, warranty costs 1,350 extra','https://www.autoscout24.ch/de/d/bmw-m340i-xdrive-20529448'],['M&F Automobile',46900,'72,000 km but real warranty \u2014 terms need confirming','https://www.autoscout24.ch/de/d/bmw-m340i-xdrive-20597887']],
+ 'Kia Stinger GT':[['Garage P&P, official Kia',39900,'CANDIDATE \u2014 84-month warranty to ~06.2029','https://www.autoscout24.ch/de/d/kia-stinger-gt-33-t-gdi-20586855'],['Autoverwertung Zimmermann',45999,'Dropped: 6,099 more with no warranty at all','https://www.autoscout24.ch/de/d/kia-stinger-33-t-gdi-gt-automat-awd-12773218']],
+ 'BMW M3 Competition':[['Uznaberg Neuhaus',65960,'Cheapest, but warranty costs extra','https://www.autoscout24.ch/de/d/bmw-m3-competition-ab-880-pro-monat-20627008'],['Thaqi La Rippe',68900,'38,000 km, free BMW service, 4.8/151','https://www.autoscout24.ch/de/d/bmw-m3-competition-20491197'],['automoor St\u00e4fa',69790,'CANDIDATE \u2014 only real 24-month cover','https://www.autoscout24.ch/de/d/bmw-m3-competition-m-xdrive-ch-fahrzeug-20710056'],['CB Motorsport',70990,'20,800 km, lowest in the set','https://www.autoscout24.ch/de/d/bmw-m3-competition-brooklin-grey-20602620']],
+ 'BMW i4 M50':[['Steiner Kriens',38900,'LEADING \u2014 best equipped, free service, 96% at 43,000 km unexplained','https://www.autoscout24.ch/de/d/bmw-i4-m50-20705719'],['Pierig Oberbipp',38900,'Newest reg and live warranty, but no SoH figure','https://www.autoscout24.ch/de/d/bmw-i4-m50-m-sport-pro-frozen-pure-grey-ii-20312947'],['Steiner Nebikon',39900,'98% battery, lowest km, best seller rating','https://www.autoscout24.ch/de/d/bmw-i4-m50-20702061']],
+ 'Audi e-tron GT quattro':[['AMAG Jona',42990,'Cheapest, full chassis kit, 55,000 km','https://www.autoscout24.ch/en/d/audi-e-tron-gt-quattro-20490418'],['Autocorner Sion',46900,'Only 24-month cover, 60,000 km','https://www.autoscout24.ch/en/d/audi-e-tron-gt-quattro-20314190'],['Private, Selzach',47100,'Cover to 01/2027, Vollausstattung','https://www.autoscout24.ch/en/d/audi-e-tron-gt-quattro-20495294'],['AMAG Vernier',47490,'Allradlenkung + rear diff lock','https://www.autoscout24.ch/en/d/audi-e-tron-gt-quattro-20666622'],['Auto Heidegg',47600,'CANDIDATE \u2014 22,000 km, best cabin in the set','https://www.autoscout24.ch/en/d/audi-e-tron-gt-quattro-20481725'],['Emil Frey Gen\u00e8ve',49990,'Newest and lowest km, but no warranty at all','https://www.autoscout24.ch/en/d/audi-e-tron-gt-quattro-20618484']],
+ 'Tesla Model 3 Performance':[['Aarauto Aarau',44490,'CANDIDATE \u2014 SoH 97.7%, 5.0/232','https://www.autoscout24.ch/de/d/tesla-model-3-dual-motor-performance-awd-20689926'],['MB Carcenter',46490,'Seat ventilation, heated rear seats','https://www.autoscout24.ch/de/d/tesla-model-3-dual-motor-performance-awd-20699645'],['CARFINITY Roggwil',49499,'Newest, cover to 03.2030','https://www.autoscout24.ch/de/d/tesla-model-3-dual-motor-performance-awd-highland-hw4-20700324']],
+ 'Ford Mustang Fastback GT':[['Mobi Car Frenkendorf',42400,'Cheapest, thin spec','https://www.autoscout24.ch/en/d/ford-mustang-fastback-50-v8-gt-automat-20411002'],['Schloss-Garage Buckten',43900,'LEADING \u2014 B&O, ventilated seats, winter set','https://www.autoscout24.ch/en/d/ford-mustang-fastback-50-v8-gt-automat-20374174'],['Vettiger Wetzikon',48500,'Premium-Paket III with Recaros, 21,400 km','https://www.autoscout24.ch/en/d/ford-mustang-fastback-50-v8-gt-automat-20646084'],['VOGELS Lyssach',48900,'Only 4,046 km \u2014 ask why','https://www.autoscout24.ch/en/d/ford-mustang-50-gt-fastback-10774778']],
+ 'BMW i4 M60':[['Steiner Luzern',59900,'CANDIDATE \u2014 the only listing under 65k nationally','https://www.autoscout24.ch/de/d/bmw-i4-m60-m-sport-pro-20698494']],
+ 'Porsche Taycan 4S':[['Private, Sarnen',48800,'New battery at 97% claimed \u2014 get the invoice','https://www.autoscout24.ch/de/d/porsche-taycan-4s-neue-batterie-soh-97-mit-8-j-garantie-94-kwh-warmepumpe-20583877'],['Carvolution Langenthal',49900,'CANDIDATE \u2014 Porsche Approved claim needs verifying','https://www.autoscout24.ch/de/d/porsche-taycan-4s-20478292'],['Centre Porsche Lausanne',49900,'48 months from takeover, but nicht ab MFK','https://www.autoscout24.ch/de/d/porsche-taycan-4s-20478292'],['Private, Gland',54800,'Cover lapses 12.2026','https://www.autoscout24.ch/de/d/porsche-4s-performance-batterie-20650910'],['Porsche Zentrum Bern',57900,'28,000 km, 1. Hand, best equipped','https://www.autoscout24.ch/de/d/porsche-taycan-4s-11443261'],['Outrun Carouge',59880,'Lowest km, 2+2 extension likely expired','https://www.autoscout24.ch/de/d/porsche-taycan-4s-batterie-performance-93-4-kwh-20570442']],
+ 'Audi RS e-tron GT':[['NAF Gelterkinden',49800,'CANDIDATE \u2014 fresh MFK, 4.9/474','https://www.autoscout24.ch/en/d/audi-rs-e-tron-gt-quattro-20509864'],['AMAG Z\u00fcrich',53900,'Later build (04.2022) but nicht ab MFK and no charger included','https://www.autoscout24.ch/en/d/audi-rs-e-tron-gt-quattro-20524037']],
+ 'BMW i5 M60 xDrive':[['IBA Niederlenz',56900,'CANDIDATE \u2014 vehicle cover lapses this month; battery to ~08.2031','https://www.autoscout24.ch/de/d/bmw-i5-m60-xdrive-20718687']],
+ 'Polestar 4 LR Dual':[['Auto Bonau',41899,'CANDIDATE \u2014 24 vs 60 month warranty question','https://www.autoscout24.ch/de/d/polestar-4-long-range-dual-motor-20361782'],['Stierli St. Erhard',46460,'Pack Pilot + Plus, 12,300 km, cover to 12.2029','https://www.autoscout24.ch/de/d/polestar-4-long-range-dual-motor-20701151'],['Autotradition Wilen',48890,'Claims cover to 03.2033','https://www.autoscout24.ch/de/d/polestar-polestar-4-long-range-dual-100kwh-gratis-serivce-5-jahre-pilot-paket-paket-plus-panorma-garantie-bis-032033-20661308'],['Automotive Center Luzern',48900,'AVILOO test, SoH 99.5%','https://www.autoscout24.ch/de/d/polestar-polestar-4-long-range-dual-100kwh-prime-20551487'],['Stierli Zofingen',49995,'Only 7,200 km, every pack','https://www.autoscout24.ch/de/d/polestar-4-long-range-dual-motor-performance-20651428']],
+ 'BMW M5 Competition':[['Selekt Oberb\u00fcren',69490,'Cheapest but 77,800 km','https://www.autoscout24.ch/de/d/bmw-m5-xdrive-competition-drivelogic-20513924'],['The Expert Wettingen',69500,'No options listed at all','https://www.autoscout24.ch/de/d/bmw-m5-xdrive-competition-drivelogic-20584191'],['AUTO MAXL Herisau',69900,'CANDIDATE \u2014 600 PS standard, factory cover to 05.2028','https://www.autoscout24.ch/de/d/bmw-m5-xdrive-competition-drivelogic-20536956'],['Car Hub Gr\u00e4nichen',69900,'Frozen Bluestone, carbon-ceramics, 69,000 km','https://www.autoscout24.ch/de/d/bmw-m5-xdrive-competition-drivelogic-20536956']],
+ 'Tesla Model S Plaid':[['Private, Corminboeuf',54900,'Long Range, 13,870 cheaper, nicht ab MFK','https://www.autoscout24.ch/de/d/tesla-model-s-20468693'],['Outrun Carouge',68770,'CANDIDATE \u2014 FSD included, both wheel sets','https://www.autoscout24.ch/de/d/tesla-model-s-100-kwh-plaid-20643802'],['Garage K\u00e4sermann',69500,'Long Range, 663 km \u2014 best range figure in the search','https://www.autoscout24.ch/de/d/tesla-model-s-20702178']],
+ 'BYD Seal AWD Excellence':[['Auto Steiner Z\u00fcrich',39800,'CANDIDATE \u2014 the only listing; new car, NP 56,090','https://www.autoscout24.ch/de/d/byd-seal-82-5-kwh-excellence-20685340']],
+ 'Porsche Taycan Turbo':[['Centre Porsche Sierre',62500,'CANDIDATE \u2014 PSCB brakes, official Porsche','https://www.autoscout24.ch/de/d/porsche-taycan-turbo-12754089'],['RG Automotive le Bry',64888,'44,999 km, Approved available at extra cost','https://www.autoscout24.ch/de/d/porsche-taycan-turbo-20690808'],['Porsche Zentrum Aargau',69900,'41,000 km and best spec, but its 48-month cover expired 01.2025','https://www.autoscout24.ch/de/d/porsche-taycan-turbo-20687232']],
+ 'Porsche Taycan Turbo S':[['Private, Urdorf',67950,'Porsche Approved to 08.2027, but nicht ab MFK','https://www.autoscout24.ch/de/d/porsche-taycan-turbo-s-20249283'],['Outrun Carouge',69870,'CANDIDATE \u2014 PDCC, carbon wheels, battery cert','https://www.autoscout24.ch/de/d/porsche-taycan-turbo-s-20251707'],['Autowelt von Rotz',69890,'HV battery to 08.2028, seller 4.9 from 4,022','https://www.autoscout24.ch/de/d/porsche-taycan-turbo-s-20702561'],['Marc Robin Gen\u00e8ve',69900,'Only 20,174 km and 48 months from takeover','https://www.autoscout24.ch/de/d/porsche-taycan-turbo-s-20113843']]
+};
+
 let ON={};PARAMS.forEach(p=>ON[p.k]=true);
 let VIS={};COLS.forEach(c=>VIS[c.k]=true);
 let sortKey='score',sortDir='desc';
-const F={q:'',pw:'all',dr:'all',fx:'all',maxprice:70000,maxkm:64000,minyear:2021,maxcost:34000,minwar:0,minboot:0};
+const F={q:'',pw:'all',dr:'all',fx:'all',maxprice:70000,maxkm:80000,minyear:2019,maxcost:35000,minwar:0,minboot:0};
 
 const fmt=n=>n==null?'—':n.toLocaleString('en-CH').replace(/,/g,"'");
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -665,12 +827,20 @@ function openModal(r){
       <div><dt>Listings seen</dt><dd>${r.listings==null?'—':r.listings}</dd></div>
       <div><dt>Boot</dt><dd>${r.boot} l</dd></div>
       <div><dt>Exit km @3yr</dt><dd>${fmt(r.exkm)}</dd></div>
+      <div><dt>Winter set</dt><dd>${r.wint?'included':'no'}</dd></div>
+      <div><dt>Doors</dt><dd>${r.doors}${r.doors===2?' — 2-door':''}</dd></div>
+      <div><dt>Rear room</dt><dd>${r.legr.toFixed(1)} / 5</dd></div>
+      <div><dt>Stability</dt><dd>${r.rbest}–${r.rworst}</dd></div>
     </div></div>
     <div class="msec"><h3>Open questions</h3>
       ${r.oq&&r.oq.length?`<ul class="oq">${r.oq.map(q=>`<li>${esc(q)}</li>`).join('')}</ul>`
         :`<ul class="oq"><li class="none">Nothing outstanding on this one.</li></ul>`}</div>
     <div class="msec"><h3>Options on this car</h3>
       <ul class="opts">${r.opts.map(([n,d])=>`<li><b>${esc(n)}</b>${d?` — <em>${esc(d)}</em>`:''}</li>`).join('')}</ul></div>
+    <div class="msec"><h3>Finalists for this model</h3>
+      ${(FIN[r.model]||[]).length?`<ul class="opts">${FIN[r.model].map(([n,p,note,u])=>
+        `<li${p===r.price?' style="border-color:var(--brand);background:#F0F1FE"':''}><b>${u?`<a class="listing" href="${u}" target="_blank" rel="noopener">${esc(n)} \u2197</a>`:esc(n)} \u2014 CHF ${fmt(p)}</b>${note?` \u2014 <em>${esc(note)}</em>`:''}</li>`).join('')}</ul>`
+        :`<p class="mnote">No finalist list recorded.</p>`}</div>
     <div class="msec"><h3>Listing</h3>
       ${r.url?`<a class="mlink" href="${r.url}" target="_blank" rel="noopener">${esc(r.seller)} ↗</a>`
         :`<p class="mnote">No listing.</p>`}
@@ -765,21 +935,15 @@ function render(){
     case 'rank':return `<td class="rank">${r.rank}</td>`;
     case 'score':return sc(r.score);
     case 'value':return sc(r.value);
-    case 'model':return `<td class="model"><span class="nm">${hl(r.model)}</span>${r.doors===2?'<span class="d2b">2-DOOR</span>':''}${r.fixed?'':'<span class="tag">OPEN</span>'}</td>`;
+    case 'model':return `<td class="model"><span class="nm">${hl(r.model)}</span></td>`;
     case 'price':return `<td class="num">${fmt(r.price)}</td>`;
     case 'year':return `<td class="num">${r.year}</td>`;
     case 'km':return `<td class="num">${r.km===10?'new':fmt(r.km)}</td>`;
-    case 'exkm':return `<td class="num">${fmt(r.exkm)}</td>`;
     case 'ps':return `<td class="num">${r.ps}</td>`;
     case 'zh':return `<td class="num">${r.zh.toFixed(1)}</td>`;
     case 'war':return `<td class="num v${r.war>=36?5:r.war>=24?4:r.war>=12?3:r.war>=1?2:1}">${r.war}</td>`;
-    case 'wint':return `<td class="num">${r.wint?'yes':'—'}</td>`;
-    case 'rate':return `<td class="num">${r.rate?r.rate.toFixed(1)+' / '+r.rev:'—'}</td>`;
     case 'cost3':return `<td class="num">${fmt(r.cost3)}</td>`;
     case 'depmid':return `<td class="num">${fmt(r.depmid)}</td>`;
-    case 'energy':return `<td class="num">${fmt(r.energy)}</td>`;
-    case 'boot':return `<td class="num">${r.boot}</td>`;
-    case 'legr':return `<td class="rate v${bnd(r.legr)}">${r.legr.toFixed(1)}</td>`;
     case 'dep':return `<td class="rate v${bnd(r.dep)}${ON.dep?'':' off'}">${r.dep.toFixed(2)}</td>`;
     case 'lux':case 'exc':case 'fea':case 'mnt':case 'rel':
       return `<td class="rate v${bnd(r[c.k])}${ON[c.k]?'':' off'}">${r[c.k].toFixed(1)}</td>`;
