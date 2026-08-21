@@ -21,6 +21,7 @@
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
+html{overflow-y:scroll;scrollbar-gutter:stable}
 body{
   background:
     radial-gradient(900px 500px at 8% -8%, #E8EDFF 0%, transparent 55%),
@@ -220,15 +221,47 @@ mark{background:#FEF3C7;padding:0 2px;border-radius:2px}
 .parked table tbody tr:hover{opacity:1}
 .pcount{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink3)}
 .pempty{padding:22px 18px;color:var(--ink3);font-size:13px}
-tbody tr.filtered{opacity:.34;filter:saturate(.15)}
-tbody tr.filtered:hover{opacity:.72;filter:saturate(.45)}
-tbody tr.filtered td{color:var(--ink3)}
-tbody tr.filtered td.fx{opacity:1;filter:none;position:relative;color:var(--warn);font-weight:600;
-  background:rgba(199,58,90,.10);box-shadow:inset 0 0 0 1px rgba(199,58,90,.35)}
-tbody tr.filtered td.fx::after{content:attr(data-why);display:block;font-family:'Space Grotesk',sans-serif;
-  font-size:9.5px;font-weight:500;letter-spacing:.02em;color:var(--warn);opacity:.85;margin-top:1px;white-space:nowrap}
-.lswarn{margin-left:10px;font-family:'Space Grotesk',sans-serif;font-size:11.5px;color:var(--warn);
-  text-transform:none;letter-spacing:0;font-weight:400}
+tbody tr.filtered td{opacity:.30;filter:saturate(.12);color:var(--ink3);transition:opacity .14s,filter .14s}
+tbody tr.filtered:hover td{opacity:.62;filter:saturate(.4)}
+tbody tr.filtered td.fx,tbody tr.filtered:hover td.fx{opacity:1;filter:none;color:var(--warn);
+  background:rgba(199,58,90,.16);box-shadow:inset 0 0 0 1px rgba(199,58,90,.55);position:relative}
+tbody td{padding-bottom:17px}
+tbody tr.filtered td.fx::after{content:attr(data-why);position:absolute;left:12px;right:6px;bottom:2px;
+  font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:600;letter-spacing:.01em;
+  color:var(--warn);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
+
+.numgrid{display:grid;grid-template-columns:repeat(auto-fill,248px);justify-content:space-between;
+  gap:15px 18px;
+  padding:15px 18px 6px;border-top:1px solid var(--rule)}
+.nf{width:248px;min-width:248px;max-width:248px}
+.nfhead{display:block;margin-bottom:2px}
+.nfl{display:block;width:100%;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:600;
+  text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nfv{display:block;width:100%;text-align:left;font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;color:var(--ink2);white-space:nowrap;font-variant-numeric:tabular-nums;
+  overflow:visible;margin-top:1px}
+.nfv.act{color:var(--warn)}
+.dual{position:relative;display:block;width:248px;height:20px;
+  touch-action:none;user-select:none;-webkit-user-select:none}
+.dtrack{position:absolute;top:8px;left:7px;right:7px;width:auto;height:4px;
+  background:var(--rule);border-radius:3px;cursor:pointer}
+.dfill{position:absolute;top:0;height:100%;background:var(--g4);border-radius:3px}
+.dfill.act{background:var(--warn)}
+.dh{position:absolute;top:3px;width:14px;height:14px;margin-left:-7px;border-radius:50%;
+  background:#fff;border:2px solid var(--g4);box-shadow:0 1px 3px rgba(20,26,38,.28);
+  cursor:grab;touch-action:none;transition:border-color .14s,transform .1s,box-shadow .1s}
+.dh:hover{transform:scale(1.12)}
+.dh:focus-visible{outline:2px solid var(--g5);outline-offset:2px}
+.dh.act{border-color:var(--warn)}
+.dh.grab{cursor:grabbing;transform:scale(1.22);box-shadow:0 2px 7px rgba(20,26,38,.34);z-index:3}
+.dh[data-h="b"]{z-index:2}
+.nf.act .nfl{color:var(--warn)}
+.frow{display:flex;align-items:center;gap:12px;padding:10px 18px 14px}
+.fnote{font-family:'Space Grotesk',sans-serif;font-size:11px;color:var(--ink3)}
+#diag{position:fixed;right:14px;bottom:14px;z-index:99;background:#fff;border:1px solid var(--rule);
+  border-radius:8px;box-shadow:0 6px 24px rgba(20,26,38,.18);padding:10px 12px;
+  font-family:'IBM Plex Mono',monospace;font-size:10.5px;line-height:1.55;color:var(--ink2);max-width:290px}
+#diag b{font-family:'Space Grotesk',sans-serif;font-size:10px;text-transform:uppercase;letter-spacing:.08em}
 footer{margin-top:26px;border-top:1px solid var(--rule);padding-top:18px;font-size:12px;
   color:var(--ink2);max-width:1020px}
 footer p{margin:0 0 9px}
@@ -293,19 +326,12 @@ footer b{color:var(--ink)}
     <div class="ctl"><label>Candidate</label><div class="chips" id="fxchips">
       <button class="chip" data-fx="all" aria-pressed="true">All</button>
       <button class="chip" data-fx="fixed" aria-pressed="false">Fixed only</button></div></div>
-    <div class="ctl"><label for="maxprice">Max price · <span class="rangeout" id="maxpriceout">CHF 99'000</span></label>
-      <input type="range" id="maxprice" min="25000" max="99000" step="1000" value="99000"></div>
-    <div class="ctl"><label for="maxkm">Max mileage · <span class="rangeout" id="maxkmout">96'000 km</span></label>
-      <input type="range" id="maxkm" min="0" max="96000" step="1000" value="96000"></div>
-    <div class="ctl"><label for="minyear">Earliest reg · <span class="rangeout" id="minyearout">2001</span></label>
-      <input type="range" id="minyear" min="2001" max="2026" step="1" value="2019"></div>
-    <div class="ctl"><label for="maxcost">Max 3-yr cost · <span class="rangeout" id="maxcostout">CHF 37'000</span></label>
-      <input type="range" id="maxcost" min="16000" max="37000" step="500" value="37000"></div>
-    <div class="ctl"><label for="minwar">Min warranty left · <span class="rangeout" id="minwarout">0 mo</span></label>
-      <input type="range" id="minwar" min="0" max="84" step="1" value="0"></div>
-    <div class="ctl"><label for="minboot">Min boot · <span class="rangeout" id="minbootout">0 l</span></label>
-      <input type="range" id="minboot" min="0" max="700" step="10" value="0"></div>
-  </div></div>
+  </div>
+  <div class="numgrid" id="numgrid"></div>
+  <div class="frow"><button class="btn" id="clearNum" type="button">Clear all ranges</button>
+    <button class="btn" id="diagBtn" type="button" title="Report any element whose width changes">Watch widths</button>
+    <span class="fnote">Drag a handle back to the end to switch that side off. Rows that fail stay in the table, dimmed, with the offending cell flagged.</span></div>
+  </div>
 </section>
 
 <div class="tablewrap">
@@ -858,7 +884,18 @@ const HIDDEN=loadParked();
 let ON={};PARAMS.forEach(p=>ON[p.k]=true);
 let VIS={};COLS.forEach(c=>VIS[c.k]=true);
 let sortKey='score',sortDir='desc';
-const F={q:'',pw:'all',dr:'all',fx:'all',maxprice:99000,maxkm:96000,minyear:2001,maxcost:37000,minwar:0,minboot:0};
+const F={q:'',pw:'all',dr:'all',fx:'all',mn:{},mx:{}};
+const NUMF=[
+ {k:'score',t:'Score',d:2,st:.01},{k:'value',t:'Value',d:2,st:.01},
+ {k:'price',t:'Price CHF',d:0,st:500},{k:'yr',t:'Reg year',d:0,st:1,col:'year',raw:1},
+ {k:'km',t:'Mileage km',d:0,st:1000},{k:'ps',t:'PS',d:0,st:10},
+ {k:'zh',t:'0\u2013100 s',d:1,st:.1},{k:'war',t:'Warranty mo',d:0,st:1},
+ {k:'cost3',t:'3-yr cost CHF',d:0,st:500},{k:'depmid',t:'Deprec/yr CHF',d:0,st:250},
+ {k:'lux',t:'Luxury',d:1,st:.1},{k:'exc',t:'Excitement',d:1,st:.1},
+ {k:'fea',t:'Features',d:1,st:.1},{k:'dep',t:'Deprec rating',d:2,st:.05},
+ {k:'mnt',t:'Maintenance',d:1,st:.1},{k:'rel',t:'Reliability',d:1,st:.1},
+ {k:'stabsp',t:'Rank spread',d:0,st:1,col:'stab'},{k:'boot',t:'Boot l',d:0,st:10,col:'model'},
+ {k:'legr',t:'Rear legroom',d:1,st:.1,col:'model'},{k:'listings',t:'Listings',d:0,st:1,col:'model'}];
 
 const fmt=n=>n==null?'—':n.toLocaleString('en-CH').replace(/,/g,"'");
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -884,7 +921,7 @@ function recompute(){
     const tmp=DATA.map(r=>({r,s:PARAMS.reduce((a,p)=>a+r[p.k]*sc[p.k],0)/tot}));
     tmp.sort((a,b)=>b.s-a.s).forEach((o,i)=>o.r._rs.push(i+1));
   });
-  DATA.forEach(r=>{r.rbest=Math.min(...r._rs);r.rworst=Math.max(...r._rs)});
+  DATA.forEach(r=>{r.rbest=Math.min(...r._rs);r.rworst=Math.max(...r._rs);r.stabsp=r.rworst-r.rbest;});
 }
 
 const pT=document.getElementById('paramTogs');
@@ -906,19 +943,161 @@ COLS.filter(c=>!c.lock).forEach(c=>{
 });
 const setCols=p=>{COLS.filter(c=>!c.lock).forEach(c=>{const v=!!p(c);VIS[c.k]=v;
   const i=document.getElementById('c-'+c.k);i.checked=v;i.closest('.tog').classList.toggle('on',v);});render();};
-document.getElementById('colAll').onclick=()=>setCols(()=>1);
-document.getElementById('colCore').onclick=()=>setCols(c=>c.core);
+(document.getElementById('colAll')||{}).onclick=()=>setCols(()=>1);
+(document.getElementById('colCore')||{}).onclick=()=>setCols(c=>c.core);
 
 document.getElementById('q').addEventListener('input',e=>{F.q=e.target.value.trim().toLowerCase();render();});
 const chipG=(id,k)=>document.getElementById(id).addEventListener('click',e=>{
   const b=e.target.closest('.chip');if(!b)return;F[k]=b.dataset[k];
   [...e.currentTarget.querySelectorAll('.chip')].forEach(c=>c.setAttribute('aria-pressed',String(c===b)));render();});
 chipG('pwchips','pw');chipG('drchips','dr');chipG('fxchips','fx');
-const sl=(id,k,f)=>{const el=document.getElementById(id),o=document.getElementById(id+'out');
-  el.addEventListener('input',e=>{F[k]=+e.target.value;o.textContent=f(F[k]);render();});};
-sl('maxprice','maxprice',v=>'CHF '+fmt(v));sl('maxkm','maxkm',v=>fmt(v)+' km');
-sl('minyear','minyear',v=>v);sl('maxcost','maxcost',v=>'CHF '+fmt(v));
-sl('minwar','minwar',v=>v+' mo');sl('minboot','minboot',v=>v+' l');
+const BND={},SEL={};
+const round6=v=>Math.round(v*1e6)/1e6;
+function bounds(k){
+  const n=NUMF.find(x=>x.k===k),st=n?n.st:1;
+  const v=DATA.map(r=>r[k]).filter(x=>x!=null&&isFinite(x));
+  if(!v.length)return [0,1];
+  let lo=Math.min(...v),hi=Math.max(...v);
+  const u=1/st,E=1e-6;
+  const dn=x=>{const y=x*u;return (Math.abs(y-Math.round(y))<E?Math.round(y):Math.floor(y))/u;};
+  const up=x=>{const y=x*u;return (Math.abs(y-Math.round(y))<E?Math.round(y):Math.ceil(y))/u;};
+  lo=dn(lo);hi=up(hi);
+  if(hi<=lo)hi=lo+st;
+  return [round6(lo),round6(hi)];
+}
+const snap=(v,st)=>round6(Math.round(v/st)*st);
+const HR=7;   // handle radius: the track is inset by this so handles never overhang
+
+function buildNum(){
+  const g=document.getElementById('numgrid');
+  NUMF.forEach(n=>{const b=bounds(n.k);BND[n.k]=b;SEL[n.k]={a:b[0],b:b[1]};});
+  g.innerHTML=NUMF.map(n=>{
+    return `<div class="nf" data-k="${n.k}">
+      <div class="nfhead"><span class="nfl">${esc(n.t)}</span><span class="nfv" data-out="${n.k}"></span></div>
+      <div class="dual" data-dual="${n.k}">
+        <div class="dtrack"><div class="dfill" data-fill="${n.k}"></div></div>
+        <div class="dh" data-h="a" data-k="${n.k}" tabindex="0" role="slider" aria-label="Minimum ${esc(n.t)}"></div>
+        <div class="dh" data-h="b" data-k="${n.k}" tabindex="0" role="slider" aria-label="Maximum ${esc(n.t)}"></div>
+      </div></div>`;}).join('');
+
+  let drag=null,pending=false;
+  const flush=()=>{pending=false;render();};
+  const queue=()=>{if(!pending){pending=true;requestAnimationFrame(flush);}};
+
+  const rectOf=el=>{
+    let e=el;
+    while(e){const r=e.getBoundingClientRect();if(r&&r.width>0)return r;e=e.parentElement;
+      if(e&&e.id==='numgrid')break;}
+    return null;
+  };
+  const valAt=(k,clientX,dual)=>{
+    const r=rectOf(dual);
+    if(!r)return null;                       // unmeasurable -> do nothing, never snap to minimum
+    const [lo,hi]=BND[k];
+    const usable=r.width-HR*2;
+    if(usable<=0)return null;
+    const pct=Math.min(1,Math.max(0,(clientX-r.left-HR)/usable));
+    const n=NUMF.find(x=>x.k===k);
+    return Math.min(hi,Math.max(lo,snap(lo+pct*(hi-lo),n.st)));
+  };
+  const commit=(k,which,v)=>{
+    if(v==null||!isFinite(v))return;
+    const sel=SEL[k],[lo,hi]=BND[k];
+    if(which==='a')sel.a=Math.min(v,sel.b); else sel.b=Math.max(v,sel.a);
+    sel.a<=lo?delete F.mn[k]:F.mn[k]=sel.a;
+    sel.b>=hi?delete F.mx[k]:F.mx[k]=sel.b;
+    paint(k);queue();
+  };
+
+  g.addEventListener('pointerdown',e=>{
+    const h=e.target.closest('.dh');if(!h)return;
+    e.preventDefault();
+    const k=h.dataset.k,dual=h.closest('.dual');
+    drag={k,which:h.dataset.h,dual,id:e.pointerId};
+    try{h.setPointerCapture(e.pointerId);}catch(_){}
+    h.classList.add('grab');
+  });
+  window.addEventListener('pointermove',e=>{
+    if(!drag)return;
+    e.preventDefault();
+    commit(drag.k,drag.which,valAt(drag.k,e.clientX,drag.dual));
+  },{passive:false});
+  const stop=e=>{if(!drag)return;
+    const h=g.querySelector(`.dh[data-k="${drag.k}"][data-h="${drag.which}"]`);
+    if(h){h.classList.remove('grab');try{h.releasePointerCapture(drag.id);}catch(_){}}
+    drag=null;render();};
+  window.addEventListener('pointerup',stop);
+  window.addEventListener('pointercancel',stop);
+  window.addEventListener('blur',stop);
+
+  // click anywhere on the track moves the nearer handle
+  g.addEventListener('pointerdown',e=>{
+    const t=e.target.closest('.dtrack');if(!t||e.target.closest('.dh'))return;
+    const dual=t.closest('.dual'),k=dual.dataset.dual,v=valAt(k,e.clientX,dual);
+    if(v==null)return;
+    commit(k,Math.abs(v-SEL[k].a)<=Math.abs(v-SEL[k].b)?'a':'b',v);
+  });
+
+  g.addEventListener('keydown',e=>{
+    const h=e.target.closest('.dh');if(!h)return;
+    const k=h.dataset.k,n=NUMF.find(x=>x.k===k),w=h.dataset.h,[lo,hi]=BND[k];
+    const big=(hi-lo)/10;
+    let d=0;
+    if(e.key==='ArrowLeft'||e.key==='ArrowDown')d=-n.st;
+    else if(e.key==='ArrowRight'||e.key==='ArrowUp')d=n.st;
+    else if(e.key==='PageDown')d=-big;else if(e.key==='PageUp')d=big;
+    else if(e.key==='Home'){commit(k,w,lo);e.preventDefault();return;}
+    else if(e.key==='End'){commit(k,w,hi);e.preventDefault();return;}
+    else return;
+    e.preventDefault();
+    commit(k,w,Math.min(hi,Math.max(lo,snap(SEL[k][w]+d,n.st))));
+  });
+}
+
+function paint(k){
+  const n=NUMF.find(x=>x.k===k),[lo,hi]=BND[k],sel=SEL[k],g=document.getElementById('numgrid');
+  const nf=g&&g.querySelector(`.nf[data-k="${k}"]`);if(!nf||!sel)return;
+  const span=(hi-lo)||1;
+  const pa=(sel.a-lo)/span*100, pb=(sel.b-lo)/span*100;
+  const f=nf.querySelector('.dfill');
+  f.style.left=pa+'%';f.style.width=Math.max(0,pb-pa)+'%';
+  const ha=nf.querySelector('.dh[data-h="a"]'),hb=nf.querySelector('.dh[data-h="b"]');
+  const pos=pct=>`calc(${HR}px + (100% - ${HR*2}px) * ${pct/100})`;
+  ha.style.left=pos(pa);hb.style.left=pos(pb);
+  const actA=sel.a>lo,actB=sel.b<hi,act=actA||actB;
+  ha.classList.toggle('act',actA);hb.classList.toggle('act',actB);f.classList.toggle('act',act);
+  const sh=v=>n.d?(+v).toFixed(n.d):(n.raw?String(Math.round(v)):fmt(Math.round(v)));
+  [[ha,sel.a],[hb,sel.b]].forEach(([el,v])=>{
+    el.setAttribute('aria-valuemin',lo);el.setAttribute('aria-valuemax',hi);el.setAttribute('aria-valuenow',v);});
+  const out=nf.querySelector('.nfv');
+  out.textContent=sh(sel.a)+' \u2013 '+sh(sel.b);
+  out.classList.toggle('act',act);nf.classList.toggle('act',act);
+}
+
+function syncBounds(){
+  const g=document.getElementById('numgrid');if(!g||!g.children.length)return;
+  NUMF.forEach(n=>{
+    const k=n.k,[lo,hi]=bounds(k),prev=BND[k];
+    if(prev&&prev[0]===lo&&prev[1]===hi){paint(k);return;}
+    const sel=SEL[k]||{a:lo,b:hi};
+    const wasFullA=!prev||sel.a<=prev[0], wasFullB=!prev||sel.b>=prev[1];
+    BND[k]=[lo,hi];
+    sel.a=wasFullA?lo:Math.min(Math.max(sel.a,lo),hi);
+    sel.b=wasFullB?hi:Math.min(Math.max(sel.b,lo),hi);
+    if(sel.a>sel.b)sel.a=sel.b;
+    SEL[k]=sel;
+    sel.a<=lo?delete F.mn[k]:F.mn[k]=sel.a;
+    sel.b>=hi?delete F.mx[k]:F.mx[k]=sel.b;
+    paint(k);});
+}
+
+recompute();
+buildNum();NUMF.forEach(n=>paint(n.k));
+window.addEventListener('resize',()=>NUMF.forEach(n=>paint(n.k)));
+(document.getElementById('clearNum')||{}).onclick=()=>{
+  F.mn={};F.mx={};
+  NUMF.forEach(n=>{const [lo,hi]=BND[n.k];SEL[n.k]={a:lo,b:hi};paint(n.k);});
+  render();};
 
 /* ---- modal ---- */
 const ovl=document.getElementById('ovl');
@@ -1006,8 +1185,10 @@ function scatter(rows){
 }
 
 /* ---- render ---- */
+let SYNCING=false;
 function render(){
   recompute();
+  if(!SYNCING){SYNCING=true;syncBounds();SYNCING=false;}
   const cols=COLS.filter(c=>VIS[c.k]);
   const gs=[];cols.forEach(c=>{const l=gs[gs.length-1];if(l&&l.g===c.g)l.n++;else gs.push({g:c.g,n:1});});
   document.getElementById('grouprow').innerHTML=gs.map(g=>`<th colspan="${g.n}">${esc(g.g)}</th>`).join('');
@@ -1026,18 +1207,21 @@ function render(){
   });
 
   const FAIL={};
+  const LBL=Object.fromEntries(NUMF.map(n=>[n.k,n]));
+  const shw=(k,v)=>{const n=LBL[k];return n&&n.d?(+v).toFixed(n.d):(n&&n.raw?String(Math.round(v)):fmt(v));};
   DATA.forEach(r=>{
     const f=[];
     if(F.q&&!r.model.toLowerCase().includes(F.q))f.push(['model','no match for "'+F.q+'"']);
     if(F.pw!=='all'&&r.pw!==F.pw)f.push(['model',r.pw+', not '+F.pw]);
     if(F.dr==='4'&&r.doors!==4)f.push(['model',r.doors+'-door']);
     if(F.fx==='fixed'&&!r.fixed)f.push(['model','no candidate fixed']);
-    if(r.price>F.maxprice)f.push(['price','over CHF '+fmt(F.maxprice)]);
-    if(r.km>F.maxkm)f.push(['km','over '+fmt(F.maxkm)+' km']);
-    if(r.yr<F.minyear)f.push(['year','older than '+F.minyear]);
-    if(r.cost3>F.maxcost)f.push(['cost3','over CHF '+fmt(F.maxcost)]);
-    if(r.war<F.minwar)f.push(['war','under '+F.minwar+' months']);
-    if(r.boot<F.minboot)f.push(['boot','under '+F.minboot+' l']);
+    NUMF.forEach(n=>{
+      const v=r[n.k];
+      if(v==null||!isFinite(v))return;
+      const ck=n.col||n.k;
+      if(F.mn[n.k]!=null&&v<F.mn[n.k])f.push([ck,'below '+shw(n.k,F.mn[n.k])]);
+      if(F.mx[n.k]!=null&&v>F.mx[n.k])f.push([ck,'above '+shw(n.k,F.mx[n.k])]);
+    });
     FAIL[r.model]=f;
   });
   const rows=DATA.slice();
@@ -1113,12 +1297,43 @@ function render(){
     render();
   }));
 }
-document.getElementById('restoreAll').onclick=()=>{HIDDEN.clear();saveParked();render();};
+(document.getElementById('restoreAll')||{}).onclick=()=>{HIDDEN.clear();saveParked();render();};
 (()=>{const names=new Set(DATA.map(d=>d.model));let changed=false;
   [...HIDDEN].forEach(m=>{if(!names.has(m)){HIDDEN.delete(m);changed=true;}});
   if(changed)saveParked();
   if(!LSOK)flagNoStorage();})();
 render();
+</script>
+<div id="diag" hidden></div>
+<script>
+(function(){
+  const box=document.getElementById('diag');
+  const targets=()=>[['html',document.documentElement],['body',document.body],
+    ['.wrap',document.querySelector('.wrap')],['filters section',document.getElementById('numgrid')?.closest('section')],
+    ['.pbd',document.getElementById('numgrid')?.closest('.pbd')],['#numgrid',document.getElementById('numgrid')],
+    ['.nf[score]',document.querySelector('.nf[data-k="score"]')],
+    ['.dual[score]',document.querySelector('.nf[data-k="score"] .dual')],
+    ['.dtrack[score]',document.querySelector('.nf[data-k="score"] .dtrack')],
+    ['.tablewrap',document.querySelector('.tablewrap')],
+    ['table',document.querySelector('#tbl')||document.querySelector('table')]].filter(t=>t[1]);
+  let base=null,on=false;
+  const snap=()=>{const o={};targets().forEach(([n,el])=>o[n]=+el.getBoundingClientRect().width.toFixed(2));return o;};
+  const draw=()=>{
+    const now=snap();
+    box.innerHTML='<b>width watcher</b><br>'+Object.keys(now).map(k=>{
+      const b=base?base[k]:now[k],d=+(now[k]-b).toFixed(2);
+      return `<span style="color:${d?'#C73A5A':'#7A869A'}">${k}: ${now[k]}${d?'  ('+(d>0?'+':'')+d+')':''}</span>`;
+    }).join('<br>')+'<br><i>scrollbar: '+(window.innerWidth-document.documentElement.clientWidth)+'px</i>';
+  };
+  document.getElementById('diagBtn').onclick=()=>{
+    on=!on;box.hidden=!on;
+    document.getElementById('diagBtn').textContent=on?'Stop watching':'Watch widths';
+    if(on){base=snap();draw();}
+  };
+  const ro=new ResizeObserver(()=>{if(on)draw();});
+  setTimeout(()=>targets().forEach(([,el])=>ro.observe(el)),300);
+  window.addEventListener('pointerup',()=>{if(on)setTimeout(draw,60);});
+})();
 </script>
 </body>
 </html>
