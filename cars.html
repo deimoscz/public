@@ -220,6 +220,13 @@ mark{background:#FEF3C7;padding:0 2px;border-radius:2px}
 .parked table tbody tr:hover{opacity:1}
 .pcount{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink3)}
 .pempty{padding:22px 18px;color:var(--ink3);font-size:13px}
+tbody tr.filtered{opacity:.34;filter:saturate(.15)}
+tbody tr.filtered:hover{opacity:.72;filter:saturate(.45)}
+tbody tr.filtered td{color:var(--ink3)}
+tbody tr.filtered td.fx{opacity:1;filter:none;position:relative;color:var(--warn);font-weight:600;
+  background:rgba(199,58,90,.10);box-shadow:inset 0 0 0 1px rgba(199,58,90,.35)}
+tbody tr.filtered td.fx::after{content:attr(data-why);display:block;font-family:'Space Grotesk',sans-serif;
+  font-size:9.5px;font-weight:500;letter-spacing:.02em;color:var(--warn);opacity:.85;margin-top:1px;white-space:nowrap}
 .lswarn{margin-left:10px;font-family:'Space Grotesk',sans-serif;font-size:11.5px;color:var(--warn);
   text-transform:none;letter-spacing:0;font-weight:400}
 footer{margin-top:26px;border-top:1px solid var(--rule);padding-top:18px;font-size:12px;
@@ -1018,24 +1025,27 @@ function render(){
     th.onclick=go;th.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go();}};
   });
 
-  const rows=DATA.filter(r=>{
-    if(F.q&&!r.model.toLowerCase().includes(F.q))return 0;
-    if(F.pw!=='all'&&r.pw!==F.pw)return 0;
-    if(F.dr==='4'&&r.doors!==4)return 0;
-    if(F.fx==='fixed'&&!r.fixed)return 0;
-    if(r.price>F.maxprice)return 0;
-    if(r.km>F.maxkm)return 0;
-    if(r.yr<F.minyear)return 0;
-    if(r.cost3>F.maxcost)return 0;
-    if(r.war<F.minwar)return 0;
-    if(r.boot<F.minboot)return 0;
-    return 1;
+  const FAIL={};
+  DATA.forEach(r=>{
+    const f=[];
+    if(F.q&&!r.model.toLowerCase().includes(F.q))f.push(['model','no match for "'+F.q+'"']);
+    if(F.pw!=='all'&&r.pw!==F.pw)f.push(['model',r.pw+', not '+F.pw]);
+    if(F.dr==='4'&&r.doors!==4)f.push(['model',r.doors+'-door']);
+    if(F.fx==='fixed'&&!r.fixed)f.push(['model','no candidate fixed']);
+    if(r.price>F.maxprice)f.push(['price','over CHF '+fmt(F.maxprice)]);
+    if(r.km>F.maxkm)f.push(['km','over '+fmt(F.maxkm)+' km']);
+    if(r.yr<F.minyear)f.push(['year','older than '+F.minyear]);
+    if(r.cost3>F.maxcost)f.push(['cost3','over CHF '+fmt(F.maxcost)]);
+    if(r.war<F.minwar)f.push(['war','under '+F.minwar+' months']);
+    if(r.boot<F.minboot)f.push(['boot','under '+F.minboot+' l']);
+    FAIL[r.model]=f;
   });
+  const rows=DATA.slice();
   rows.sort((a,b)=>{const col=COLS.find(c=>c.k===sortKey)||{type:'num'};
     let x=a[sortKey],y=b[sortKey];if(x==null)return 1;if(y==null)return -1;
     const v=col.type==='str'?String(x).localeCompare(String(y)):x-y;return sortDir==='asc'?v:-v;});
 
-  scatter(rows.filter(r=>!HIDDEN.has(r.model)));
+  scatter(rows.filter(r=>!HIDDEN.has(r.model)&&!FAIL[r.model].length));
 
   const hl=s=>F.q&&s.toLowerCase().includes(F.q)
     ?esc(s).replace(new RegExp('('+F.q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>'):esc(s);
@@ -1065,13 +1075,20 @@ function render(){
   }};
 
   const live=rows.filter(r=>!HIDDEN.has(r.model));
+  const passing=live.filter(r=>!FAIL[r.model].length);
   const park=DATA.filter(r=>HIDDEN.has(r.model)).slice().sort((a,b)=>a.rank-b.rank);
 
-  document.getElementById('shown').textContent=live.length;
-  document.getElementById('empty').hidden=live.length>0;
+  document.getElementById('shown').textContent=passing.length;
+  document.getElementById('empty').hidden=passing.length>0;
   document.querySelector('.tablewrap').style.display=live.length?'':'none';
 
-  const rowHtml=r=>`<tr class="${r.pw==='EV'?'ev':'ice'}${r.rank===1&&!HIDDEN.has(r.model)?' top':''}" tabindex="0" data-m="${esc(r.model)}">${cols.map(c=>cell(r,c)).join('')}</tr>`;
+  const rowHtml=r=>{
+    const f=FAIL[r.model]||[], out=f.length>0;
+    const keys=new Set(f.map(x=>x[0])), why=f.map(x=>x[1]).join(' \u00b7 ');
+    return `<tr class="${r.pw==='EV'?'ev':'ice'}${r.rank===1&&!HIDDEN.has(r.model)&&!out?' top':''}${out?' filtered':''}" tabindex="0" data-m="${esc(r.model)}"${out?` title="Filtered out: ${esc(why)}"`:''}>${
+      cols.map(c=>{let td=cell(r,c);
+        if(keys.has(c.k))td=td.replace(/^<td/,'<td data-why="'+esc(f.filter(x=>x[0]===c.k).map(x=>x[1]).join(', '))+'" class="fx "').replace('class="fx " class="','class="fx ');
+        return td;}).join('')}</tr>`;};
   document.getElementById('tbody').innerHTML=live.map(rowHtml).join('');
 
   const pp=document.getElementById('parkedPanel');
