@@ -278,9 +278,9 @@ footer b{color:var(--ink)}
   <div>
     <p class="kicker">Bridge car · 1–3 year hold · 12'500 km/yr</p>
     <h1>Car shortlist</h1>
-    <p class="sub">28 models · 190 listings · Switzerland · August 2026</p>
+    <p class="sub">27 models · 189 listings · Switzerland · August 2026</p>
   </div>
-  <div class="counts"><b id="shown">28</b><span>models shown</span></div>
+  <div class="counts"><b id="shown">27</b><span>models shown</span></div>
 </header>
 
 <div class="legend">
@@ -328,9 +328,9 @@ footer b{color:var(--ink)}
       <button class="chip" data-fx="fixed" aria-pressed="false">Fixed only</button></div></div>
   </div>
   <div class="numgrid" id="numgrid"></div>
-  <div class="frow"><button class="btn" id="clearNum" type="button">Clear all ranges</button>
+  <div class="frow"><button class="btn" id="clearNum" type="button">Reset all filters</button>
     <button class="btn" id="diagBtn" type="button" title="Report any element whose width changes">Watch widths</button>
-    <span class="fnote">Drag a handle back to the end to switch that side off. Rows that fail stay in the table, dimmed, with the offending cell flagged.</span></div>
+    <span class="fnote">Filters are remembered between sessions. Drag a handle back to the end to switch that side off. Rows that fail stay in the table, dimmed, with the offending cell flagged.</span></div>
   </div>
 </section>
 
@@ -745,21 +745,23 @@ const DATA=[
    ['Abnehmbare Anh\u00e4ngerkupplung','']]},
 
 {model:'Tesla Model Y Performance',price:31000,year:'02.2023',yr:2023,km:52000,ps:534,zh:3.7,pw:'EV',doors:4,
- depmid:3000,tax:1020,energy:1250,wear:700,war:0,wint:0,rate:null,rev:null,boot:854,legr:4.4,
- lux:2.8,exc:3.9,fea:4.0,mnt:4.8,rel:4.2,fixed:1,
+ depmid:3000,tax:1020,energy:1250,wear:700,war:6,wint:1,rate:null,rev:null,boot:854,legr:4.4,
+ lux:2.8,exc:3.9,fea:4.5,mnt:4.8,rel:4.2,fixed:1,
  train:'79 kWh \u00b7 400 V \u00b7 ~250 kW DC \u00b7 534 PS \u00b7 511 km',
  seller:'Private, Interlaken',listings:18,
  url:'https://www.autoscout24.ch/de/d/tesla-performance-d-20703675',
  img:'https://listing-images.autoscout24.ch/listing/675/20703675/1451910862.jpeg?w=1200&q=90',
- oq:['THE ONE QUESTION THAT DECIDES THIS CAR: the AutoScout listing says Garantie Nein, but a 02.2023 Tesla should still be inside the 4-year vehicle warranty to about 02.2027. The Tesla app has a Garantie tab that settles it. If cover is live, this is the outright best value in the search.',
-     'The listing showed no equipment at all; the app spec sheet shows the car is well optioned. Do not judge it by the advert.',
+ oq:['WARRANTY CONFIRMED PRESENT. Tesla\u2019s 4-year / 80,000 km vehicle cover runs from 02.2023, so it expires around FEBRUARY 2027 \u2014 roughly six months out, not six years. Battery and drive unit are separately covered 8 years / 192,000 km to about 02.2031. Entered as 6 months on the vehicle.',
+     'The AutoScout listing showed no equipment and no warranty at all; both were wrong. Do not judge this car by its advert.',
      '52,000 km now, about 89,500 km at exit after three years \u2014 the point where Model Y values fall away.'],
  opts:[['Premium-Innenraum schwarz und weiss','A paid interior option, not the standard black.'],
    ['Pearl White Multi-Coat (PPSW)','Tesla\u2019s premium paint, roughly CHF 2,000 new.'],
    ['Anh\u00e4ngerkupplung',''],['Spoiler aus Karbon',''],['21-Zoll \u00dcberturbine-Felgen',''],
    ['Performance-Bremsen',''],['Performance-Pedale',''],
-   ['Potenzial f\u00fcr Voll-Selbstst\u00e4ndiges Fahren','FSD-capable hardware fitted \u2014 the software itself is a separate purchase.'],
-   ['Autopilot',''],['F\u00fcnfsitzer-Innenraum',''],['Supercharger-Zugang + Pay-As-You-Go','']]}
+   ['Full Self-Driving','The software itself, not merely the capable hardware \u2014 roughly CHF 7,500 as an option and it transfers with the car.'],
+   ['Autopilot',''],['Winterr\u00e4der','Full winter set included \u2014 8-fach bereift.'],
+   ['F\u00fcnfsitzer-Innenraum',''],['Supercharger-Zugang + Pay-As-You-Go',''],
+   ['Werksgarantie bis ca. 02.2027','Tesla 4 Jahre / 80,000 km, plus battery and drive unit 8 Jahre / 192,000 km to about 02.2031.']]}
 ,
 {model:'Porsche 911 Carrera 4 (996)',price:25000,year:'01.2001',yr:2001,km:95850,ps:300,zh:5.2,pw:'ICE',doors:2,
  depmid:500,tax:740,energy:2580,wear:1800,war:0,wint:0,rate:null,rev:null,boot:130,legr:1.5,
@@ -796,34 +798,6 @@ const DATA=[
    ['Elektrisches Schiebe-/Hebedach',''],['Dachhimmel in Leder',''],['BOSE Soundsystem',''],
    ['3-Speichen-Sportlenkrad',''],['Allrad permanent',''],
    ['Neu ab MFK + 12 Monate Garantie','The only 911 in this search with any warranty at all.']]}
-,
-{model:'Porsche 911 Carrera 4S (992.1)',price:99000,year:'09.2019',yr:2019,km:62000,ps:450,zh:3.6,pw:'ICE',doors:2,
- depmid:7250,tax:910,energy:2300,wear:1700,war:97,wint:0,rate:null,rev:null,boot:132,legr:1.5,
- lux:4.7,exc:4.9,fea:4.8,mnt:3.9,rel:4.0,fixed:1,
- train:'992.1 \u00b7 3.0 twin-turbo flat-six \u00b7 2,981 cm\u00b3 \u00b7 450 PS (331 kW) \u00b7 530 Nm \u00b7 AWD \u00b7 8-speed PDK',
- seller:'Colleague, private sale \u2014 CHF 99,000 OBO',listings:1,
- url:'https://finder.porsche.com/ch/de-CH/details/G23W0W',
- img:'https://listing-images.autoscout24.ch/listing/129/20639129/700979505.jpg?w=1200&q=90',
- oq:['WARRANTY CONFIRMED LIVE AND EXTENDABLE. Porsche Approved is still active and can be renewed annually to 15 years from first registration \u2014 30.09.2019, so up to SEPTEMBER 2034. Entered as 97 months on that basis. This is the longest potential cover of any car in the search, ICE or EV, and it removes the fat maintenance tail that normally makes a used Porsche risky.',
-     'THE EXTENSION IS NOT FREE AND IS NOT IN THE 3-YEAR COST FIGURE. Annual Porsche Approved renewal on a 992 Carrera 4S runs roughly CHF 1,500-2,500 a year, and renewal usually requires an inspection at an official Porsche partner with any faults rectified first. Budget about CHF 5,000-7,500 across a three-year hold, and get the current expiry date plus the renewal quote in writing.',
-     'REAL DEPRECIATION DATA ON THIS EXACT CAR: CHF 116,800 asking at Porsche Zentrum Bern about a year ago at 52,100 km, CHF 99,000 now at 62,000 km. That CHF 17,800 gap includes the dealer-to-private margin, so true annual loss is lower \u2014 but it confirms a 992 is still on the steep part of its curve. Estimated at CHF 7,250/yr, the third-worst in this search.',
-     'PRICE POSITION: CHF 99,000 is the dearest car here by CHF 29,100, and OBO says there is room. On depreciation alone, every 1,000 you negotiate off is 1,000 you do not lose again.',
-     'PDK, not manual \u2014 the opposite of the reasoning behind the M2 and 997.2 picks.',
-     'BUYING FROM A COLLEAGUE: better history and candour, but no dealer recourse, and a fault later becomes a workplace problem too. Have an independent PPI done regardless \u2014 and ask whether the MFK done at the 2025 sale is still in date.'],
- opts:[['Porsche Approved Garantie \u2014 live, extendable to 09.2034','Renewable annually to 15 years from first registration. The strongest warranty position in this entire search.'],
-   ['Porsche Swiss Package','Worth CHF 5,520 or more \u2014 the Swiss-market equipment bundle.'],
-   ['LED-Matrix-Hauptscheinwerfer inkl. PDLS Plus','Matrix headlights with Porsche Dynamic Light System Plus.'],
-   ['Vollelektrische Sportsitze 14-Wege mit Memory-Paket',''],
-   ['Sitzheizung und Sitzbel\u00fcftung','Heated AND ventilated \u2014 ventilation is rare at this age.'],
-   ['SportDesign Bugverkleidung',''],['SportDesign Schwellerverkleidungen',''],
-   ['20-/21-Zoll Carrera Classic R\u00e4der','Staggered: 20-inch front, 21-inch rear.'],
-   ['BOSE Surround Sound-System',''],['ParkAssistent inkl. Surround View','360-degree camera.'],
-   ['Abstandsregeltempostat','Adaptive cruise.'],['Spurwechselassistent','Blind-spot monitoring.'],
-   ['Servolenkung Plus',''],['Elektrisch anklappbare Au\u00dfenspiegel',''],
-   ['Seitenscheibenleisten Aluminium',''],['Windschutzscheibe mit Graukeil',''],
-   ['Automatisch abblendende Innen-/Au\u00dfenspiegel',''],['Komfortzugang','Keyless entry and start.'],
-   ['HomeLink',''],['Digitalradio',''],['Scheibenwasch-Interval Licht- und Regensensor',''],
-   ['GT-silbermetallic mit Leder bordeauxrot, Kontrastnaht kreide','']]}
 ];
 DATA.forEach(r=>{
   r.dep=dsc(r.depmid);
@@ -832,7 +806,6 @@ DATA.forEach(r=>{
 });
 
 const FIN={
- 'Porsche 911 Carrera 4S (992.1)':[['Colleague, private',99000,'CANDIDATE \u2014 62,000 km, OBO. Same car Porsche Zentrum Bern listed at CHF 116,800 with 52,100 km a year ago','https://finder.porsche.com/ch/de-CH/details/G23W0W']],
  'Porsche 911 Carrera 4 (997.2)':[['AUTORAIN AG, Rain',57900,'CANDIDATE \u2014 the only listing: manual, 9A1 engine, fresh MFK, 12-month warranty, 4.9/204','https://www.autoscout24.ch/de/d/porsche-911-carrera-4-9972-handschaltung-20672636']],
  'Porsche 911 Carrera 4 (996)':[['Private, Wetzikon',25000,'Cheapest way in and a MANUAL \u2014 but 95,850 km and no warranty','https://www.autoscout24.ch/de/d/porsche-34-carrera-4-20551082'],['Private, Thierachern',30000,'Cabriolet, 320 PS 3.6, 60,000 km \u2014 but nicht ab MFK','https://www.autoscout24.ch/de/d/porsche-911-20644310'],['Porsche Zentrum Z\u00fcrich',37500,'56,000 km from the official dealer, 4.6/498 \u2014 but Tiptronic, not manual','https://www.autoscout24.ch/de/d/porsche-911-carrera-4-coupe-20639129']],
  'Tesla Model 3 Perf. pre-facelift':[['Private, Frenkendorf',25500,'Cheapest entry, but no warranty at all','https://www.autoscout24.ch/de/d/tesla-performance-d-facelift-20663079'],['4X4 GS Saxon',25900,'CHF 400 more and a dealer with a 72-month claim','https://www.autoscout24.ch/de/d/tesla-model-3-performance-dual-motor-awd-20625915'],['Private, Emmenbr\u00fccke',27500,'CANDIDATE \u2014 AMD Ryzen and heat pump, the 2022 hardware that matters','https://www.autoscout24.ch/de/d/tesla-model-y-performance-20715630'],['Private, Renens',29000,'42,000 km and garage-kept, but summer wheels only','https://www.autoscout24.ch/de/d/tesla-model-3-performance-dual-motor-awd-10403102'],['Private, Dietikon',33990,'Enhanced Autopilot and the last spec with radar and ultrasonics','https://www.autoscout24.ch/de/d/tesla-model-3-performance-dual-motor-awd-12599335']],
@@ -952,6 +925,30 @@ const chipG=(id,k)=>document.getElementById(id).addEventListener('click',e=>{
   [...e.currentTarget.querySelectorAll('.chip')].forEach(c=>c.setAttribute('aria-pressed',String(c===b)));render();});
 chipG('pwchips','pw');chipG('drchips','dr');chipG('fxchips','fx');
 const BND={},SEL={};
+const FKEY='carshortlist.filters.v1';
+let FSAVE_OK=true,fsaveT=null;
+function saveFilters(){
+  if(!FSAVE_OK)return;
+  if(fsaveT)clearTimeout(fsaveT);
+  fsaveT=setTimeout(()=>{
+    try{localStorage.setItem(FKEY,JSON.stringify(
+      {q:F.q,pw:F.pw,dr:F.dr,fx:F.fx,mn:F.mn,mx:F.mx,sk:sortKey,sd:sortDir}));}
+    catch(e){FSAVE_OK=false;}
+  },250);
+}
+function loadFilters(){
+  try{
+    const raw=localStorage.getItem(FKEY);if(!raw)return null;
+    const o=JSON.parse(raw);if(!o||typeof o!=='object')return null;
+    F.q=typeof o.q==='string'?o.q:'';
+    F.pw=['all','EV','ICE'].includes(o.pw)?o.pw:'all';
+    F.dr=['all','4'].includes(o.dr)?o.dr:'all';
+    F.fx=['all','fixed'].includes(o.fx)?o.fx:'all';
+    F.mn=(o.mn&&typeof o.mn==='object')?o.mn:{};
+    F.mx=(o.mx&&typeof o.mx==='object')?o.mx:{};
+    return o;
+  }catch(e){FSAVE_OK=false;return null;}
+}
 const round6=v=>Math.round(v*1e6)/1e6;
 function bounds(k){
   const n=NUMF.find(x=>x.k===k),st=n?n.st:1;
@@ -1092,10 +1089,36 @@ function syncBounds(){
 }
 
 recompute();
-buildNum();NUMF.forEach(n=>paint(n.k));
+const SAVED=loadFilters();
+buildNum();
+if(SAVED){
+  // drop anything that no longer applies, and clamp what remains into current bounds
+  NUMF.forEach(n=>{
+    const k=n.k,[lo,hi]=BND[k],sel=SEL[k];
+    // a saved value outside the current bounds is stale, not a filter to honour: drop it
+    // rather than clamp, otherwise pinning a min to the maximum would hide every car
+    const v1=F.mn[k];
+    if(v1==null||!(v1>lo&&v1<hi))delete F.mn[k]; else sel.a=v1;
+    const v2=F.mx[k];
+    if(v2==null||!(v2>lo&&v2<hi))delete F.mx[k]; else sel.b=v2;
+    if(sel.a>sel.b){sel.a=sel.b;F.mn[k]=sel.a;}
+  });
+  Object.keys(F.mn).forEach(k=>{if(!NUMF.some(n=>n.k===k))delete F.mn[k];});
+  Object.keys(F.mx).forEach(k=>{if(!NUMF.some(n=>n.k===k))delete F.mx[k];});
+  const qi=document.getElementById('q');if(qi)qi.value=F.q||'';
+  [['pw',F.pw],['dr',F.dr],['fx',F.fx]].forEach(([a,v])=>{
+    document.querySelectorAll(`.chip[data-${a}]`).forEach(c=>
+      c.setAttribute('aria-pressed',String(c.dataset[a]===v)));});
+  if(SAVED.sk&&COLS.some(c=>c.k===SAVED.sk)){sortKey=SAVED.sk;sortDir=SAVED.sd==='asc'?'asc':'desc';}
+}
+NUMF.forEach(n=>paint(n.k));
 window.addEventListener('resize',()=>NUMF.forEach(n=>paint(n.k)));
 (document.getElementById('clearNum')||{}).onclick=()=>{
-  F.mn={};F.mx={};
+  F.mn={};F.mx={};F.q='';F.pw='all';F.dr='all';F.fx='all';
+  const qi=document.getElementById('q');if(qi)qi.value='';
+  [['pw','all'],['dr','all'],['fx','all']].forEach(([a,v])=>{
+    document.querySelectorAll(`.chip[data-${a}]`).forEach(c=>
+      c.setAttribute('aria-pressed',String(c.dataset[a]===v)));});
   NUMF.forEach(n=>{const [lo,hi]=BND[n.k];SEL[n.k]={a:lo,b:hi};paint(n.k);});
   render();};
 
@@ -1188,6 +1211,7 @@ function scatter(rows){
 let SYNCING=false;
 function render(){
   recompute();
+  saveFilters();
   if(!SYNCING){SYNCING=true;syncBounds();SYNCING=false;}
   const cols=COLS.filter(c=>VIS[c.k]);
   const gs=[];cols.forEach(c=>{const l=gs[gs.length-1];if(l&&l.g===c.g)l.n++;else gs.push({g:c.g,n:1});});
