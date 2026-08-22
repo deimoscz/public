@@ -284,9 +284,9 @@ footer b{color:var(--ink)}
   <div>
     <p class="kicker">Bridge car · 1–3 year hold · 12'500 km/yr</p>
     <h1>Car shortlist</h1>
-    <p class="sub">29 models · 201 listings · Switzerland · August 2026</p>
+    <p class="sub">32 models · 226 listings · Switzerland · August 2026</p>
   </div>
-  <div class="counts"><b id="shown">29</b><span>models shown</span></div>
+  <div class="counts"><b id="shown">32</b><span>models shown</span></div>
 </header>
 
 <div class="legend">
@@ -381,6 +381,7 @@ const COLS=[
  {k:'ps',   t:'PS',          g:'Candidate',     type:'num'},
  {k:'zh',   t:'0–100 s',     g:'Candidate',     type:'num'},
  {k:'war',  t:'Warr. mo',    g:'Candidate',     core:1,type:'num'},
+ {k:'mwar', t:'Mfr warr.',   g:'Candidate',     core:1,type:'num'},
  {k:'cost3',t:'3-yr cost',   g:'Cost & space',  core:1,type:'num'},
  {k:'depmid',t:'Deprec/yr',  g:'Cost & space',  core:1,type:'num'},
  {k:'lux',  t:'Lux',         g:'Ratings',       type:'num'},
@@ -398,7 +399,7 @@ const dsc=m=>Math.max(1,Math.min(5,5-4*(m-D_LO)/(D_HI-D_LO)));
 
 const DATA=[
 {model:'BMW M440i xDrive GC',price:46890,year:'01.2022',yr:2022,km:29973,ps:374,zh:4.7,pw:'ICE',doors:4,
- depmid:3750,tax:770,energy:1750,wear:800,war:24,wint:1,rate:4.4,rev:74,boot:470,legr:3.5,
+ depmid:3750,tax:770,energy:1750,wear:800,mwar:0,mwarto:'expired',war:24,wint:1,rate:4.4,rev:74,boot:470,legr:3.5,
  lux:3.9,exc:3.2,fea:4.8,mnt:4.0,rel:4.8,fixed:1,
  train:'3.0 B58 inline-six turbo + 48 V mild hybrid · 374 PS · 500 Nm · 8-speed ZF · 8.1 l/100 km',
  seller:'Falcon AG, Otelfingen',listings:10,
@@ -417,7 +418,7 @@ const DATA=[
    ['8-fach bereift','Two full wheel sets — summer and winter, on separate rims.']]},
 
 {model:'BMW M340i xDrive',price:41800,year:'01.2021',yr:2021,km:56400,ps:374,zh:4.4,pw:'ICE',doors:4,
- depmid:3250,tax:770,energy:1750,wear:800,war:12,wint:0,rate:4.3,rev:120,boot:480,legr:4.0,
+ depmid:3250,tax:770,energy:1750,wear:800,mwar:0,mwarto:'expired',war:12,wint:0,rate:4.3,rev:120,boot:480,legr:4.0,
  lux:3.4,exc:3.2,fea:3.9,mnt:4.0,rel:4.8,fixed:0,
  train:'3.0 B58 inline-six turbo + 48 V mild hybrid · 374 PS · 500 Nm · 8-speed ZF · ~8 l/100 km',
  seller:'A&S Dorfgarage, Kirchdorf AG',listings:7,
@@ -430,7 +431,7 @@ const DATA=[
    ['Gratis Servicepaket 10 Jahre','Servicing covered for ten years — unusual, and transfers with the car.']]},
 
 {model:'Kia Stinger GT',price:39900,year:'06.2022',yr:2022,km:64000,ps:366,zh:4.9,pw:'ICE',doors:4,
- depmid:3500,tax:750,energy:2360,wear:800,war:34,wint:0,rate:4.7,rev:56,boot:406,legr:4.2,
+ depmid:3500,tax:750,energy:2360,wear:800,mwar:34,mwarto:'06.2029',war:34,wint:0,rate:4.7,rev:56,boot:406,legr:4.2,
  lux:3.2,exc:3.4,fea:3.8,mnt:3.6,rel:4.0,fixed:1,
  train:'3.3 V6 twin-turbo · 366 PS · AWD · 8-speed auto · 10.8 l/100 km',
  seller:'Garage P&P AG, Aesch — official Kia',listings:2,
@@ -443,7 +444,7 @@ const DATA=[
    ['Body-Kit + NAP Klappenauspuffanlage','Aftermarket bodywork and a valved exhaust that opens under load.']]},
 
 {model:'BMW M3 Competition',price:69790,year:'03.2022',yr:2022,km:45100,ps:510,zh:3.5,pw:'ICE',doors:4,
- depmid:4500,tax:1020,energy:2190,wear:1200,war:24,wint:0,rate:4.7,rev:525,boot:480,legr:4.0,
+ depmid:4500,tax:1020,energy:2190,wear:1200,mwar:0,mwarto:'expired',war:24,wint:0,rate:4.7,rev:525,boot:480,legr:4.0,
  lux:4.0,exc:4.9,fea:4.5,mnt:2.4,rel:4.0,fixed:1,
  train:'3.0 S58 inline-six twin-turbo · 510 PS · 650 Nm · 8-speed M Steptronic · M xDrive · 10.2 l/100 km',
  seller:'automoor AG, Stäfa',listings:9,
@@ -457,7 +458,7 @@ const DATA=[
    ['BMW Individual Interieurleisten Pianolack','Individual-programme piano-black cabin trim.']]},
 
 {model:'BMW i4 M50',price:38900,year:'08.2022',yr:2022,km:43000,ps:544,zh:3.9,pw:'EV',doors:4,
- depmid:5000,tax:1065,energy:1250,wear:700,war:12,wint:0,rate:4.3,rev:199,boot:470,legr:3.8,
+ depmid:5000,tax:1065,energy:1250,wear:700,mwar:0,mwarto:'expired',war:12,wint:0,rate:4.3,rev:199,boot:470,legr:3.8,
  lux:4.0,exc:3.2,fea:4.5,mnt:4.2,rel:4.2,fixed:0,
  train:'83.9 kWh gross (~81 net) · 400 V · 205 kW DC peak · ~31 min 10–80% · 544 PS · 416 km (listing figure, 19" wheels)',
  seller:'Steiner Group, Kriens',listings:7,
@@ -470,7 +471,7 @@ const DATA=[
    ['Driving Assistant Professional',''],['Parking Assistant Plus',''],['19" Räder','']]},
 
 {model:'Audi e-tron GT quattro',price:47600,year:'02.2022',yr:2022,km:22000,ps:476,zh:4.1,pw:'EV',doors:4,
- depmid:5750,tax:1050,energy:1250,wear:700,war:12,wint:0,rate:4.8,rev:107,boot:405,legr:3.2,
+ depmid:5750,tax:1050,energy:1250,wear:700,mwar:0,mwarto:'expired',war:12,wint:0,rate:4.8,rev:107,boot:405,legr:3.2,
  lux:4.8,exc:3.9,fea:4.9,mnt:3.4,rel:4.0,fixed:1,
  train:'93.4 kWh · 800 V · 270 kW DC peak · 476 PS (530 on overboost) · 501 km · 400-Volt-Booster plus',
  seller:'Auto Heidegg, Hitzkirch',listings:11,
@@ -486,7 +487,7 @@ const DATA=[
    ['Ambiente-Lichtpaket plus','Multi-colour interior lighting.'],['Feinnappa / Dinamica','']]},
 
 {model:'Tesla Model 3 Performance',price:44490,year:'08.2024',yr:2024,km:22500,ps:627,zh:3.1,pw:'EV',doors:4,
- depmid:5000,tax:1120,energy:1200,wear:700,war:72,wint:0,rate:5.0,rev:232,boot:594,legr:4.0,
+ depmid:5000,tax:1120,energy:1200,wear:700,mwar:28,mwarto:'12.2028',war:72,wint:0,rate:5.0,rev:232,boot:594,legr:4.0,
  lux:2.4,exc:3.8,fea:2.8,mnt:4.8,rel:4.2,fixed:1,
  train:'79 kWh · 400 V · ~250 kW DC peak · 627 PS Highland Performance · 580 km',
  seller:'Aarauto, Aarau',listings:7,
@@ -498,7 +499,7 @@ const DATA=[
    ['Metallic + red special paint','']]},
 
 {model:'Ford Mustang Fastback GT',price:43900,year:'06.2021',yr:2021,km:33400,ps:449,zh:4.5,pw:'ICE',doors:2,
- depmid:4250,tax:910,energy:2540,wear:1200,war:12,wint:1,rate:4.7,rev:156,boot:408,legr:1.5,
+ depmid:4250,tax:910,energy:2540,wear:1200,mwar:0,mwarto:'expired',war:12,wint:1,rate:4.7,rev:156,boot:408,legr:1.5,
  lux:2.2,exc:4.7,fea:4.0,mnt:2.6,rel:3.6,fixed:0,
  train:'5.0 Coyote V8 naturally aspirated · 449 PS · RWD · 10-speed auto · ~11.6 l/100 km',
  seller:'Schloss-Garage Tartari, Buckten',listings:5,
@@ -511,7 +512,7 @@ const DATA=[
    ['Garantie Motor und Automat, europaweit','Cover on the two most expensive components, valid across Europe.']]},
 
 {model:'BMW i4 M60',price:59900,year:'09.2025',yr:2025,km:18000,ps:601,zh:3.7,pw:'EV',doors:4,
- depmid:6250,tax:1165,energy:1250,wear:700,war:25,wint:0,rate:4.2,rev:367,boot:470,legr:3.8,
+ depmid:6250,tax:1165,energy:1250,wear:700,mwar:25,mwarto:'09.2028',war:25,wint:0,rate:4.2,rev:367,boot:470,legr:3.8,
  lux:4.1,exc:3.4,fea:4.6,mnt:4.2,rel:4.1,fixed:1,
  train:'83.9 kWh gross · 400 V · 205 kW DC peak · 601 PS · 433 km (listing figure)',
  seller:'Steiner Group AG, Luzern',listings:1,
@@ -524,7 +525,7 @@ const DATA=[
    ['harman/kardon',''],['Driving Assistant Professional',''],['Glasdach',''],['Lenkradheizung','']]},
 
 {model:'Porsche Taycan 4S',price:49900,year:'08.2021',yr:2021,km:38195,ps:490,zh:4.0,pw:'EV',doors:4,
- depmid:6000,tax:1110,energy:1250,wear:1100,war:12,wint:1,rate:null,rev:null,boot:407,legr:3.2,
+ depmid:6000,tax:1110,energy:1250,wear:1100,mwar:0,mwarto:'expired',war:12,wint:1,rate:null,rev:null,boot:407,legr:3.2,
  lux:4.9,exc:4.2,fea:3.8,mnt:3.0,rel:3.9,fixed:1,
  train:'93.4 kWh Performance Battery Plus · 800 V · 270 kW DC peak · 490 PS continuous / 571 overboost · 400 V booster on board',
  seller:'Carvolution Outlet, Langenthal',listings:9,
@@ -539,7 +540,7 @@ const DATA=[
    ['8-fach bereift','Both wheel sets included.']]},
 
 {model:'Audi RS e-tron GT',price:49800,year:'08.2021',yr:2021,km:44150,ps:599,zh:3.3,pw:'EV',doors:4,
- depmid:6250,tax:1180,energy:1300,wear:1100,war:36,wint:0,rate:4.9,rev:474,boot:405,legr:3.2,
+ depmid:6250,tax:1180,energy:1300,wear:1100,mwar:0,mwarto:'expired',war:36,wint:0,rate:4.9,rev:474,boot:405,legr:3.2,
  lux:4.8,exc:4.6,fea:3.9,mnt:2.8,rel:3.9,fixed:1,
  train:'93.4 kWh · 800 V · 270 kW DC peak · 599 PS (637 on overboost) · 469 km · 400-Volt-Booster plus',
  seller:'NAF Automobile GmbH, Gelterkinden',listings:2,
@@ -555,7 +556,7 @@ const DATA=[
    ['Carbon Köper Dekor',''],['400-Volt-Booster plus','Lets an 800 V car draw high power from ordinary 400 V chargers.']]},
 
 {model:'BMW i5 M60 xDrive',price:56900,year:'08.2023',yr:2023,km:27790,ps:601,zh:3.8,pw:'EV',doors:4,
- depmid:6750,tax:1165,energy:1250,wear:700,war:0,wint:0,rate:4.6,rev:164,boot:490,legr:4.6,
+ depmid:6750,tax:1165,energy:1250,wear:700,mwar:0,mwarto:'expired',war:0,wint:0,rate:4.6,rev:164,boot:490,legr:4.6,
  lux:4.7,exc:3.0,fea:4.7,mnt:4.1,rel:4.0,fixed:1,
  train:'84.3 kWh gross (~81.2 net) · 400 V · 205 kW DC peak · 601 PS · 457 km (listing figure, 21" wheels)',
  seller:'IBA Niederlenz',listings:10,
@@ -567,7 +568,7 @@ const DATA=[
    ['Anhängerkupplung','Tow bar.'],['Driving Assistant Professional',''],['Parking Assistant Plus','']]},
 
 {model:'Polestar 4 LR Dual',price:41899,year:'09.2024',yr:2024,km:18700,ps:544,zh:3.8,pw:'EV',doors:4,
- depmid:5500,tax:1150,energy:1300,wear:700,war:1,wint:0,rate:5.0,rev:234,boot:526,legr:4.8,
+ depmid:5500,tax:1150,energy:1300,wear:700,mwar:1,mwarto:'09.2026',war:1,wint:0,rate:5.0,rev:234,boot:526,legr:4.8,
  lux:4.2,exc:3.0,fea:2.4,mnt:4.6,rel:3.0,fixed:1,
  train:'100 kWh · 400 V · ~200 kW DC peak · 544 PS · 590 km',
  seller:'Auto Bonau AG, Bonau',listings:7,
@@ -580,7 +581,7 @@ const DATA=[
    ['Kamera-Rückspiegel','There is no rear window; the mirror shows a roof-camera feed.']]},
 
 {model:'BMW M5 Competition',price:69900,year:'05.2023',yr:2023,km:51800,ps:600,zh:3.4,pw:'ICE',doors:4,
- depmid:5750,tax:1170,energy:2190,wear:1200,war:21,wint:0,rate:null,rev:null,boot:530,legr:4.6,
+ depmid:5750,tax:1170,energy:2190,wear:1200,mwar:21,mwarto:'05.2028',war:21,wint:0,rate:null,rev:null,boot:530,legr:4.6,
  lux:4.6,exc:4.8,fea:4.8,mnt:2.0,rel:3.0,fixed:1,
  train:'4.4 S63 V8 twin-turbo · 600 PS · 750 Nm · 8-speed M Steptronic · xDrive · ~11 l/100 km',
  seller:'AUTO MAXL AG, Herisau',listings:4,
@@ -596,7 +597,7 @@ const DATA=[
    ['Wireless Charging',''],['Lenkradheizung','']]},
 
 {model:'Tesla Model S Plaid',price:68770,year:'06.2023',yr:2023,km:31400,ps:1020,zh:2.1,pw:'EV',doors:4,
- depmid:7500,tax:1300,energy:1400,wear:1100,war:10,wint:1,rate:4.9,rev:285,boot:709,legr:4.4,
+ depmid:7500,tax:1300,energy:1400,wear:1100,mwar:10,mwarto:'06.2027',war:10,wint:1,rate:4.9,rev:285,boot:709,legr:4.4,
  lux:3.9,exc:4.9,fea:4.2,mnt:3.2,rel:3.2,fixed:1,
  train:'100 kWh · 400 V · ~250 kW DC peak · tri-motor 1,020 PS · 600 km',
  seller:'Outrun Motor Company SA, Carouge',listings:4,
@@ -610,7 +611,7 @@ const DATA=[
    ['Black & White Interieur mit Carbon',''],['Sommer- und Winterräder','Both sets included.']]},
 
 {model:'BYD Seal AWD Excellence',price:39800,year:'2026',yr:2026,km:10,ps:530,zh:3.8,pw:'EV',doors:4,
- depmid:6933,tax:1040,energy:1250,wear:700,war:72,wint:0,rate:4.7,rev:236,boot:400,legr:4.0,
+ depmid:6933,tax:1040,energy:1250,wear:700,mwar:72,mwarto:'2032',war:72,wint:0,rate:4.7,rev:236,boot:400,legr:4.0,
  lux:3.3,exc:3.0,fea:4.0,mnt:4.6,rel:2.8,fixed:1,
  train:'82.5 kWh blade LFP · 400 V · ~150 kW DC peak · 530 PS · 520 km',
  seller:'Auto Steiner Zürich AG',listings:1,
@@ -626,7 +627,7 @@ const DATA=[
    ['2 Smartkeys + NFC-Schlüsselkarte',''],['Premium Metallic-Lackierung','']]}
 ,
 {model:'Porsche Taycan Turbo',price:62500,year:'03.2020',yr:2020,km:52500,ps:680,zh:3.2,pw:'EV',doors:4,
- depmid:7250,tax:1300,energy:1300,wear:1100,war:12,wint:0,rate:4.6,rev:140,boot:407,legr:3.2,
+ depmid:7250,tax:1300,energy:1300,wear:1100,mwar:0,mwarto:'expired',war:12,wint:0,rate:4.6,rev:140,boot:407,legr:3.2,
  lux:4.9,exc:4.6,fea:4.0,mnt:2.8,rel:3.9,fixed:1,
  train:'93.4 kWh Performance Battery Plus \u00b7 800 V \u00b7 270 kW DC peak \u00b7 626 PS continuous / 680 overboost \u00b7 400 V booster on board',
  seller:'Centre Porsche Sierre',listings:5,
@@ -641,7 +642,7 @@ const DATA=[
    ['Ambientebeleuchtung',''],['Bremss\u00e4ttel schwarz Hochglanz',''],['Digitalradio','']]},
 
 {model:'Porsche Taycan Turbo S',price:69870,year:'03.2021',yr:2021,km:39970,ps:761,zh:2.8,pw:'EV',doors:4,
- depmid:7500,tax:1430,energy:1300,wear:1100,war:12,wint:0,rate:4.9,rev:285,boot:407,legr:3.2,
+ depmid:7500,tax:1430,energy:1300,wear:1100,mwar:0,mwarto:'expired',war:12,wint:0,rate:4.9,rev:285,boot:407,legr:3.2,
  lux:4.9,exc:4.9,fea:4.4,mnt:2.6,rel:3.9,fixed:1,
  train:'93.4 kWh Performance Battery Plus \u00b7 800 V \u00b7 270 kW DC peak \u00b7 625 PS continuous / 761 overboost \u00b7 400 V booster on board',
  seller:'Outrun Motor Company SA, Carouge',listings:6,
@@ -659,7 +660,7 @@ const DATA=[
    ['Batteriezertifikat','Battery certificate attached to the listing.']]}
 ,
 {model:'Tesla Model 3 Perf. pre-facelift',price:27500,year:'09.2022',yr:2022,km:56000,ps:534,zh:3.3,pw:'EV',doors:4,
- depmid:3000,tax:1020,energy:1200,wear:700,war:0,wint:1,rate:null,rev:null,boot:594,legr:4.0,
+ depmid:3000,tax:1020,energy:1200,wear:700,mwar:0,mwarto:'expired',war:0,wint:1,rate:null,rev:null,boot:594,legr:4.0,
  lux:2.3,exc:3.8,fea:3.2,mnt:4.8,rel:4.2,fixed:1,
  train:'79 kWh \u00b7 400 V \u00b7 ~250 kW DC \u00b7 534 PS \u00b7 470 km \u00b7 AMD Ryzen and heat pump',
  seller:'Private, Emmenbr\u00fccke',listings:9,
@@ -673,7 +674,7 @@ const DATA=[
    ['96 Monate / 196,000 km','Tesla drive and battery cover \u2014 not the vehicle itself.']]},
 
 {model:'MG IM5 Performance',price:50990,year:'2026',yr:2026,km:25,ps:778,zh:3.2,pw:'EV',doors:4,
- depmid:8250,tax:1420,energy:1250,wear:700,war:84,wint:0,rate:4.5,rev:146,boot:457,legr:4.6,
+ depmid:8250,tax:1420,energy:1250,wear:700,mwar:84,mwarto:'2033',war:84,wint:0,rate:4.5,rev:146,boot:457,legr:4.6,
  lux:3.6,exc:4.0,fea:4.3,mnt:4.5,rel:2.6,fixed:1,
  train:'100 kWh NMC (96 net) \u00b7 800 V \u00b7 396 kW DC peak \u00b7 10\u201380% in 17 min \u00b7 778 PS \u00b7 575 km \u00b7 new car',
  seller:'F. + M. Konstantin, Oftringen',listings:1,
@@ -690,7 +691,7 @@ const DATA=[
    ['Park-Distanz-Sensoren vorne und hinten',''],['Adaptiver Tempomat','']]},
 
 {model:'BMW M2 Competition',price:55900,year:'05.2019',yr:2019,km:36900,ps:410,zh:4.4,pw:'ICE',doors:2,
- depmid:3750,tax:830,energy:2190,wear:1000,war:12,wint:0,rate:5.0,rev:31,boot:390,legr:2.5,
+ depmid:3750,tax:830,energy:2190,wear:1000,mwar:0,mwarto:'expired',war:12,wint:0,rate:5.0,rev:31,boot:390,legr:2.5,
  lux:3.4,exc:4.8,fea:4.0,mnt:3.0,rel:4.2,fixed:1,
  train:'3.0 S55 inline-six twin-turbo \u00b7 410 PS \u00b7 550 Nm \u00b7 RWD \u00b7 SIX-SPEED MANUAL \u00b7 10 l/100 km',
  seller:'AUTO SPORT CLASSICA, Etziken',listings:15,
@@ -704,7 +705,7 @@ const DATA=[
    ['BMW Service Plus 10 Jahre / 100,000 km','Servicing covered and transferable \u2014 standard on most M2s here.']]},
 
 {model:'Alfa Giulia Quadrifoglio',price:56900,year:'02.2021',yr:2021,km:79800,ps:510,zh:3.9,pw:'ICE',doors:4,
- depmid:5000,tax:1040,energy:2360,wear:1200,war:12,wint:0,rate:4.8,rev:501,boot:480,legr:4.0,
+ depmid:5000,tax:1040,energy:2360,wear:1200,mwar:0,mwarto:'expired',war:12,wint:0,rate:4.8,rev:501,boot:480,legr:4.0,
  lux:4.2,exc:4.9,fea:4.0,mnt:2.2,rel:2.8,fixed:1,
  train:'2.9 V6 biturbo \u00b7 510 PS \u00b7 600 Nm \u00b7 RWD \u00b7 8-speed auto \u00b7 10.3 l/100 km',
  seller:'Garage Aliz\u00e9 SA, Collombey',listings:3,
@@ -720,7 +721,7 @@ const DATA=[
    ['Official Alfa Romeo dealer','4.8 from 501 \u2014 the strongest marque-specific service relationship available for this car.']]},
 
 {model:'Audi RS5 Coupé',price:58900,year:'10.2022',yr:2022,km:31900,ps:450,zh:3.9,pw:'ICE',doors:2,
- depmid:5500,tax:910,energy:2190,wear:1100,war:2,wint:0,rate:4.4,rev:300,boot:465,legr:3.0,
+ depmid:5500,tax:910,energy:2190,wear:1100,mwar:2,mwarto:'10.2026',war:2,wint:0,rate:4.4,rev:300,boot:465,legr:3.0,
  lux:4.5,exc:4.5,fea:4.8,mnt:2.6,rel:3.6,fixed:1,
  train:'2.9 V6 biturbo \u00b7 450 PS \u00b7 600 Nm \u00b7 quattro \u00b7 8-speed tiptronic \u00b7 10.3 l/100 km',
  seller:'Autohaus Otelfingen',listings:4,
@@ -735,7 +736,7 @@ const DATA=[
    ['Fortlaufende Werksgarantie','The only live factory cover among the four RS5s seen.']]},
 
 {model:'Tesla Model X Plaid',price:62500,year:'12.2023',yr:2023,km:59800,ps:1020,zh:2.6,pw:'EV',doors:4,
- depmid:7750,tax:1300,energy:1400,wear:1100,war:27,wint:0,rate:null,rev:null,boot:1090,legr:4.8,
+ depmid:7750,tax:1300,energy:1400,wear:1100,mwar:15,mwarto:'11.2027',war:27,wint:0,rate:null,rev:null,boot:1090,legr:4.8,
  lux:4.0,exc:4.9,fea:4.4,mnt:3.0,rel:3.2,fixed:1,
  train:'100 kWh \u00b7 400 V \u00b7 ~250 kW DC \u00b7 tri-motor 1,020 PS \u00b7 528 km \u00b7 HW4',
  seller:'Private, Brigels',listings:9,
@@ -751,7 +752,7 @@ const DATA=[
    ['Abnehmbare Anh\u00e4ngerkupplung','']]},
 
 {model:'Tesla Model Y Performance',price:30000,year:'02.2023',yr:2023,km:52000,ps:534,zh:3.7,pw:'EV',doors:4,
- depmid:3000,tax:1020,energy:1250,wear:700,war:6,wint:1,rate:null,rev:null,boot:854,legr:4.4,
+ depmid:3000,tax:1020,energy:1250,wear:700,mwar:6,mwarto:'02.2027',war:6,wint:1,rate:null,rev:null,boot:854,legr:4.4,
  lux:2.8,exc:3.9,fea:4.5,mnt:4.8,rel:4.2,fixed:1,
  train:'79 kWh \u00b7 400 V \u00b7 ~250 kW DC \u00b7 534 PS \u00b7 511 km',
  seller:'Private, Interlaken \u2014 CHF 30,000 agreed, listed at 31,000',listings:18,
@@ -770,7 +771,7 @@ const DATA=[
    ['Werksgarantie bis ca. 02.2027','Tesla 4 Jahre / 80,000 km, plus battery and drive unit 8 Jahre / 192,000 km to about 02.2031.']]}
 ,
 {model:'Porsche 911 Carrera 4 (996)',price:25000,year:'01.2001',yr:2001,km:95850,ps:300,zh:5.2,pw:'ICE',doors:2,
- depmid:500,tax:740,energy:2580,wear:1800,war:0,wint:0,rate:null,rev:null,boot:130,legr:1.5,
+ depmid:500,tax:740,energy:2580,wear:1800,mwar:0,mwarto:'past 15-yr Approved limit',war:0,wint:0,rate:null,rev:null,boot:130,legr:1.5,
  lux:3.0,exc:4.7,fea:2.2,mnt:1.5,rel:2.0,fixed:0,
  train:'3.4 M96 flat-six \u00b7 300 PS \u00b7 350 Nm \u00b7 permanent AWD \u00b7 six-speed MANUAL \u00b7 11.8 l/100 km',
  seller:'Private, Wetzikon \u2014 no candidate fixed',listings:3,
@@ -786,7 +787,7 @@ const DATA=[
    ['Ab MFK 01.07.2026','Fresh inspection \u2014 the one thing on this car that is unambiguously good.']]}
 ,
 {model:'Porsche 911 Carrera 4 (997.2)',price:57900,year:'06.2011',yr:2011,km:93600,ps:345,zh:5.0,pw:'ICE',doors:2,
- depmid:1500,tax:800,energy:2320,wear:1600,war:12,wint:0,rate:4.9,rev:204,boot:135,legr:1.5,
+ depmid:1500,tax:800,energy:2320,wear:1600,mwar:0,mwarto:'past 15-yr Approved limit',war:12,wint:0,rate:4.9,rev:204,boot:135,legr:1.5,
  lux:3.9,exc:4.8,fea:3.4,mnt:2.6,rel:3.8,fixed:1,
  train:'3.6 DFI flat-six \u00b7 345 PS \u00b7 390 Nm \u00b7 permanent AWD \u00b7 six-speed MANUAL \u00b7 10.6 l/100 km',
  seller:'AUTORAIN AG, Rain',listings:1,
@@ -806,7 +807,7 @@ const DATA=[
    ['Neu ab MFK + 12 Monate Garantie','The only 911 in this search with any warranty at all.']]}
 ,
 {model:'BMW M3 Comp LCI xDrive',price:79990,year:'01.2025',yr:2025,km:16800,ps:530,zh:3.5,pw:'ICE',doors:4,
- depmid:6500,tax:1020,energy:2320,wear:1300,war:23,wint:0,rate:4.3,rev:41,boot:480,legr:4.0,
+ depmid:6500,tax:1020,energy:2320,wear:1300,mwar:23,mwarto:'07.2028',war:23,wint:0,rate:4.3,rev:41,boot:480,legr:4.0,
  lux:4.4,exc:4.7,fea:4.8,mnt:3.4,rel:4.0,fixed:1,
  train:'3.0 S58 inline-six twin-turbo \u00b7 LCI2 \u00b7 530 PS \u00b7 650 Nm \u00b7 M xDrive \u00b7 8-speed M Steptronic',
  seller:'PS PERFORMANCE, Wil',listings:4,
@@ -823,7 +824,7 @@ const DATA=[
    ['M Drive Professional','Includes M Drift Analyser and M Laptimer.'],['Driving Assistant','']]},
 
 {model:'BMW M3 Comp LCI RWD',price:79700,year:'06.2025',yr:2025,km:24816,ps:530,zh:3.9,pw:'ICE',doors:4,
- depmid:6250,tax:1020,energy:2260,wear:1300,war:34,wint:1,rate:5.0,rev:49,boot:480,legr:4.0,
+ depmid:6250,tax:1020,energy:2260,wear:1300,mwar:34,mwarto:'06.2029',war:34,wint:1,rate:5.0,rev:49,boot:480,legr:4.0,
  lux:4.3,exc:4.8,fea:4.5,mnt:4.0,rel:4.0,fixed:1,
  train:'3.0 S58 inline-six twin-turbo \u00b7 LCI2 \u00b7 530 PS \u00b7 650 Nm \u00b7 RWD \u00b7 8-speed M Steptronic \u00b7 9.7 l/100 km',
  seller:'Dany\u2019s Cars, Triesen (FL)',listings:8,
@@ -840,14 +841,70 @@ const DATA=[
    ['Driving Assistant Professional','Adaptive cruise with Stop&Go, active lane keeping, city braking.'],
    ['Adaptives M Fahrwerk',''],['Adaptive LED-Scheinwerfer',''],['Akustikverglasung',''],
    ['Automatische Heckklappenbet\u00e4tigung','']]}
+,
+{model:'Model Y Juniper Performance',price:53950,year:'12.2025',yr:2025,km:12500,ps:626,zh:3.5,pw:'EV',doors:4,
+ depmid:4650,tax:920,energy:1250,wear:700,war:40,mwar:40,mwarto:'12.2029',wint:0,rate:null,rev:null,boot:854,legr:4.4,
+ lux:3.4,exc:4.0,fea:4.0,mnt:4.8,rel:4.3,fixed:1,
+ train:'2025 Juniper facelift \u00b7 79 kWh \u00b7 400 V \u00b7 ~250 kW DC \u00b7 626 PS \u00b7 580 km WLTP \u00b7 adaptive dampers',
+ seller:'Autohaus von K\u00e4nel, Frutigen',listings:6,
+ url:'https://www.autoscout24.ch/de/d/tesla-model-y-performance-20714298',
+ img:'https://listing-images.autoscout24.ch/listing/298/20714298/211366527.jpg?w=1200&q=90',
+ oq:['The warranty field reads Garantie NEIN, which is impossible on a 12.2025 Tesla \u2014 the 4-year cover runs to 12.2029 and TRANSFERS with the car. Confirm by VIN in Tesla\u2019s own system rather than the dealer\u2019s word, since this is a consignment sale.',
+     'NICHT ab MFK \u2014 budget for the inspection.',
+     'OBSERVED DEPRECIATION: Tesla Switzerland\u2019s own price for this spec is CHF 63,980. This car lost about CHF 10,000 in nine months and 12,500 km \u2014 then the market flattens hard, with three near-new cars all sitting at 59,890-59,990. Buying the nine-month-old car inherits that first-year hit rather than paying it.',
+     'Seller has no Google rating and the car is sold im Kundenauftrag.'],
+ opts:[['Juniper facelift','Adaptive dampers, 16" screen, carbon ducktail, sport seats \u2014 fixes the pre-facelift car\u2019s ride and noise complaints.'],
+   ['580 km WLTP','Against 514 for the pre-facelift Performance; roughly 460 km real.'],
+   ['Sonderlackierung Diamond Black',''],
+   ['Tesla Werksgarantie bis 12.2029','4 years or 80,000 km, plus battery and drive unit 8 years or 192,000 km. Transfers with the car.']]},
+
+{model:'Model 3 Highland Performance',price:44980,year:'12.2024',yr:2024,km:10500,ps:627,zh:3.1,pw:'EV',doors:4,
+ depmid:6200,tax:1120,energy:1200,wear:700,war:28,mwar:28,mwarto:'12.2028',wint:0,rate:null,rev:null,boot:594,legr:4.0,
+ lux:2.8,exc:4.2,fea:3.4,mnt:4.8,rel:4.3,fixed:1,
+ train:'Highland Performance \u00b7 79 kWh LG (Shanghai build) \u00b7 400 V \u00b7 ~250 kW DC \u00b7 627 PS homologated / 338 kW real \u00b7 528 km WLTP',
+ seller:'Delphisoft SA, Satigny GE',listings:9,
+ url:'https://www.autoscout24.ch/de/d/tesla-model-3-dual-motor-performance-awd-20704592',
+ img:'https://listing-images.autoscout24.ch/listing/592/20704592/2069151635.jpeg?w=1200&q=90',
+ oq:['THE LISTING SAYS 497 PS, WHICH IS THE LONG RANGE FIGURE \u2014 IT IS WRONG. Confirmed a Performance from photos by five tells: carbon ducktail spoiler, red brake calipers, Performance sport seats, 20" staggered Warp wheels and the splitter front fascia. The description also says Dual Motor Performance AWD.',
+     'Listed as a private seller, but Delphisoft SA is a company and the photos are taken on a dealership forecourt with a BMW showroom behind and a TESLA.COM plate frame. Ask whether it is an ex-company car and who the registered keeper is.',
+     'Thin listing \u2014 four photos, no equipment entered. Ask for a full set and the options list.',
+     'MID-CYCLE NOTE: 2024 cars are 528 km WLTP, 2025-26 cars 571 km. A 2025 car genuinely has more range than this one.',
+     'OBSERVED DEPRECIATION across the full curve including Tesla\u2019s list price of CHF 57,980: new 57,980 \u00b7 8 months 55,000 \u00b7 20 months 47,990 \u00b7 26 months 44,490. About CHF 6,200/yr, and the steepest stretch is months 8-20 rather than the first year.'],
+ opts:[['627 PS homologated','461 kW is the EU type-approval maximum; real output is battery-limited to about 338 kW on European Shanghai-built cars. Same car either way.'],
+   ['Peinture sp\u00e9ciale',''],['1\u00e8re main',''],
+   ['Carbon ducktail spoiler','Performance-only \u2014 the Long Range has a plain boot lid.'],
+   ['Performance sport seats','Bolstered and perforated; the LR gets the flat standard seat.'],
+   ['Garantie constructeur bis 12.2028','4 years or 80,000 km, plus battery and drivetrain 8 years or 192,000 km.']]},
+
+{model:'BMW M340i LCI',price:59790,year:'08.2025',yr:2025,km:5500,ps:374,zh:4.4,pw:'ICE',doors:4,
+ depmid:3300,tax:770,energy:1750,wear:1000,war:24,mwar:24,mwarto:'08.2028',wint:0,rate:null,rev:null,boot:480,legr:4.0,
+ lux:4.2,exc:3.6,fea:4.5,mnt:4.0,rel:4.6,fixed:1,
+ train:'3.0 B58 inline-six turbo + 48V \u00b7 374 PS \u00b7 500 Nm \u00b7 xDrive \u00b7 8-speed Steptronic',
+ seller:'CAR DIVISION, Bargen SH',listings:10,
+ url:'https://www.autoscout24.ch/de/d/bmw-m340i-xdrive-48v-steptronic-m-sport-20585893',
+ img:'https://listing-images.autoscout24.ch/listing/893/20585893/1840387248.jpeg?w=1200&q=90',
+ oq:['THE BEST MEASURED DEPRECIATION OF THE WHOLE SEARCH: roughly CHF 2,750-3,900/yr observed across the ladder, against 6,200 for the Model 3 and about 5,000 for the Model Y Juniper. This is the one model where the numbers genuinely favour petrol.',
+     'Seller has NO Google rating and lists three of the ten cars in this model. Call before travelling to Bargen.',
+     'Import status unstated. None of CAR DIVISION\u2019s listings say CH-Fahrzeug \u2014 ask directly, since a German import typically resells for CHF 2,000-4,000 less.',
+     'Six cars in this model sit between CHF 58,780 and 59,890, a spread of CHF 1,110 covering 5,500 to 32,000 km. Mileage is priced at almost nothing, so buying the low-km end is close to free.'],
+ opts:[['BMW Sonderlackierung M Portimao Blau-Metallic',''],['Vollleder schwarz',''],
+   ['M Sportdifferenzial','Electronically controlled rear diff lock, 0-100% variable.'],
+   ['20-Zoll Felgen',''],['Elektrische Sitze mit Memory',''],['harman/kardon',''],
+   ['Driving Assistant Professional',''],['Live Cockpit Professional',''],['Komfortzugang',''],
+   ['M Hochglanz Shadow Line',''],['M Aerodynamikpaket',''],['Akustikverglasung',''],
+   ['Active Protection',''],['CarVertical Check','Vehicle-history report included.']]}
 ];
 DATA.forEach(r=>{
+  if(r.mwar==null)r.mwar=r.war;
   r.dep=dsc(r.depmid);
   r.cost3=(r.depmid+r.tax+r.energy+r.wear)*3;
   r.exkm=r.km+37500;
 });
 
 const FIN={
+ 'Model Y Juniper Performance':[['Autohaus von K\u00e4nel, Frutigen',53950,'CANDIDATE \u2014 only car that has taken the first-year hit; cover to 12.2029','https://www.autoscout24.ch/de/d/tesla-model-y-performance-20714298','12.2025',12500],['Autowelt von Rotz, M\u00fcnchwilen',59990,'Best equipped, cover to 03.2030, seller 4.9 from 4,022','https://www.autoscout24.ch/de/d/tesla-model-y-performance-awd-20727666','03.2026',1490],['MB Carcenter, Rickenbach',59890,'Delivery mileage, 21" wheels, carbon spoiler, CH type approval','https://www.autoscout24.ch/de/d/tesla-model-y-performance-awd-626ps-21-zoll-carbon-made-in-berlin-20723297','2026',80],['Autoland Reust, Bilten',59990,'Heat pump, pano, seat ventilation, AHK, Stealth Grey','https://www.autoscout24.ch/de/d/tesla-model-y-performance-20537346','2026',1000],['Tesla Switzerland (list price)',63980,'REFERENCE \u2014 factory-direct price, the anchor for measuring depreciation','https://www.autoscout24.ch/de/d/tesla-model-y-performance-20653680','2026',50]],
+ 'Model 3 Highland Performance':[['Delphisoft SA, Satigny',44980,'CANDIDATE \u2014 Performance confirmed from photos; cheapest with lowest km and longest cover','https://www.autoscout24.ch/de/d/tesla-model-3-dual-motor-performance-awd-20704592','12.2024',10500],['Dorfgarage Wagner, Zell',46560,'RUNNER-UP \u2014 Ludicrous badge, 8-fach, 4.8/97 dealer','https://www.autoscout24.ch/de/d/tesla-model-3-performance-d-20586038','06.2024',14500],['S PRIX GT, Onex',47990,'Only car explicitly ORIGINE SUISSE; pano roof, heated front and rear','https://www.autoscout24.ch/de/d/tesla-model-3-dual-motor-performance-awd-20723193','12.2024',11350],['Aarauto, Aarau',44490,'Cheapest; SoH 97.7% published; seller 5.0 from 232','https://www.autoscout24.ch/de/d/tesla-model-3-dual-motor-performance-awd-20689926','08.2024',22500],['MB Carcenter, Rickenbach',46490,'Best equipped \u2014 seat ventilation, heated wheel and rear seats','https://www.autoscout24.ch/de/d/tesla-model-3-dual-motor-performance-awd-20699645','06.2024',26000],['CARFINITY, Roggwil',49499,'Longest cover at 03.2030, HW4 stated, winter package','https://www.autoscout24.ch/de/d/tesla-model-3-dual-motor-performance-awd-highland-hw4-20700324','04.2025',26430],['Private, Untersiggenthal',55000,'Lowest km by far, exits at ~42,000 km','https://www.autoscout24.ch/de/d/tesla-performance-20665244','12.2025',5500],['Tesla Switzerland (list price)',57980,'REFERENCE \u2014 factory-direct price','https://www.autoscout24.ch/de/d/tesla-model-3-dual-motor-performance-awd-20653804','2026',50]],
+ 'BMW M340i LCI':[['CAR DIVISION, Bargen SH',59790,'CANDIDATE \u2014 5,500 km, cover to 08.2028, M Portimao Blau','https://www.autoscout24.ch/de/d/bmw-m340i-xdrive-48v-steptronic-m-sport-20585893','08.2025',5500],['CAR DIVISION, Bargen SH',53990,'Cheapest; BMW Werksgarantie to 07.2028 per the description','https://www.autoscout24.ch/de/d/bmw-m340i-xdrive-48v-steptronic-m-sport-20659565','03.2023',28950],['CAR DIVISION, Bargen SH',56990,'Best equipped of the 2023 cars; cover to 07.2028','https://www.autoscout24.ch/de/d/bmw-m340i-xdrive-48v-steptronic-m-sport-pro-carbon-20704462','06.2023',36950],['Private, Bern',56900,'CH-Fahrzeug, 1. Besitz, winter tyres incl., cover to 07.2028','https://www.autoscout24.ch/de/d/bmw-m340i-xdrive-m-sport-pro-20709982','05.2023',41000],['Dany\u2019s Cars, Triesen',59500,'Longest cover at 09.2028, free servicing, 200,000 km cap','https://www.autoscout24.ch/de/d/bmw-m340i-xdrive-48v-steptronic-m-sport-pro-20594010','09.2025',32000],['Auto Eberhart, Amriswil',59800,'Saphirschwarz with white leather, carbon interior, 360\u00b0','https://www.autoscout24.ch/de/d/bmw-m340i-xdrive-48v-steptronic-m-sport-pro-20544372','07.2025',20700],['Private, Boppelsen',59890,'New Michelin PS4S, fresh oil service, 8-fach incl. winter wheels','https://www.autoscout24.ch/de/d/bmw-bmw-m340i-xdrive-48v-steptronic-m-sport-pro-20136095','10.2024',27900],['automoor, St\u00e4fa (IMPORT)',59490,'IMPORT \u2014 Curved Display, HUD; 24-month field is the German 2+1 tell','https://www.autoscout24.ch/de/d/bmw-m340i-xdrive-48v-steptronic-facelift-hud-curved-display-20519457','03.2025',7000],['Carmotion, Effretikon',58780,'HUD, carbon, 360\u00b0, Laserlicht, seller 4.8/532','https://www.autoscout24.ch/de/d/bmw-m340i-xdrive-lci-head-up-carbon-360-kamera-20650093','01.2025',15700],['Auto Salon Volketswil',54880,'DROPPED \u2014 3-year cover expired 08.2026','https://www.autoscout24.ch/de/d/bmw-m340i-xdrive-steptronic-m-sport-pro-head-up-harman-kardon-individual-lackierung-20708651','08.2023',36000]],
  'BMW M3 Comp LCI xDrive':[['PS PERFORMANCE, Wil',79990,'CANDIDATE \u2014 the only unmodified xDrive clearing the warranty bar; LCI2 530 PS, carbon buckets','https://www.autoscout24.ch/de/d/bmw-m3-competition-m-xdrive-m-carbon-schalensitze-m-carbon-exterieurpaket-20709343','01.2025',16800],['PS PERFORMANCE, Wil',75990,'CHF 4,000 cheaper xDrive, BMW Premium Selection to 11.2027 \u2014 but 35,500 km and modified','https://www.autoscout24.ch/de/d/bmw-m3-competition-m-xdrive-curved-display-carbon-interieurleisten-20640881','01.2023',35500],['Gran Tech, Wil SG',73900,'DROPPED \u2014 cover ends 05.2027, four months short','https://www.autoscout24.ch/de/d/bmw-m3-competition-m-xdrive-20190546','05.2024',27500],['Cars24, Chur',75900,'DROPPED \u2014 cover ends 12.2026, the shortest in the set','https://www.autoscout24.ch/de/d/bmw-m3-competition-m-xdrive-20273303']],
  'BMW M3 Comp LCI RWD':[['Dany\u2019s Cars, Triesen',79700,'CANDIDATE \u2014 probable 4-yr cover, free servicing, both wheel sets incl. wheels, LCI2 530 PS, 5.0/49','https://www.autoscout24.ch/de/d/bmw-m3-competition-lci2-m-steptronic-20648967','06.2025',24816],['PS PERFORMANCE, Wil',73990,'5,100 km \u2014 lowest of any M3 here; cover to 03.2028; exits at 42,600 km','https://www.autoscout24.ch/de/d/bmw-m3-competition-20626447','03.2024',5100],['AutoD, Fribourg',74990,'Free servicing 10 yr and a 150,000 km warranty cap, but cover ends 09.2027','https://www.autoscout24.ch/de/d/bmw-m3-competition-20659526','09.2024',19000],['Autohaus Toggenburg',77777,'6,900 km, unmodified, Individual Dravitgrau, best seller record at 4.8/171','https://www.autoscout24.ch/de/d/bmw-m3-competition-lci-individual-dravitgrau-carbon-exterieur-carbon-interieur-carbon-schalensitze-20708427','01.2025',6900],['LARBIG, Uhwiesen',77800,'Longest cover of all \u2014 04.2030, the 5-year package; lowered with splitter, BMW Deutschland','https://www.autoscout24.ch/de/d/bmw-m3-competition-alcantara-lenkrad-carbon-werksgarantie-bis-04-2030-20671602','04.2025',20800],['Autowelt, Langnau',79800,'DROPPED \u2014 only the statutory 3-year floor, thin spec, 30,000 km on a 2025','https://www.autoscout24.ch/de/d/bmw-m3-competition-panoramadach-360-kamera-garantie-bis-04062028-20630386','07.2025',30000],['Outrun, Carouge',77660,'DROPPED \u2014 best equipped of all, summer AND winter wheels, but cover ends 01.2027','https://www.autoscout24.ch/de/d/bmw-m3-competition-20485889','01.2024',23620],['Louati, Payerne',74900,'DROPPED \u2014 cover ends 03.2027, German import, no equipment listed','https://www.autoscout24.ch/de/d/bmw-competition-20461230']],
  'Porsche 911 Carrera 4 (997.2)':[['AUTORAIN AG, Rain',57900,'CANDIDATE \u2014 the only listing: manual, 9A1 engine, fresh MFK, 12-month warranty, 4.9/204','https://www.autoscout24.ch/de/d/porsche-911-carrera-4-9972-handschaltung-20672636']],
@@ -906,7 +963,7 @@ const NUMF=[
  {k:'score',t:'Score',d:2,st:.01},{k:'value',t:'Value',d:2,st:.01},
  {k:'price',t:'Price CHF',d:0,st:500},{k:'yr',t:'Reg year',d:0,st:1,col:'year',raw:1},
  {k:'km',t:'Mileage km',d:0,st:1000},{k:'ps',t:'PS',d:0,st:10},
- {k:'zh',t:'0\u2013100 s',d:1,st:.1},{k:'war',t:'Warranty mo',d:0,st:1},
+ {k:'zh',t:'0\u2013100 s',d:1,st:.1},{k:'war',t:'Warranty mo',d:0,st:1},{k:'mwar',t:'Mfr warranty mo',d:0,st:1},
  {k:'cost3',t:'3-yr cost CHF',d:0,st:500},{k:'depmid',t:'Deprec/yr CHF',d:0,st:250},
  {k:'lux',t:'Luxury',d:1,st:.1},{k:'exc',t:'Excitement',d:1,st:.1},
  {k:'fea',t:'Features',d:1,st:.1},{k:'dep',t:'Deprec rating',d:2,st:.05},
@@ -1319,6 +1376,7 @@ function render(){
     case 'ps':return `<td class="num">${r.ps}</td>`;
     case 'zh':return `<td class="num">${r.zh.toFixed(1)}</td>`;
     case 'war':return `<td class="num v${r.war>=36?5:r.war>=24?4:r.war>=12?3:r.war>=1?2:1}">${r.war}</td>`;
+    case 'mwar':return `<td class="num v${r.mwar>=36?5:r.mwar>=24?4:r.mwar>=12?3:r.mwar>=1?2:1}"${r.mwarto?` title="Manufacturer cover to ${esc(r.mwarto)}"`:''}>${r.mwar}${r.imported?' <span class="imp" title="Imported vehicle">IMP</span>':''}</td>`;
     case 'cost3':return `<td class="num">${fmt(r.cost3)}</td>`;
     case 'depmid':return `<td class="num">${fmt(r.depmid)}</td>`;
     case 'dep':return `<td class="rate v${bnd(r.dep)}${ON.dep?'':' off'}">${r.dep.toFixed(2)}</td>`;
