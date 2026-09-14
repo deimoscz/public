@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three houses — Bezirk March</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFAF7;
+  --ink:#16222E;
+  --graphite:#5E6874;
+  --rule:#D9D5CA;
+  --land:#E9E5D8;
+  --survey:#BE2430;
+  --pass:#2E6B4E;
+  --gutter:clamp(18px,4vw,56px);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"IBM Plex Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:16px;
+  line-height:1.5;
+  font-feature-settings:"tnum" 1;
+}
+.sheet{max-width:1080px;margin:0 auto;padding:0 var(--gutter) 96px}
+
+/* masthead */
+header{padding:clamp(40px,7vw,88px) 0 0}
+h1{
+  font-size:clamp(34px,6.2vw,62px);
+  line-height:1.04;
+  font-weight:600;
+  letter-spacing:-.022em;
+  margin:0 0 14px;
+  max-width:16ch;
+}
+.dateline{color:var(--graphite);font-size:15px;margin:0 0 4px}
+.standfirst{max-width:64ch;margin:26px 0 0;font-size:17px;color:var(--graphite)}
+.standfirst strong{color:var(--ink);font-weight:500}
+
+/* the scale */
+.scale{margin:clamp(40px,6vw,72px) 0 0;border-top:1.5px solid var(--ink);padding-top:26px}
+.scale-head{display:flex;flex-wrap:wrap;gap:16px;align-items:baseline;justify-content:space-between;margin-bottom:30px}
+.scale-head h2{font-size:21px;font-weight:600;margin:0;letter-spacing:-.01em}
+.scale-head p{margin:0;color:var(--graphite);font-size:14.5px;max-width:42ch}
+
+.plot{position:relative;padding-top:26px}
+.limit{position:absolute;top:0;bottom:16px;width:1.5px;background:var(--survey);left:66%}
+.limit span{
+  position:absolute;top:-4px;left:8px;white-space:nowrap;
+  color:var(--survey);font-size:13px;font-weight:500;
+}
+.row{display:grid;grid-template-columns:132px 1fr;gap:18px;align-items:center;margin-bottom:11px}
+.row-name{font-size:15px;font-weight:500;text-align:right}
+.row-name small{display:block;font-weight:400;color:var(--graphite);font-size:12.5px}
+.track{position:relative;height:38px;background:var(--land);border-radius:1px}
+.fill{
+  position:absolute;left:0;top:0;bottom:0;background:var(--pass);
+  transition:width .28s ease,background-color .28s ease;
+}
+.fill.over{background:var(--survey)}
+.val{
+  position:absolute;top:50%;transform:translateY(-50%);
+  left:calc(100% + 10px);font-size:14px;font-weight:500;white-space:nowrap;
+}
+.val.inside{left:auto;right:10px;color:#fff}
+.axis{display:flex;justify-content:space-between;color:var(--graphite);font-size:12.5px;margin-top:2px}
+
+/* control */
+.control{
+  margin-top:34px;padding:22px 24px;border:1.5px solid var(--ink);
+  display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;
+}
+.control label{font-size:15px;font-weight:500;display:block;margin-bottom:12px}
+.control .readout{font-size:26px;font-weight:600;letter-spacing:-.015em;white-space:nowrap}
+.control .readout small{display:block;font-size:13px;font-weight:400;color:var(--graphite);letter-spacing:0;margin-top:2px}
+input[type=range]{width:100%;accent-color:var(--ink);height:26px}
+input[type=range]:focus-visible{outline:2px solid var(--survey);outline-offset:4px}
+.ceiling-note{grid-column:1/-1;margin:0;color:var(--graphite);font-size:14px;border-top:1px solid var(--rule);padding-top:14px}
+
+/* properties */
+.houses{margin-top:clamp(48px,7vw,84px)}
+.house{border-top:1.5px solid var(--ink);padding:26px 0 34px}
+.house-top{display:grid;grid-template-columns:1fr auto;gap:12px 24px;align-items:start}
+.house h3{margin:0;font-size:25px;font-weight:600;letter-spacing:-.015em}
+.house .where{margin:3px 0 0;color:var(--graphite);font-size:15px}
+.price{font-size:25px;font-weight:600;letter-spacing:-.015em;text-align:right;white-space:nowrap}
+.price small{display:block;font-size:13px;font-weight:400;color:var(--graphite);letter-spacing:0}
+.facts{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);margin:22px 0 0;
+}
+.fact{background:var(--paper);padding:12px 14px}
+.fact dt{color:var(--graphite);font-size:12.5px;margin:0 0 3px}
+.fact dd{margin:0;font-size:16px;font-weight:500}
+.body{display:grid;grid-template-columns:1.35fr 1fr;gap:28px;margin-top:24px}
+.body p{margin:0 0 14px;max-width:62ch;font-size:15.5px}
+.body p:last-child{margin-bottom:0}
+.gate{border-left:3px solid var(--survey);padding:2px 0 2px 16px;align-self:start}
+.gate h4{margin:0 0 7px;font-size:15px;font-weight:600}
+.gate p{margin:0;font-size:15px;color:var(--graphite);max-width:40ch}
+
+/* tables */
+.data{margin-top:clamp(48px,7vw,84px);border-top:1.5px solid var(--ink);padding-top:26px}
+.data h2{font-size:21px;font-weight:600;margin:0 0 6px;letter-spacing:-.01em}
+.data > p{margin:0 0 22px;color:var(--graphite);font-size:14.5px;max-width:62ch}
+table{width:100%;border-collapse:collapse;font-size:15px}
+caption{text-align:left;font-weight:600;font-size:16px;padding-bottom:10px}
+th,td{text-align:right;padding:9px 10px;border-bottom:1px solid var(--rule)}
+th:first-child,td:first-child{text-align:left;padding-left:0}
+th:last-child,td:last-child{padding-right:0}
+thead th{font-weight:500;color:var(--graphite);font-size:13.5px;border-bottom:1.5px solid var(--ink)}
+tbody tr.here td{color:var(--graphite)}
+tbody tr:last-child td{border-bottom:none}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,56px)}
+
+footer{margin-top:clamp(44px,6vw,72px);border-top:1px solid var(--rule);padding-top:18px;color:var(--graphite);font-size:13.5px}
+footer p{margin:0 0 6px;max-width:72ch}
+
+@media (max-width:780px){
+  .body,.two,.house-top{grid-template-columns:1fr}
+  .price{text-align:left}
+  .control{grid-template-columns:1fr}
+  .row{grid-template-columns:96px 1fr;gap:12px}
+  .val{position:static;transform:none;display:block;margin-top:4px}
+  .val.inside{color:var(--ink);right:auto}
+  .gate{margin-top:4px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="sheet">
+
+<header>
+  <p class="dateline">Bezirk March, Kanton Schwyz · 14 September 2026</p>
+  <h1>Three houses and one ceiling</h1>
+  <p class="standfirst">UBS puts the maximum purchase price at <strong>CHF 1,533,930</strong> — mortgage costs capped at a third of income, stress-tested at 5%. Of 28 houses listed in the district, these are the three worth arguing about. Move the equity slider to see what more cash would change.</p>
+</header>
+
+<section class="scale" aria-labelledby="scale-h">
+  <div class="scale-head">
+    <h2 id="scale-h">Share of income the bank would count</h2>
+    <p>The red line is the 33% limit. A bar that crosses it does not finance, whatever else the house has going for it.</p>
+  </div>
+
+  <div class="plot" id="plot">
+    <div class="limit" aria-hidden="true"><span>33% limit</span></div>
+    <div class="row">
+      <div class="row-name">Altendorf<small>teardown</small></div>
+      <div class="track"><div class="fill" id="f-alt"></div><span class="val" id="v-alt"></span></div>
+    </div>
+    <div class="row">
+      <div class="row-name">Reichenburg<small>row house</small></div>
+      <div class="track"><div class="fill" id="f-rei"></div><span class="val" id="v-rei"></span></div>
+    </div>
+    <div class="row">
+      <div class="row-name">Siebnen<small>detached</small></div>
+      <div class="track"><div class="fill" id="f-sie"></div><span class="val" id="v-sie"></span></div>
+    </div>
+    <div class="row">
+      <div class="row-name"></div>
+      <div class="axis"><span>0%</span><span>25%</span><span>50%</span></div>
+    </div>
+  </div>
+
+  <div class="control">
+    <div>
+      <label for="eq">Own funds going in</label>
+      <input type="range" id="eq" min="400000" max="900000" step="10000" value="400000"
+             aria-describedby="eq-out">
+    </div>
+    <div class="readout" id="eq-out">CHF 400,000<small>250k cash + 150k pension</small></div>
+    <p class="ceiling-note" id="ceiling">At this level the ceiling is <strong>CHF 1,533,930</strong>. Every extra CHF 100,000 of own funds lifts it by roughly CHF 140,000.</p>
+  </div>
+</section>
+
+<section class="houses">
+
+  <article class="house">
+    <div class="house-top">
+      <div>
+        <h3>Reichenburg</h3>
+        <p class="where">Kronenwis 35 · row house, attached both sides</p>
+      </div>
+      <div class="price">CHF 1,480,000<small>CHF 8,757 per m²</small></div>
+    </div>
+    <dl class="facts">
+      <div class="fact"><dt>Living space</dt><dd>169 m²</dd></div>
+      <div class="fact"><dt>Land</dt><dd>182 m²</dd></div>
+      <div class="fact"><dt>Built</dt><dd>1985</dd></div>
+      <div class="fact"><dt>Rooms</dt><dd>4.5 → 5.5</dd></div>
+      <div class="fact"><dt>Tax multiplier</dt><dd>290%</dd></div>
+      <div class="fact"><dt>Free from</dt><dd>Feb 2027</dd></div>
+    </dl>
+    <div class="body">
+      <div>
+        <p>The only finished house in the district you can finance. It sits CHF 54,000 under the ceiling and lands at 31% strain — inside the limit, with nothing to spare.</p>
+        <p>Four floors for 169 m², so the space is vertical and the plot is small for the money. The 5.5 rooms need a lightweight wall rebuilt; today it is 4.5. Garage and two outdoor spaces are included, which is unusual at this price.</p>
+      </div>
+      <div class="gate">
+        <h4>What decides it</h4>
+        <p>“Continuously maintained and renovated” is the seller’s phrase, not a fact. At 40 years old the heating, roof, windows and bathrooms are all at end of life unless proven otherwise — potentially CHF 80,000–150,000 paid in cash you don’t have spare.</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="house">
+    <div class="house-top">
+      <div>
+        <h3>Altendorf</h3>
+        <p class="where">Heerstrasse 20 · detached, sold to the highest bidder</p>
+      </div>
+      <div class="price">CHF 1,190,000<small>CHF 3,500 per m² of land</small></div>
+    </div>
+    <dl class="facts">
+      <div class="fact"><dt>Living space</dt><dd>71 m²</dd></div>
+      <div class="fact"><dt>Land</dt><dd>340 m²</dd></div>
+      <div class="fact"><dt>Built</dt><dd>1946</dd></div>
+      <div class="fact"><dt>Permitted floor area</dt><dd>146 m²</dd></div>
+      <div class="fact"><dt>Tax multiplier</dt><dd>225%</dd></div>
+      <div class="fact"><dt>Free from</dt><dd>Now</dd></div>
+    </dl>
+    <div class="body">
+      <div>
+        <p>This is land, not a house — the listing itself says the building suits demolition. Buying it and living in it while you save is cheap: 21% strain, and below CHF 1,270,000 the bank doesn’t even require amortization.</p>
+        <p>The rebuild is where it binds. A finished value near CHF 1,900,000 needs roughly CHF 700,000 of own funds to stay inside the limit — about CHF 300,000 more than you have. Living here instead of renting is what generates it, over four or five years rather than two.</p>
+        <p>The interim is 71 m² across two floors with one bathroom and no real insulation. Spend nothing beyond making it habitable.</p>
+      </div>
+      <div class="gate">
+        <h4>What decides it</h4>
+        <p>The bank values a declared teardown at land value less demolition, not at what you pay. A valuation of CHF 950,000–1,100,000 against a bid of CHF 1,250,000 puts the gap on your cash — the same cash the rebuild depends on. Ask UBS before you bid.</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="house">
+    <div class="house-top">
+      <div>
+        <h3>Siebnen</h3>
+        <p class="where">Ringstrasse 16 · detached, two-stage sale to the highest bidder</p>
+      </div>
+      <div class="price">CHF 1,700,000<small>floor price, not a price</small></div>
+    </div>
+    <dl class="facts">
+      <div class="fact"><dt>Living space</dt><dd>162 m²</dd></div>
+      <div class="fact"><dt>Land</dt><dd>649 m²</dd></div>
+      <div class="fact"><dt>Built</dt><dd>1979</dd></div>
+      <div class="fact"><dt>Letting unit</dt><dd>3.5 rooms</dd></div>
+      <div class="fact"><dt>Tax multiplier</dt><dd>290%</dd></div>
+      <div class="fact"><dt>Free from</dt><dd>30 Sept 2026</dd></div>
+    </dl>
+    <div class="body">
+      <div>
+        <p>The best plot in the set by a wide margin, and the only one that earns money. The separate 3.5-room apartment has its own external staircase and is let-ready.</p>
+        <p>It doesn’t finance at 400,000. With CHF 20,000 a year of rent credited you’d need about CHF 461,000 — a gap of 61,000. Without the rent credited, 518,000. Whether UBS counts that income, and at what haircut, is a single question to Beller.</p>
+        <p>The 1979 interior is original and the renovation is not covered by the mortgage.</p>
+      </div>
+      <div class="gate">
+        <h4>What decides it</h4>
+        <p>The auction has no ceiling. Every CHF 100,000 of bidding costs roughly CHF 70,000 more in own funds. Fix your walk-away number before you register.</p>
+      </div>
+    </div>
+  </article>
+
+</section>
+
+<section class="data">
+  <h2>What the ground underneath costs</h2>
+  <p>Schwyz publishes a combined multiplier applied to the simple tax. Reichenburg and Siebnen sit at the expensive end of the canton; Altendorf is cheaper than where you live now.</p>
+  <div class="two">
+    <table>
+      <caption>Estimated cantonal and communal tax</caption>
+      <thead><tr><th>Municipality</th><th>Multiplier</th><th>Per year</th><th>vs today</th></tr></thead>
+      <tbody>
+        <tr class="here"><td>Lachen (today)</td><td>235%</td><td>15,200</td><td>—</td></tr>
+        <tr><td>Altendorf</td><td>225%</td><td>14,600</td><td>−600</td></tr>
+        <tr><td>Reichenburg</td><td>290%</td><td>18,700</td><td>+3,500</td></tr>
+        <tr><td>Siebnen</td><td>290%</td><td>18,700</td><td>+3,500</td></tr>
+      </tbody>
+    </table>
+    <table>
+      <caption>The UBS calculation, 11 September</caption>
+      <thead><tr><th>Item</th><th>CHF</th></tr></thead>
+      <tbody>
+        <tr><td>Maximum price</td><td>1,533,930</td></tr>
+        <tr><td>Mortgage (74%)</td><td>1,133,930</td></tr>
+        <tr><td>Interest at 5%</td><td>56,697</td></tr>
+        <tr><td>Amortization</td><td>7,371</td></tr>
+        <tr><td>Maintenance</td><td>15,339</td></tr>
+        <tr><td>Total per year</td><td>79,407</td></tr>
+        <tr><td>Income counted</td><td>240,677</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <p>Tax figures are estimates at roughly CHF 190,000 taxable income, single, no church tax, federal tax excluded — treat the ranking as reliable and the amounts as ±20%. Multipliers are from the official Schwyz table for 2026. Run swisstaxcalculator.estv.admin.ch for exact figures.</p>
+  <p>The UBS sheet states it is indicative and non-binding, and not an offer or a financing commitment. Purchase costs of 1–2% are paid in cash on top of the own funds shown here and are not included.</p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var INCOME = 240677;
+  var AMORT  = 7371 / (1133930 - 1533930 * 2 / 3);
+  var MAXPCT = 50;
+
+  var houses = [
+    { id:'alt', price:1190000 },
+    { id:'rei', price:1480000 },
+    { id:'sie', price:1700000 }
+  ];
+
+  function cost(price, equity){
+    var m = price - equity;
+    var second = m - price * 2 / 3;
+    return 0.05 * m + 0.01 * price + (second > 0 ? AMORT * second : 0);
+  }
+
+  function ceiling(equity){
+    return (0.33 * INCOME + equity * (0.05 + AMORT)) / (0.06 + AMORT / 3);
+  }
+
+  var fmt = function(n){ return Math.round(n).toLocaleString('en-US'); };
+
+  function render(equity){
+    houses.forEach(function(h){
+      var pct  = cost(h.price, equity) / INCOME * 100;
+      var fill = document.getElementById('f-' + h.id);
+      var val  = document.getElementById('v-' + h.id);
+      var w    = Math.min(pct / MAXPCT * 100, 100);
+      fill.style.width = w + '%';
+      fill.classList.toggle('over', pct > 33);
+      val.textContent = pct.toFixed(0) + '%';
+      val.classList.toggle('inside', w > 62);
+      fill.parentNode.setAttribute('role','img');
+      fill.parentNode.setAttribute('aria-label', pct.toFixed(0) + ' percent of income' + (pct > 33 ? ', over the limit' : ', within the limit'));
+    });
+
+    document.getElementById('eq-out').innerHTML =
+      'CHF ' + fmt(equity) +
+      (equity === 400000 ? '<small>250k cash + 150k pension</small>'
+                         : '<small>+ ' + fmt(equity - 400000) + ' over today</small>');
+
+    var c = ceiling(equity);
+    document.getElementById('ceiling').innerHTML =
+      'At this level the ceiling is <strong>CHF ' + fmt(c) + '</strong>. ' +
+      'Every extra CHF 100,000 of own funds lifts it by roughly CHF 140,000.';
+  }
+
+  var slider = document.getElementById('eq');
+  slider.addEventListener('input', function(){ render(+slider.value); });
+  document.getElementById('plot').querySelector('.limit').style.left = (33 / MAXPCT * 100) + '%';
+  render(400000);
+})();
+</script>
+</body>
+</html>
