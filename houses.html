@@ -90,6 +90,12 @@ input[type=range]:focus-visible{outline:2px solid var(--survey);outline-offset:4
 .house{border-top:1.5px solid var(--ink);padding:26px 0 34px}
 .house-top{display:grid;grid-template-columns:1fr auto;gap:12px 24px;align-items:start}
 .house h3{margin:0;font-size:25px;font-weight:600;letter-spacing:-.015em}
+.house h3 a{color:inherit;text-decoration:none;border-bottom:2px solid var(--rule);padding-bottom:1px}
+.house h3 a:hover{border-bottom-color:var(--survey)}
+.house h3 a:focus-visible{outline:2px solid var(--survey);outline-offset:3px;border-bottom-color:transparent}
+.contact{margin:14px 0 0;font-size:14.5px;color:var(--graphite)}
+.contact a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+.contact a:hover{border-bottom-color:var(--survey)}
 .house .where{margin:3px 0 0;color:var(--graphite);font-size:15px}
 .price{font-size:25px;font-weight:600;letter-spacing:-.015em;text-align:right;white-space:nowrap}
 .price small{display:block;font-size:13px;font-weight:400;color:var(--graphite);letter-spacing:0}
@@ -123,6 +129,9 @@ tbody tr:last-child td{border-bottom:none}
 
 footer{margin-top:clamp(44px,6vw,72px);border-top:1px solid var(--rule);padding-top:18px;color:var(--graphite);font-size:13.5px}
 footer p{margin:0 0 6px;max-width:72ch}
+footer a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+footer a:hover{border-bottom-color:var(--survey)}
+footer a:focus-visible,.contact a:focus-visible{outline:2px solid var(--survey);outline-offset:3px}
 
 @media (max-width:780px){
   .body,.two,.house-top{grid-template-columns:1fr}
@@ -142,7 +151,7 @@ footer p{margin:0 0 6px;max-width:72ch}
 <header>
   <p class="dateline">Bezirk March, Kanton Schwyz · 14 September 2026</p>
   <h1>Three houses and one ceiling</h1>
-  <p class="standfirst">UBS puts the maximum purchase price at <strong>CHF 1,533,930</strong> — mortgage costs capped at a third of income, stress-tested at 5%. Of 28 houses listed in the district, these are the three worth arguing about. Move the equity slider to see what more cash would change.</p>
+  <p class="standfirst">UBS puts the maximum purchase price at <strong>CHF 1,533,930</strong> — mortgage costs capped at a third of income, stress-tested at 5%. Of 28 houses listed in Bezirk March, these are the three worth arguing about. Everything outside canton Schwyz is now closed on tax alone. Move the equity slider to see what more cash would change.</p>
 </header>
 
 <section class="scale" aria-labelledby="scale-h">
@@ -187,8 +196,9 @@ footer p{margin:0 0 6px;max-width:72ch}
   <article class="house">
     <div class="house-top">
       <div>
-        <h3>Reichenburg</h3>
+        <h3><a href="https://www.homegate.ch/buy/4003396049" target="_blank" rel="noopener">Reichenburg</a></h3>
         <p class="where">Kronenwis 35 · row house, attached both sides</p>
+        <p class="contact">WG Immobilien Invest AG, Wetzikon · <a href="tel:+41449399080">+41 44 939 90 80</a></p>
       </div>
       <div class="price">CHF 1,480,000<small>CHF 8,757 per m²</small></div>
     </div>
@@ -198,6 +208,7 @@ footer p{margin:0 0 6px;max-width:72ch}
       <div class="fact"><dt>Built</dt><dd>1985</dd></div>
       <div class="fact"><dt>Rooms</dt><dd>4.5 → 5.5</dd></div>
       <div class="fact"><dt>Tax multiplier</dt><dd>290%</dd></div>
+      <div class="fact"><dt>Tax per year</dt><dd>46,433</dd></div>
       <div class="fact"><dt>Free from</dt><dd>Feb 2027</dd></div>
     </dl>
     <div class="body">
@@ -215,8 +226,9 @@ footer p{margin:0 0 6px;max-width:72ch}
   <article class="house">
     <div class="house-top">
       <div>
-        <h3>Altendorf</h3>
+        <h3><a href="https://www.homegate.ch/buy/4003336355" target="_blank" rel="noopener">Altendorf</a></h3>
         <p class="where">Heerstrasse 20 · detached, sold to the highest bidder</p>
+        <p class="contact">Welhome LanRo Immo, Lachen — Roger Landolt · <a href="tel:+41797947891">+41 79 794 78 91</a></p>
       </div>
       <div class="price">CHF 1,190,000<small>CHF 3,500 per m² of land</small></div>
     </div>
@@ -226,6 +238,7 @@ footer p{margin:0 0 6px;max-width:72ch}
       <div class="fact"><dt>Built</dt><dd>1946</dd></div>
       <div class="fact"><dt>Permitted floor area</dt><dd>146 m²</dd></div>
       <div class="fact"><dt>Tax multiplier</dt><dd>225%</dd></div>
+      <div class="fact"><dt>Tax per year</dt><dd>40,225</dd></div>
       <div class="fact"><dt>Free from</dt><dd>Now</dd></div>
     </dl>
     <div class="body">
@@ -233,6 +246,7 @@ footer p{margin:0 0 6px;max-width:72ch}
         <p>This is land, not a house — the listing itself says the building suits demolition. Buying it and living in it while you save is cheap: 21% strain, and below CHF 1,270,000 the bank doesn’t even require amortization.</p>
         <p>The rebuild is where it binds. A finished value near CHF 1,900,000 needs roughly CHF 700,000 of own funds to stay inside the limit — about CHF 300,000 more than you have. Living here instead of renting is what generates it, over four or five years rather than two.</p>
         <p>The interim is 71 m² across two floors with one bathroom and no real insulation. Spend nothing beyond making it habitable.</p>
+        <p>Altendorf is also the only address on this list that taxes you less than Lachen does — 6,208 a year less than Reichenburg. Over a four-year wait that is roughly 25,000 toward the equity the rebuild needs.</p>
       </div>
       <div class="gate">
         <h4>What decides it</h4>
@@ -244,8 +258,9 @@ footer p{margin:0 0 6px;max-width:72ch}
   <article class="house">
     <div class="house-top">
       <div>
-        <h3>Siebnen</h3>
+        <h3><a href="https://www.homegate.ch/buy/4003445304" target="_blank" rel="noopener">Siebnen</a></h3>
         <p class="where">Ringstrasse 16 · detached, two-stage sale to the highest bidder</p>
+        <p class="contact">RE/MAX Lachen — Roger Möschler · <a href="tel:+41794047161">+41 79 404 71 61</a></p>
       </div>
       <div class="price">CHF 1,700,000<small>floor price, not a price</small></div>
     </div>
@@ -270,20 +285,34 @@ footer p{margin:0 0 6px;max-width:72ch}
     </div>
   </article>
 
+
 </section>
 
 <section class="data">
   <h2>What the ground underneath costs</h2>
-  <p>Schwyz publishes a combined multiplier applied to the simple tax. Reichenburg and Siebnen sit at the expensive end of the canton; Altendorf is cheaper than where you live now.</p>
+  <p>These are measured figures from the federal tax calculator, not estimates. Multipliers only compare within a canton — Bubikon's 216% costs far more than Reichenburg's 290%, because Zurich taxes a much steeper base.</p>
   <div class="two">
     <table>
-      <caption>Estimated cantonal and communal tax</caption>
-      <thead><tr><th>Municipality</th><th>Multiplier</th><th>Per year</th><th>vs today</th></tr></thead>
+      <caption>Total annual tax, including federal</caption>
+      <thead><tr><th>Municipality</th><th>Tax</th><th>vs today</th></tr></thead>
       <tbody>
-        <tr class="here"><td>Lachen (today)</td><td>235%</td><td>15,200</td><td>—</td></tr>
-        <tr><td>Altendorf</td><td>225%</td><td>14,600</td><td>−600</td></tr>
-        <tr><td>Reichenburg</td><td>290%</td><td>18,700</td><td>+3,500</td></tr>
-        <tr><td>Siebnen</td><td>290%</td><td>18,700</td><td>+3,500</td></tr>
+        <tr><td>Wollerau / Freienbach</td><td>35,355</td><td>−5,825</td></tr>
+        <tr><td>Altendorf</td><td>40,225</td><td>−955</td></tr>
+        <tr class="here"><td>Lachen (today)</td><td>41,180</td><td>—</td></tr>
+        <tr><td>Reichenburg / Siebnen</td><td>46,433</td><td>+5,253</td></tr>
+        <tr><td>Glarus Nord (GL)</td><td>69,326</td><td>+28,146</td></tr>
+        <tr><td>Bubikon (ZH)</td><td>70,242</td><td>+29,062</td></tr>
+      </tbody>
+    </table>
+    <table>
+      <caption>What a year actually costs</caption>
+      <thead><tr><th>Property</th><th>Price</th><th>Per year</th></tr></thead>
+      <tbody>
+        <tr><td>Altendorf</td><td>1,190,000</td><td>63,975</td></tr>
+        <tr><td>Reichenburg</td><td>1,480,000</td><td>77,433</td></tr>
+        <tr><td>Siebnen</td><td>1,700,000</td><td>82,933</td></tr>
+        <tr class="here"><td>A Bilten house (GL)</td><td>520,000</td><td>76,326</td></tr>
+        <tr class="here"><td>Bilten, larger (GL)</td><td>1,430,000</td><td>99,076</td></tr>
       </tbody>
     </table>
     <table>
@@ -303,7 +332,9 @@ footer p{margin:0 0 6px;max-width:72ch}
 </section>
 
 <footer>
-  <p>Tax figures are estimates at roughly CHF 190,000 taxable income, single, no church tax, federal tax excluded — treat the ranking as reliable and the amounts as ±20%. Multipliers are from the official Schwyz table for 2026. Run swisstaxcalculator.estv.admin.ch for exact figures.</p>
+  <p>Dropped along the way: <a href="https://www.homegate.ch/buy/4003406777" target="_blank" rel="noopener">Wolfhausen, Sunnenbergstrasse 14</a> at 1,450,000 and the whole Glarus Nord list from 520,000 to 1,430,000 — both closed by canton, not by price. Earlier: <a href="https://www.homegate.ch/buy/4003467849" target="_blank" rel="noopener">Galgenen, Hügelweg 19</a> (45% strain) · <a href="https://www.homegate.ch/buy/4003276949" target="_blank" rel="noopener">Richterswil, Speerstrasse 56</a> (44%, canton Zurich) · <a href="https://www.homegate.ch/buy/4003192927" target="_blank" rel="noopener">Uznach, Sankt Josefstrasse 4E</a> (an apartment, canton St. Gallen).</p>
+  <p>Full district listing: <a href="https://www.homegate.ch/buy/house/region-march/matching-list" target="_blank" rel="noopener">houses for sale in Bezirk March</a>. Tax multipliers from the <a href="https://www.sz.ch/public/upload/assets/90947/Steuerfusstabelle_2026.pdf" target="_blank" rel="noopener">official Schwyz table for 2026</a>.</p>
+  <p>Tax figures are measured runs from the federal calculator, including federal tax. Within canton Schwyz they fit a straight line: each multiplier point costs CHF 95.50 a year. That rule does not cross cantonal borders. Cost per year combines mortgage interest at 1.5%, maintenance at 1% of price, and tax.</p>
   <p>The UBS sheet states it is indicative and non-binding, and not an offer or a financing commitment. Purchase costs of 1–2% are paid in cash on top of the own funds shown here and are not included.</p>
 </footer>
 
