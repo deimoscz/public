@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Прожарка 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #120f14;
+    --bg2: #1b1620;
+    --card: #211b27;
+    --card-edge: #2f2637;
+    --text: #ece6ef;
+    --muted: #a297ab;
+    --fire1: #ff5a36;
+    --fire2: #ffb627;
+    --hot: #ff7a59;
+    --v: #ff4f8b;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgba(255,90,54,.18), transparent 60%),
+      radial-gradient(900px 500px at 110% 10%, rgba(255,79,139,.12), transparent 60%),
+      var(--bg);
+    color: var(--text);
+    font-family: "Manrope", system-ui, sans-serif;
+    font-size: 18px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 56px 16px 80px; }
+
+  header { text-align: center; margin-bottom: 48px; }
+  .flame { font-size: 64px; line-height: 1; filter: drop-shadow(0 0 24px rgba(255,120,40,.6)); animation: flick 2.4s ease-in-out infinite; }
+  @keyframes flick { 0%,100% { transform: scale(1) rotate(-2deg); } 50% { transform: scale(1.08) rotate(2deg); } }
+  h1 {
+    font-family: "Unbounded", sans-serif;
+    font-weight: 800;
+    font-size: clamp(40px, 9vw, 72px);
+    line-height: 1.05;
+    margin: 16px 0 8px;
+    background: linear-gradient(90deg, var(--fire2), var(--fire1) 55%, var(--v));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    letter-spacing: -0.02em;
+  }
+  .sub { color: var(--muted); font-size: 15px; letter-spacing: .08em; text-transform: uppercase; }
+
+  .intro {
+    font-family: "Unbounded", sans-serif;
+    font-weight: 500;
+    font-size: clamp(20px, 4vw, 26px);
+    text-align: center;
+    margin: 0 0 40px;
+  }
+
+  .card {
+    position: relative;
+    background: linear-gradient(180deg, var(--card), var(--bg2));
+    border: 1px solid var(--card-edge);
+    border-radius: 20px;
+    padding: 28px 28px 24px;
+    margin: 0 0 22px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  }
+  .card::before {
+    content: ""; position: absolute; left: 0; top: 20px; bottom: 20px; width: 4px;
+    border-radius: 4px; background: linear-gradient(var(--fire2), var(--fire1));
+  }
+  .tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: "Unbounded", sans-serif; font-weight: 500;
+    font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--fire2);
+    background: rgba(255,182,39,.08);
+    border: 1px solid rgba(255,182,39,.25);
+    padding: 6px 12px; border-radius: 999px; margin-bottom: 14px;
+  }
+  .card p { margin: 0 0 14px; }
+  .card p:last-child { margin-bottom: 0; }
+  strong { color: var(--hot); font-weight: 800; }
+  code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: .85em; background: rgba(255,255,255,.06);
+    border: 1px solid var(--card-edge); padding: 1px 6px; border-radius: 6px; color: var(--fire2);
+  }
+
+  .card.v { border-color: rgba(255,79,139,.35); background: linear-gradient(180deg, #2a1a26, var(--bg2)); }
+  .card.v::before { background: linear-gradient(var(--v), var(--fire1)); }
+  .card.v .tag { color: var(--v); background: rgba(255,79,139,.08); border-color: rgba(255,79,139,.3); }
+  .card.v strong { color: var(--v); }
+
+  .finale {
+    text-align: center; margin-top: 40px; padding: 32px 24px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(255,182,39,.12), rgba(255,90,54,.10), rgba(255,79,139,.10));
+    border: 1px solid rgba(255,182,39,.25);
+    font-size: 19px;
+  }
+  .finale .big { font-family: "Unbounded", sans-serif; font-size: 22px; margin-bottom: 10px; }
+  footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 36px; }
+
+  @media (max-width: 520px) {
+    body { font-size: 17px; }
+    .card { padding: 22px 20px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="flame">🔥</div>
+    <h1>Прожарка 2026</h1>
+    <div class="sub">Илья Лисунов · без цензуры · 22.10.2026</div>
+  </header>
+
+  <p class="intro">Ну держись, Илюха, сам напросился 😈</p>
+
+  <section class="card">
+    <span class="tag">🚗 Машины</span>
+    <p>Ты, блядь, единственный человек в Швейцарии, у которого поиск машины занял <strong>шесть файлов с буквами от A до F</strong>, как будто это не тачка, а ебучий сериал от Netflix. Начал с «мне бы замену MX-5», через неделю уже «BYD Seal за 42 штуки, всё, решено», ещё через три дня — Тайкан, Полестар, Модель S, Джулия, RS5, три, сука, 911-х, — и в итоге купил M3 Competition. <strong>Битую.</strong> Чувак, у тебя был план приёмки с инспекцией DIMAB, четыре «гейта», расписание по дням, Plan B — и ты всё равно привёз домой отремонтированный после аварии хлам. Это как надеть три презерватива и всё равно залететь. Теперь сидишь с AXA-ARAG и называешь это «my case», как адвокат из «Suits» на минималках.</p>
+    <p>А вишенка на этом пиздеце: ты официально выбрал M3 <strong>вместо Model Y</strong>, гордо, «по-своему, потому что так чувствую». И в октябре, блядь, взял Model Y в лизинг. Ты не машины покупаешь, ты собираешь покемонов. Golf R, MX-5, Z4 продаёшь, X4 впариваешь бывшей, M3 судишься, Теслу ждёшь. У тебя гараж как вокзал в Бишкеке — кто приехал, кто уехал, хуй разберёшь.</p>
+  </section>
+
+  <section class="card">
+    <span class="tag">🏠 Дом и планшет</span>
+    <p>Дом в Швейцарии? Шортлист, ипотека в UBS, налоги ESTV по всем деревням Бецирка Марх — и 12 октября «всё, хуй с ним, отменяем». Зато для выбора <strong>планшета меньше 10 дюймов</strong> ты построил целый, сука, дашборд. Нормальные люди просто идут в магазин и берут iPad mini, а ты делаешь BI-аналитику, как будто это закупка серверов для ЦЕРНа.</p>
+  </section>
+
+  <section class="card">
+    <span class="tag">💸 Бизнес</span>
+    <p>«Строю бизнес, чтобы заменить зарплату» — сказал мужик, у которого pocket-терминал на ESP32, платформа для детей на Proxmox, локальный AI-кластер жрёт электричество как майнинг-ферма, и ни одна из этих хуёвин денег не приносит. Зато GPU греют квартиру, экономия на отоплении, бизнес-модель, ёпта.</p>
+  </section>
+
+  <section class="card">
+    <span class="tag">🧠 Система</span>
+    <p>Тебе пришлось <strong>записать правило в память</strong>, чтобы я тебя пинал, когда ты в треде про M3 начинаешь делать GTD-ревью под названием «unfuck». Мужик, если у тебя есть регулярная процедура под названием «распиздячить мою жизнь обратно» — это уже диагноз, а не методология. И гипотезы свои ты нумеруешь, как в научной статье: «денежная заморозка (O3)». Жизнь у тебя — не жизнь, а ебучий RFC-документ.</p>
+  </section>
+
+  <section class="card v">
+    <span class="tag">💔 В</span>
+    <p>А теперь <strong>В</strong>, блядь. Ты одиннадцать раз слетал в Прагу, она к тебе три — тебе не девушка была нужна, тебе нужен был статус Senator в Miles &amp; More. Ты, инженер, <strong>выгрузил экспорт телеграма и посчитал эмодзи</strong> — и нашёл статистически значимую корреляцию между сердечками и своими переводами. Заплатил — ❤️, не заплатил — даже «спокойной ночи» хуй. Нашёл, задокументировал… и полетел ещё шесть раз, ёб твою мать.</p>
+    <p>Подарил айфон — бросила на следующий день. Купил тележку в Икее — бросила на следующий день. Баг воспроизводится стабильно, а ты пишешь «она не такая». Посудомойку ты закрывал как тикет в Джире <strong>четыре месяца</strong>, пока тебя на парной терапии не отпиздили два на один — она и терапевт, за твои же деньги. «Настоящий мужик оплатил бы мои налоги», — говорит женщина, которая работает 40 часов <strong>в месяц</strong> и зарабатывает в час больше тебя.</p>
+    <p>На сорокалетие она подарила тебе плейбой-журнал… <strong>про себя</strong>. Ты получил на юбилей ебучий фан-мерч своей девушки. На свадьбе она тебе в лицо спела «мои слова не стоят нихуя» — честнее release notes ты в жизни не читал. Ты пришёл синхронизировать календари со <strong>списком из пятнадцати пунктов</strong>, отдал четверги, друга на 15 лет, почти отдал вторники, спросил «а ты чем пожертвуешь?» — «Ничем». Её среда оказалась ценнее твоей жизни.</p>
+    <p>А на прощание её экстрасенс, сука, <strong>экстрасенс</strong> диагностировал, что энергетический вампир тут — ты. После чего она через два дня попросила починить ей сайт, «больше некого», и уехала за границу с бывшим мужем. Та самая, что полгода ебала тебе мозг за переписку с бывшей <strong>о дочери</strong>. И у тебя на всё это есть папка с <code>hypotheses.md</code> и <code>marry-move-40q.md</code> — сорок вопросов, жениться ли. Сорок, блядь. Тут хватило бы одного: «а она вообще прилетает?»</p>
+  </section>
+
+  <section class="card">
+    <span class="tag">🤷 Суперсила</span>
+    <p>А главная твоя суперсила: «да похуй, давай сделаем X» — и потом объяснять всем, что это не решение, ты просто вслух подумал. Братан, половина твоих машин — это тоже было «просто вслух подумал».</p>
+    <p>Ну и тред «учусь заботиться о себе» — между шестым файлом поиска тачки и судом со страховой. Забота, блядь, в чистом виде 😂</p>
+  </section>
+
+  <div class="finale">
+    <div class="big">🫶</div>
+    Но если честно — человек, который так упорно разбирает свой бардак по полочкам, в итоге его и разгребёт. Просто, умоляю, следующую машину покупай без файла под буквой G.
+  </div>
+
+  <footer>Прожарено Claude · FJ notes · relationships/self</footer>
+</div>
+</body>
+</html>
